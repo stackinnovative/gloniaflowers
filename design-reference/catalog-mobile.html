@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>GLONIA Mobile Catalog</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&amp;family=Cinzel:wght@500;600&amp;family=Great+Vibes&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:inherit;text-decoration:none}
+.gl-row{scrollbar-width:none}
+.gl-row::-webkit-scrollbar{display:none}
+@keyframes gl-tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.gl-tick{animation:gl-tick 40s linear infinite}
+@keyframes gl-sway{0%,100%{rotate:0deg}50%{rotate:2.4deg}}
+.gl-sway-tl{transform-origin:0 0;animation:gl-sway 7s ease-in-out infinite}
+.gl-sway-br{transform-origin:100% 100%;animation:gl-sway 7.5s ease-in-out infinite;animation-delay:-3s}
+@keyframes gl-tw{0%,100%{opacity:0;transform:scale(.3) rotate(0deg)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.gl-tw{animation:gl-tw 3.4s ease-in-out infinite}
+@keyframes gl-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+.gl-shine{background:linear-gradient(100deg,#7A5C1E 0%,#B8913F 30%,#E6CF93 48%,#B8913F 66%,#7A5C1E 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gl-shine 6s ease-in-out infinite alternate}
+@media (prefers-reduced-motion:reduce){.gl-shine{animation:none}}
+@keyframes gl-float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(28deg)}}
+.gl-float{animation:gl-float 6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.gl-float{animation:none}}
+@media (prefers-reduced-motion:reduce){.gl-tick,.gl-sway-tl,.gl-sway-br,.gl-tw{animation:none}.gl-tw{opacity:.8}}
+</style>
+</helmet>
+<div style="width: 390px; position: relative; font-family: 'Manrope', sans-serif; color: #1A1A1A; background: #FFFFFF; font-size: 15px; line-height: 1.55; overflow: hidden">
+
+  <div role="region" aria-label="Shop hours and replies" style="background: #1A1A1A; color: #D9BE84; font-size: 12px; letter-spacing: 0.03em; display: flex; align-items: stretch; overflow: hidden">
+    <div style="flex: none; display: flex; align-items: center; gap: 6px; padding: 8px 10px; background: #2A2520; border-right: 1px solid #5A4A2C; color: #F3EBDD; font-weight: 700; white-space: nowrap; position: relative; z-index: 1">
+      <sc-if value="{{isOpen}}" hint-placeholder-val="{{true}}"><span style="width: 7px; height: 7px; border-radius: 999px; background: #7BD49B; display: block; box-shadow: 0 0 0 3px rgba(123,212,155,0.25)"></span>Open</sc-if>
+      <sc-if value="{{isClosed}}" hint-placeholder-val="{{false}}"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#D9BE84"><path d="M11 2.5a5.5 5.5 0 1 0 2.5 9.5A6 6 0 0 1 11 2.5z"></path></svg>Closed</sc-if>
+    </div>
+    <div style="flex: 1; min-width: 0; overflow: hidden">
+      <div class="gl-tick" style="display: flex; width: max-content; align-items: center; padding: 8px 0">
+        <sc-for list="{{ticker}}" as="t" hint-placeholder-count="10">
+          <span style="display: inline-flex; align-items: center; gap: 24px; padding-right: 24px; white-space: nowrap">{{t}}<svg width="9" height="9" viewBox="0 0 16 16"><path d="M2 14C2 6 7 2 14 2C14 9 9 14 2 14Z" fill="#C9A85C"></path></svg></span>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #E8DFCC; background: #FFFFFF">
+    <a href="MobileHome.dc.html" aria-label="Back to home" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center">
+      <svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="#1A1A1A"><path d="M10 3L5 8l5 5"></path></svg>
+    </a>
+    <a href="MobileHome.dc.html" aria-label="GLONIA home"><img src="/images/logo.png" alt="GLONIA Flowers &amp; Perfumes" style="height: 58px; width: auto; display: block"></a>
+    <a href="https://wa.me/916238823455" aria-label="WhatsApp us" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center">
+      <svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="#1A1A1A"><path d="M2.5 13.5l.9-2.6A6 6 0 1 1 5.6 13z"></path></svg>
+    </a>
+  </header>
+
+  <!-- title -->
+  <section style="position: relative; overflow: hidden">
+    <div style="position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; border: 1px solid #C9A85C; pointer-events: none"></div>
+    <div style="position: absolute; top: 16px; left: 16px; right: 16px; bottom: 16px; border: 1px solid #E6D7B2; pointer-events: none"></div>
+    <div style="position: absolute; top: 6px; left: 6px; width: 8px; height: 8px; background: #C9A85C; transform: rotate(45deg)"></div>
+    <div style="position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: #C9A85C; transform: rotate(45deg)"></div>
+    <div style="position: absolute; bottom: 6px; left: 6px; width: 8px; height: 8px; background: #C9A85C; transform: rotate(45deg)"></div>
+    <div style="position: absolute; bottom: 6px; right: 6px; width: 8px; height: 8px; background: #C9A85C; transform: rotate(45deg)"></div>
+    <img class="gl-sway-tl" src="/images/floral-corner-tl.jpg" alt="" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 140px; height: auto; mix-blend-mode: multiply; pointer-events: none">
+    <img class="gl-sway-br" src="/images/floral-corner-br.jpg" alt="" aria-hidden="true" style="position: absolute; right: 0; bottom: 0; width: 140px; height: auto; mix-blend-mode: multiply; pointer-events: none">
+    <svg class="gl-tw" width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" style="position: absolute; left: 40%; top: 22px; pointer-events: none"><path d="M8 0L9.6 6.4L16 8L9.6 9.6L8 16L6.4 9.6L0 8L6.4 6.4Z" fill="#C9A85C"></path></svg>
+    <svg class="gl-tw" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" style="position: absolute; right: 30%; bottom: 20px; pointer-events: none; animation-delay: -1.5s"><path d="M8 0L9.6 6.4L16 8L9.6 9.6L8 16L6.4 9.6L0 8L6.4 6.4Z" fill="#B8913F"></path></svg>
+    <svg class="gl-tw" width="10" height="10" viewBox="0 0 16 16" aria-hidden="true" style="position: absolute; right: 12%; top: 34px; pointer-events: none; animation-delay: -2.5s"><path d="M8 0L9.6 6.4L16 8L9.6 9.6L8 16L6.4 9.6L0 8L6.4 6.4Z" fill="#C9A85C"></path></svg>
+    <div style="position: relative; padding: 40px 28px 34px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px">
+      <div style="font-family: 'Great Vibes', cursive; font-size: 28px; line-height: 1; color: #8A6A26">Catalogue 2026</div>
+      <h1 style="margin: 0; font-family: 'Bodoni Moda', serif; font-weight: 400; font-size: 40px; line-height: 1.02">{{titleA}} <span style="font-style: italic">{{titleB}}</span></h1>
+      <div style="font-size: 12px; color: #8A6A26; font-style: italic">Flower shade may change depending on availability</div>
+    </div>
+  </section>
+
+  <!-- collection bubbles -->
+  <div class="gl-row" style="display: flex; gap: 12px; overflow-x: auto; padding: 18px 16px 16px; border-bottom: 1px solid #E8DFCC">
+    <sc-for list="{{cats}}" as="c" hint-placeholder-count="11">
+      <button type="button" onClick="{{c.pick}}" aria-pressed="{{c.pressed}}" style="flex: none; width: 74px; border: none; background: transparent; font: inherit; color: #1A1A1A; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer">
+        <sc-if value="{{c.on}}" hint-placeholder-val="{{false}}">
+          <div style="width: 66px; height: 66px; border-radius: 999px; padding: 3px; border: 2px solid #B8913F; box-sizing: border-box">
+            <sc-if value="{{c.hasImg}}" hint-placeholder-val="{{true}}"><img src="{{c.img}}" alt="" style="width: 100%; height: 100%; border-radius: 999px; object-fit: cover; display: block"></sc-if>
+            <sc-if value="{{c.noImg}}" hint-placeholder-val="{{false}}"><div style="width: 100%; height: 100%; border-radius: 999px; background: #F7F3EC; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 16 16"><path d="M2 14C2 6 7 2 14 2C14 9 9 14 2 14Z" fill="#B8913F"></path></svg></div></sc-if>
+          </div>
+          <span style="font-size: 11px; font-weight: 700; line-height: 1.25; text-align: center; color: #8A6A26">{{c.name}}</span>
+        </sc-if>
+        <sc-if value="{{c.off}}" hint-placeholder-val="{{true}}">
+          <div style="width: 66px; height: 66px; border-radius: 999px; padding: 3px; border: 1px solid #E8DFCC; box-sizing: border-box">
+            <sc-if value="{{c.hasImg}}" hint-placeholder-val="{{true}}"><img src="{{c.img}}" alt="" style="width: 100%; height: 100%; border-radius: 999px; object-fit: cover; display: block"></sc-if>
+            <sc-if value="{{c.noImg}}" hint-placeholder-val="{{false}}"><div style="width: 100%; height: 100%; border-radius: 999px; background: #F7F3EC; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 16 16"><path d="M2 14C2 6 7 2 14 2C14 9 9 14 2 14Z" fill="#1A1A1A"></path></svg></div></sc-if>
+          </div>
+          <span style="font-size: 11px; font-weight: 600; line-height: 1.25; text-align: center">{{c.name}}</span>
+        </sc-if>
+      </button>
+    </sc-for>
+  </div>
+
+  <!-- filter row -->
+  <div class="gl-row" style="display: flex; gap: 8px; overflow-x: auto; padding: 14px 16px; align-items: center">
+    <label style="flex: none; position: relative; display: flex; align-items: center">
+      <span style="position: absolute; left: -9999px">Sort</span>
+      <select onChange="{{onSort}}" aria-label="Sort products" style="font: inherit; font-size: 13px; font-weight: 600; padding: 10px 12px; border: 1px solid #1A1A1A; border-radius: 2px; background: #FFFFFF; min-height: 44px">
+        <option value="featured">Sort: Featured</option>
+        <option value="low">Price: low to high</option>
+        <option value="high">Price: high to low</option>
+      </select>
+    </label>
+    <sc-for list="{{priceChips}}" as="f" hint-placeholder-count="4">
+      <sc-if value="{{f.on}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{f.pick}}" style="flex: none; border: 1px solid #1A1A1A; background: #1A1A1A; color: #FFFFFF; border-radius: 2px; padding: 10px 14px; font: inherit; font-size: 13px; font-weight: 600; min-height: 44px; white-space: nowrap">{{f.name}}</button></sc-if>
+      <sc-if value="{{f.off}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{f.pick}}" style="flex: none; border: 1px solid #E8DFCC; background: #FFFFFF; color: #1A1A1A; border-radius: 2px; padding: 10px 14px; font: inherit; font-size: 13px; font-weight: 500; min-height: 44px; white-space: nowrap">{{f.name}}</button></sc-if>
+    </sc-for>
+  </div>
+  <div style="padding: 0 16px 12px; font-family: 'Bodoni Moda', serif; font-size: 18px">{{countLabel}}</div>
+
+  <!-- grid -->
+  <div style="padding: 0 12px">
+    <sc-if value="{{hasItems}}" hint-placeholder-val="{{true}}">
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 10px">
+        <sc-for list="{{items}}" as="p" hint-placeholder-count="12">
+          <div style="display: flex; flex-direction: column; gap: 8px; text-align: center">
+          <a href="MobileProduct.dc.html" style="display: flex; flex-direction: column; gap: 6px">
+            <div style="padding: 5px; border: 1px solid #E8DFCC; border-radius: 12px">
+              <div style="position: relative; border-radius: 8px; overflow: hidden; background: #F7F3EC">
+                <img src="{{p.img}}" alt="{{p.name}}" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block">
+                <sc-if value="{{p.sized}}" hint-placeholder-val="{{false}}">
+                  <div style="position: absolute; bottom: 8px; right: 8px; background: #1A1A1A; color: #D9BE84; padding: 2px 7px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em">S·M·L</div>
+                </sc-if>
+              </div>
+            </div>
+            <div style="font-family: 'Bodoni Moda', serif; font-size: 16px; line-height: 1.2">{{p.name}}</div>
+            <div style="font-size: 13px; font-weight: 700; color: #8A6A26; margin-top: -2px">{{p.priceLabel}}</div>
+          </a>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <sc-if value="{{p.notInCart}}" hint-placeholder-val="{{true}}">
+              <button type="button" onClick="{{p.add}}" style="display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border: 1px solid #1A1A1A; background: #FFFFFF; color: #1A1A1A; border-radius: 2px; font: inherit; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="#1A1A1A"><path d="M3 5h10l-1 9H4L3 5zM6 5V3.5a2 2 0 0 1 4 0V5"></path></svg>Add to cart
+              </button>
+            </sc-if>
+            <sc-if value="{{p.inCart}}" hint-placeholder-val="{{false}}">
+              <button type="button" onClick="{{p.add}}" aria-label="Add one more to cart" style="display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border: 1px solid #B8913F; background: #F7F3EC; color: #1A1A1A; border-radius: 2px; font: inherit; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#8A6A26"><path d="M3 8.5l3 3 7-7"></path></svg>{{p.qtyLabel}}
+              </button>
+            </sc-if>
+            <a href="{{p.buyHref}}" style="display: flex; align-items: center; justify-content: center; min-height: 44px; background: #1A1A1A; color: #FFFFFF; border-radius: 2px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase">Buy now</a>
+          </div>
+          </div>
+        </sc-for>
+      </div>
+      <a href="https://wa.me/916238823455?text=Hi%20GLONIA%2C%20I%27d%20like%20a%20custom%20bouquet.%0AColours%3A%20%0ABudget%3A%20%0ADelivery%20date%3A%20" style="margin-top: 26px; position: relative; overflow: hidden; background: #FFF8F2; color: #1A1A1A; border: 1.5px dashed #C9A85C; border-radius: 14px; padding: 40px 18px 22px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px">
+        <span style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: #1A1A1A; color: #E6CF93; padding: 6px 14px; border-radius: 0 0 9px 9px; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap">Made just for you</span>
+        <span class="gl-float" aria-hidden="true" style="position: absolute; left: 8%; top: 26%; width: 14px; height: 9px; border-radius: 70% 0 70% 0; background: #EBC0B2; display: block"></span>
+        <span class="gl-float" aria-hidden="true" style="position: absolute; right: 8%; top: 40%; width: 12px; height: 8px; border-radius: 70% 0 70% 0; background: #E3A895; display: block; animation-delay: -2.5s"></span>
+        <div aria-hidden="true" style="position: relative; width: 186px; height: 74px">
+          <img src="/images/products/single-red-rose.jpg" alt="" style="position: absolute; left: 0; top: 6px; width: 64px; height: 64px; border-radius: 999px; object-fit: cover; border: 3px solid #FFFFFF; box-shadow: 0 6px 14px rgba(26,26,26,0.12)">
+          <img src="/images/products/blush-rose-blooming-box.jpg" alt="" style="position: absolute; left: 42px; top: 0; width: 72px; height: 72px; border-radius: 999px; object-fit: cover; border: 3px solid #FFFFFF; box-shadow: 0 6px 14px rgba(26,26,26,0.14)">
+          <img src="/images/products/sunshine-yellow-rose.jpg" alt="" style="position: absolute; left: 92px; top: 6px; width: 64px; height: 64px; border-radius: 999px; object-fit: cover; border: 3px solid #FFFFFF; box-shadow: 0 6px 14px rgba(26,26,26,0.12)">
+          <span style="position: absolute; left: 146px; top: 20px; width: 36px; height: 36px; border-radius: 999px; background: #C9A85C; border: 3px solid #FFFFFF; box-sizing: border-box; display: flex; align-items: center; justify-content: center"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="#1A1A1A"><path d="M8 2v12M2 8h12"></path></svg></span>
+        </div>
+        <div style="font-family: 'Great Vibes', cursive; font-size: 26px; line-height: 1; color: #8A6A26">Custom order</div>
+        <div style="font-family: 'Bodoni Moda', serif; font-size: 26px; line-height: 1.05">Can't find it?<br><span class="gl-shine" style="font-family: 'Great Vibes', cursive; font-size: 40px; line-height: 1.2; padding: 0 0.15em">We'll make it.</span></div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px">
+          <span style="background: #FFFFFF; border: 1px solid #E8DFCC; padding: 5px 9px; font-size: 11px; font-weight: 700">Your colours</span>
+          <span style="background: #FFFFFF; border: 1px solid #E8DFCC; padding: 5px 9px; font-size: 11px; font-weight: 700">Your budget</span>
+          <span style="background: #FFFFFF; border: 1px solid #E8DFCC; padding: 5px 9px; font-size: 11px; font-weight: 700">Your date</span>
+        </div>
+        <span style="width: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; background: #1A1A1A; color: #FFFFFF; min-height: 48px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#E6CF93"><path d="M2.5 13.5l.9-2.6A6 6 0 1 1 5.6 13z"></path></svg>Design yours on WhatsApp
+        </span>
+        <span style="font-size: 12px; color: #625B52">Quick replies · 9 AM – 9 PM</span>
+      </a>
+    </sc-if>
+    <sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+      <div style="position: relative; padding: 48px 22px; background: #F7F3EC; text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center">
+        <div style="position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px; border: 1px solid #C9A85C; pointer-events: none"></div>
+        <div style="font-family: 'Great Vibes', cursive; font-size: 28px; line-height: 1; color: #8A6A26">Coming soon</div>
+        <div style="font-family: 'Bodoni Moda', serif; font-size: 28px; line-height: 1.1">New designs on the way</div>
+        <div style="color: #625B52; font-size: 14px">[Add photos for this collection.] Message us for options and prices.</div>
+        <a href="https://wa.me/916238823455" style="position: relative; background: #1A1A1A; color: #FFFFFF; padding: 14px 24px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase">Ask on WhatsApp</a>
+      </div>
+    </sc-if>
+  </div>
+
+  <footer style="position: relative; overflow: hidden; margin-top: 48px; background: #F6F0E6; color: #1A1A1A; border-top: 1px solid #E6D7B2; padding: 48px 18px 110px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; font-size: 14px">
+    <img class="gl-sway-tl" src="/images/floral-corner-tl.jpg" alt="" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 120px; height: auto; mix-blend-mode: multiply; pointer-events: none">
+    <img class="gl-sway-br" src="/images/floral-corner-br.jpg" alt="" aria-hidden="true" style="position: absolute; right: 0; bottom: 0; width: 130px; height: auto; mix-blend-mode: multiply; pointer-events: none">
+    <img src="/images/logo.png" alt="GLONIA Flowers &amp; Perfumes" style="position: relative; width: 130px; height: auto; display: block; mix-blend-mode: multiply">
+    <div class="gl-shine" style="position: relative; font-family: 'Great Vibes', cursive; font-size: 32px; line-height: 1.2; padding: 0 0.2em">Flowers that say it for you</div>
+    <div style="position: relative; width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+      <a href="https://wa.me/916238823455" style="display: flex; align-items: center; justify-content: center; gap: 7px; background: #1A1A1A; color: #FFFFFF; min-height: 46px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#E6CF93"><path d="M2.5 13.5l.9-2.6A6 6 0 1 1 5.6 13z"></path></svg>WhatsApp</a>
+      <a href="https://instagram.com/" style="display: flex; align-items: center; justify-content: center; gap: 7px; background: #FFFFFF; border: 1px solid #C9A85C; color: #1A1A1A; min-height: 46px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#8A6A26"><rect x="2.5" y="2.5" width="11" height="11" rx="3.2"></rect><circle cx="8" cy="8" r="2.6"></circle></svg>Instagram</a>
+    </div>
+    <div style="position: relative; width: 100%; background: #FFFFFF; border: 1px solid #E8DFCC; border-top: 3px solid #C9A85C; padding: 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 6px; text-align: left; color: #4A443D">
+      <div style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; letter-spacing: 0.16em; color: #1A1A1A; padding-bottom: 2px">CONTACT</div>
+      <a href="tel:+916238823455">Call / WhatsApp +91 62388 23455</a>
+      <a href="mailto:Gloniadesigns@gmail.com">Gloniadesigns@gmail.com</a>
+    </div>
+    <div style="position: relative; width: 100%; background: #FFFFFF; border: 1px solid #E8DFCC; border-top: 3px solid #C9A85C; padding: 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 6px; text-align: left; color: #4A443D">
+      <div style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; letter-spacing: 0.16em; color: #1A1A1A; padding-bottom: 2px">VISIT</div>
+      <div>[Shop address] · [City, PIN]</div>
+      <div>Open every day · 9 AM – 9 PM</div>
+    </div>
+    <div style="position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; font-weight: 600; padding-top: 4px">
+      <a href="MobileCatalog.dc.html">Bouquets</a><a href="MobileCatalog.dc.html">Flower Boxes</a><a href="MobileCatalog.dc.html">Bridal</a>
+    </div>
+    <div style="position: relative; width: 100%; height: 1px; background: #E1D3B4"></div>
+    <div style="position: relative; font-size: 12px; color: #625B52">© 2026 GLONIA Flowers &amp; Perfumes<br>Flower shade may change depending on availability</div>
+  </footer>
+
+  <!-- sticky bar -->
+  <sc-if value="{{hasCart}}" hint-placeholder-val="{{false}}">
+  <div style="position: sticky; bottom: 0; z-index: 20; background: #1A1A1A; color: #F3EBDD; border-top: 1px solid #C9A85C; padding: 10px 12px 14px; display: flex; align-items: center; gap: 8px; margin-top: -84px">
+    <button type="button" onClick="{{clearCart}}" aria-label="Clear cart" style="flex: none; width: 44px; height: 52px; border: 1px solid #5A4A2C; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#D9BE84"><path d="M3 3l10 10M13 3L3 13"></path></svg>
+    </button>
+    <div style="flex: 1; min-width: 0; line-height: 1.3">
+      <div style="font-size: 13px; font-weight: 700">Cart · {{cartCount}} {{itemWord}}</div>
+      <div style="font-size: 12px; color: #D9BE84">{{cartTotal}}</div>
+    </div>
+    <a href="{{checkoutHref}}" style="flex: none; display: flex; align-items: center; gap: 7px; min-height: 52px; padding: 0 14px; background: #C9A85C; color: #1A1A1A; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#1A1A1A"><path d="M2.5 13.5l.9-2.6A6 6 0 1 1 5.6 13z"></path></svg>Checkout
+    </a>
+  </div>
+  </sc-if>
+  <sc-if value="{{noCart}}" hint-placeholder-val="{{true}}">
+  <div style="position: sticky; bottom: 0; z-index: 20; background: #FFFFFF; border-top: 1px solid #E8DFCC; padding: 10px 12px 14px; display: flex; gap: 8px; margin-top: -84px">
+    <a href="tel:+916238823455" aria-label="Call GLONIA" style="flex: none; width: 52px; height: 52px; border: 1px solid #C9A85C; display: flex; align-items: center; justify-content: center">
+      <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="#1A1A1A"><path d="M3 2.5h3l1.2 3-1.7 1.1a8 8 0 0 0 3.9 3.9l1.1-1.7 3 1.2v3c0 .5-.4 1-1 1A12 12 0 0 1 2 3.5c0-.6.5-1 1-1z"></path></svg>
+    </a>
+    <a href="https://wa.me/916238823455" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; background: #1A1A1A; color: #FFFFFF; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; min-height: 52px">
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#D9BE84"><path d="M2.5 13.5l.9-2.6A6 6 0 1 1 5.6 13z"></path></svg>Order on WhatsApp
+    </a>
+  </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4300}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { cat: 'all', sort: 'featured', price: 'any', cart: { 'Blush Rose Blooming Box': 1 } };
+  }
+  renderVals() {
+    const S = '/images/';
+    const products = [
+      { name: 'Peach & White Blooming Box', cat: 'bloom', price: 4000, max: 4500, img: S + 'products/peach-white-blooming-box.jpg' },
+      { name: 'Blush Rose Blooming Box', cat: 'bloom', price: 4000, max: 4500, img: S + 'products/blush-rose-blooming-box.jpg' },
+      { name: 'Red Rose Classic Box', cat: 'classic', price: 2000, max: 2500, img: S + 'products/red-rose-classic-box.jpg' },
+      { name: 'Single Red Rose', cat: 'korean', price: 300, img: S + 'products/single-red-rose.jpg' },
+      { name: 'Pastel Garden Blooming Box', cat: 'bloom', price: 4000, max: 4500, img: S + 'products/pastel-garden-blooming-box.jpg' },
+      { name: 'White Hydrangea Box', cat: 'classic', price: 2000, max: 2500, img: S + 'products/white-hydrangea-box.jpg' },
+      { name: 'White Rose Mini', cat: 'korean', price: 200, img: S + 'products/white-rose-mini.jpg' },
+      { name: 'Yellow & White Rose Box', cat: 'classic', price: 2000, max: 2500, img: S + 'products/yellow-white-rose-box.jpg' },
+      { name: 'Sunshine Yellow Rose', cat: 'korean', price: 200, img: S + 'products/sunshine-yellow-rose.jpg' },
+      { name: 'White Garden Gold Box', cat: 'bloom', price: 4000, max: 4500, img: S + 'products/white-garden-gold-box.jpg' },
+      { name: 'Pink Rose Classic Box', cat: 'classic', price: 2000, max: 2500, img: S + 'products/pink-rose-classic-box.jpg' },
+      { name: 'Twin White Roses', cat: 'korean', price: 250, img: S + 'products/twin-white-roses.jpg' }
+    ];
+    const catDefs = [
+      ['all', 'All', 'products/blush-rose-blooming-box.jpg'], ['korean', 'Korean Bouquets', 'products/sunshine-yellow-rose.jpg'],
+      ['bloom', 'Blooming Boxes', 'products/pastel-garden-blooming-box.jpg'], ['classic', 'Classic Boxes', 'products/red-rose-classic-box.jpg'],
+      ['red', 'Red Roses', 'products/single-red-rose.jpg'], ['premium', 'Premium', ''], ['custom', 'Customized', ''],
+      ['choco', 'Chocolate', ''], ['bridal', 'Bridal', ''], ['car', 'Car Décor', ''], ['gifts', 'Gifts', '']
+    ];
+    const titles = {
+      all: ['All', 'flowers'], korean: ['Korean', 'bouquets'], bloom: ['Blooming', 'boxes'], classic: ['Classic', 'boxes'],
+      red: ['Red', 'roses'], premium: ['Premium', 'bouquets'], custom: ['Customized', 'bouquets'], choco: ['Chocolate', 'bouquets'],
+      bridal: ['Bridal', 'collection'], car: ['Car', 'décor'], gifts: ['Thoughtful', 'gifts']
+    };
+    const fmt = (n) => '₹' + n.toLocaleString('en-IN');
+    const cur = this.state.cat;
+    const cats = catDefs.map((d) => ({
+      name: d[1], on: d[0] === cur, off: d[0] !== cur, pressed: d[0] === cur ? 'true' : 'false',
+      hasImg: !!d[2], noImg: !d[2], img: d[2] ? S + d[2] : '',
+      pick: () => this.setState({ cat: d[0] })
+    }));
+    const priceDefs = [['any', 'Any price', 0, 1e9], ['u1', 'Under ₹1,000', 0, 999], ['mid', '₹2,000–₹3,000', 2000, 3000], ['top', '₹4,000+', 4000, 1e9]];
+    const pf = priceDefs.find((d) => d[0] === this.state.price);
+    const priceChips = priceDefs.map((d) => ({ name: d[1], on: d[0] === this.state.price, off: d[0] !== this.state.price, pick: () => this.setState({ price: d[0] }) }));
+    let items = products.filter((p) => (cur === 'all' || p.cat === cur || (cur === 'red' && p.name.indexOf('Red') >= 0)) && p.price >= pf[2] && p.price <= pf[3]);
+    if (this.state.sort === 'low') items = items.slice().sort((a, b) => a.price - b.price);
+    if (this.state.sort === 'high') items = items.slice().sort((a, b) => b.price - a.price);
+    const cart = this.state.cart || {};
+    const wa = 'https://wa.me/916238823455?text=';
+    items = items.map((p) => {
+      const q = cart[p.name] || 0;
+      return {
+        ...p, sized: !!p.max, priceLabel: p.max ? fmt(p.price) + ' – ' + fmt(p.max) : fmt(p.price),
+        inCart: q > 0, notInCart: q === 0, qtyLabel: 'Added · ' + q,
+        add: () => { const c = Object.assign({}, this.state.cart); c[p.name] = (c[p.name] || 0) + 1; this.setState({ cart: c }); },
+        buyHref: p.max ? 'MobileProduct.dc.html' : wa + encodeURIComponent('Hi GLONIA, I want to buy: ' + p.name + ' (' + fmt(p.price) + ').')
+      };
+    });
+    const lines = products.filter((p) => cart[p.name]).map((p) => ({ p: p, q: cart[p.name] }));
+    const cartCount = lines.reduce((s, l) => s + l.q, 0);
+    const cartSum = lines.reduce((s, l) => s + l.p.price * l.q, 0);
+    const orderText = 'Hi GLONIA, I want to order:\n' + lines.map((l) => '• ' + l.p.name + (l.p.max ? ' (Small)' : '') + ' × ' + l.q + ' — ' + fmt(l.p.price * l.q)).join('\n') + '\nTotal: ' + fmt(cartSum);
+    const hr = new Date().getHours();
+    const isOpen = hr >= 9 && hr < 21;
+    const tk = [
+      isOpen ? "We're open now — quick replies on WhatsApp" : "Closed for the night — order anytime, we'll reply first thing at 9 AM",
+      'Shop hours: 9 AM – 9 PM, every day',
+      "Ordering at night? We'll get back to you at the earliest in the morning",
+      'Same-day delivery before [cut-off time]',
+      'WhatsApp +91 62388 23455'
+    ];
+    return {
+      isOpen: isOpen, isClosed: !isOpen, ticker: tk.concat(tk),
+      hasCart: cartCount > 0, noCart: cartCount === 0, cartCount: cartCount, itemWord: cartCount === 1 ? 'item' : 'items',
+      cartTotal: fmt(cartSum), checkoutHref: wa + encodeURIComponent(orderText),
+      clearCart: () => this.setState({ cart: {} }),
+      cats: cats, items: items, priceChips: priceChips,
+      hasItems: items.length > 0, empty: items.length === 0,
+      titleA: titles[cur][0], titleB: titles[cur][1],
+      countLabel: items.length + (items.length === 1 ? ' design' : ' designs'),
+      onSort: (e) => this.setState({ sort: e.target.value })
+    };
+  }
+}
+</script>
+</body>
+</html>

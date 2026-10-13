@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>GLONIA Mobile Home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&amp;family=Cinzel:wght@500;600&amp;family=Great+Vibes&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:inherit;text-decoration:none}
+@keyframes gl-mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.gl-mq{animation:gl-mq 30s linear infinite}
+.gl-row{scrollbar-width:none}
+.gl-row::-webkit-scrollbar{display:none}
+@keyframes gl-tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.gl-tick{animation:gl-tick 40s linear infinite}
+@keyframes gl-sway{0%,100%{rotate:0deg}50%{rotate:2.4deg}}
+.gl-sway-tl{transform-origin:0 0;animation:gl-sway 7s ease-in-out infinite}
+.gl-sway-tr{transform-origin:100% 0;animation:gl-sway 8s ease-in-out infinite;animation-delay:-2s}
+.gl-sway-bl{transform-origin:0 100%;animation:gl-sway 8.5s ease-in-out infinite;animation-delay:-5s}
+.gl-sway-br{transform-origin:100% 100%;animation:gl-sway 7.5s ease-in-out infinite;animation-delay:-3s}
+@keyframes gl-tw{0%,100%{opacity:0;transform:scale(.3) rotate(0deg)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.gl-tw{animation:gl-tw 3.4s ease-in-out infinite}
+@keyframes gl-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+.gl-shine{background:linear-gradient(100deg,#7A5C1E 0%,#B8913F 30%,#E6CF93 48%,#B8913F 66%,#7A5C1E 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gl-shine 6s ease-in-out infinite alternate}
+@media (prefers-reduced-motion:reduce){.gl-shine{animation:none}}
+@keyframes gl-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.gl-spin{animation:gl-spin 140s linear infinite}
+.gl-spin-r{animation:gl-spin 110s linear infinite reverse}
+@media (prefers-reduced-motion:reduce){.gl-spin,.gl-spin-r{animation:none}}
+@keyframes gl-float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(28deg)}}
+.gl-float{animation:gl-float 6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.gl-float{animation:none}}
+@media (prefers-reduced-motion:reduce){.gl-tick,.gl-mq,.gl-sway-tl,.gl-sway-tr,.gl-sway-bl,.gl-sway-br,.gl-tw{animation:none}.gl-tw{opacity:.8}}
+</style>
+</helmet>
+<div style="width: 390px; position: relative; font-family: 'Manrope', sans-serif; color: #1A1A1A; background: #FFFFFF; font-size: 15px; line-height: 1.55; overflow: hidden">
+
+  <!-- top bar -->
+  <div role="region" aria-label="Shop hours and replies" style="background: #1A1A1A; color: #D9BE84; font-size: 12px; letter-spacing: 0.03em; display: flex; align-items: stretch; overflow: hidden">
+    <div style="flex: none; display: flex; align-items: center; gap: 6px; padding: 8px 10px; background: #2A2520; border-right: 1px solid #5A4A2C; color: #F3EBDD; font-weight: 700; white-space: nowrap; position: relative; z-index: 1">
+      <sc-if value="{{isOpen}}" hint-placeholder-val="{{true}}"><span style="width: 7px; height: 7px; border-radius: 999px; background: #7BD49B; display: block; box-shadow: 0 0 0 3px rgba(123,212,155,0.25)"></span>Open</sc-if>
+      <sc-if value="{{isClosed}}" hint-placeholder-val="{{false}}"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#D9BE84"><path d="M11 2.5a5.5 5.5 0 1 0 2.5 9.5A6 6 0 0 1 11 2.5z"></path></svg>Closed</sc-if>
+    </div>
+    <div style="flex: 1; min-width: 0; overflow: hidden">
+      <div class="gl-tick" style="display: flex; width: max-content; align-items: center; padding: 8px 0">
+        <sc-for list="{{ticker}}" as="t" hint-placeholder-count="10">
+          <span style="display: inline-flex; align-items: center; gap: 24px; padding-right: 24px; white-space: nowrap">{{t}}<svg width="9" height="9" viewBox="0 0 16 16"><path d="M2 14C2 6 7 2 14 2C14 9 9 14 2 14Z" fill="#C9A85C"></path></svg></span>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- header -->
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #E8DFCC; background: #FFFFFF">
+    <button type="button" onClick="{{openMenu}}" aria-label="Open menu" style="width: 44px; height: 44px; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer">
+      <svg width="24" height="24" viewBox="0 0 16 16" fill="none" stroke="#1A1A1A"><path d="M2 4.5h12M2 8h12M2 11.5h8"></path></svg>
+    </button>
+    <a href="MobileHome.dc.html" aria-label="GLONIA home"><img src="/images/logo.png" alt="GLONIA Flowers &amp; Perfumes" style="height: 58px; width: auto; display: block"></a>
+    <a href="MobileCatalog.dc.html" aria-label="Search the catalogue" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center">
+      <svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="#1A1A1A"><circle cx="7" cy="7" r="4.5"></circle><path d="M10.5 10.5L14 14"></path></svg>
+    </a>
+  </header>
+
+  <!-- hero -->
+  <section style="position: relative; overflow: hidden">
+    <div style="position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; border: 1px solid #C9A85C; pointer-events: none"></div>
+    <div style="position: absolute; top: 18px; left: 18px; right: 18px; bottom: 18px; border: 1px solid #E6D7B2; pointer-events: none"></div>
+    <div style="position: absolute; top: 8px; left: 8px; width: 8px; height: 8px; background: #C9A85C; transform: rotate(45deg)"></div>
+    <div style="position: absolute; top: 8px; right: 8px; width: 8px; height: 8px; background: #C9A85C; transform: rotate(45deg)"></div>
+    <div style="position: absolute; bottom: 8px; left: 8px; width: 8px; height: 8px; background: #C9A85C; transform: rotate(45deg)"></div>
+    <div style="position: absolute; bottom: 8px; right: 8px; width: 8px; height: 8px; background: #C9A85C; transform: rotate(45deg)"></div>
+    <img class="gl-sway-tl" src="/images/floral-corner-tl.jpg" alt="" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 120px; height: auto; mix-blend-mode: multiply; pointer-events: none; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%)">
+    <img class="gl-sway-tr" src="/images/floral-corner-tl.jpg" alt="" aria-hidden="true" style="position: absolute; right: 0; top: 0; width: 120px; height: auto; mix-blend-mode: multiply; pointer-events: none; transform: scaleX(-1); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%)">
+    <img class="gl-sway-bl" src="/images/floral-corner-tl.jpg" alt="" aria-hidden="true" style="position: absolute; left: 0; bottom: 0; width: 120px; height: auto; mix-blend-mode: multiply; pointer-events: none; transform: scaleY(-1); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%)">
+    <img class="gl-sway-br" src="/images/floral-corner-tl.jpg" alt="" aria-hidden="true" style="position: absolute; right: 0; bottom: 0; width: 120px; height: auto; mix-blend-mode: multiply; pointer-events: none; transform: scale(-1, -1); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%)">
+    <svg class="gl-tw" width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" style="position: absolute; left: 10%; top: 200px; pointer-events: none"><path d="M8 0L9.6 6.4L16 8L9.6 9.6L8 16L6.4 9.6L0 8L6.4 6.4Z" fill="#C9A85C"></path></svg>
+    <svg class="gl-tw" width="10" height="10" viewBox="0 0 16 16" aria-hidden="true" style="position: absolute; right: 10%; top: 320px; pointer-events: none; animation-delay: -1.5s"><path d="M8 0L9.6 6.4L16 8L9.6 9.6L8 16L6.4 9.6L0 8L6.4 6.4Z" fill="#B8913F"></path></svg>
+    <div style="position: relative; padding: 60px 20px 36px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px">
+      <h1 style="margin: 0"><img src="/images/logo.png" alt="GLONIA Flowers &amp; Perfumes" style="width: 230px; height: auto; display: block"></h1>
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span style="width: 44px; height: 1px; background: #B8913F; display: block"></span>
+        <svg width="14" height="14" viewBox="0 0 16 16"><path d="M2 14C2 6 7 2 14 2C14 9 9 14 2 14Z" fill="#B8913F"></path></svg>
+        <span style="width: 44px; height: 1px; background: #B8913F; display: block"></span>
+      </div>
+      <p style="margin: 0; color: #625B52; font-size: 15px">Korean bouquets, flower boxes and bridal décor, hand-made and delivered fresh.</p>
+      <div style="width: 100%; display: flex; flex-direction: column; gap: 10px; padding-top: 6px">
+        <a href="MobileCatalog.dc.html" style="background: #1A1A1A; color: #FFFFFF; padding: 16px; border-radius: 2px; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase">Shop the collection</a>
+        <a href="https://wa.me/916238823455" style="border: 1px solid #B8913F; background: #FFFFFF; padding: 15px; border-radius: 2px; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase">Custom order</a>
+      </div>
+    </div>
+    <div style="position: relative; padding: 0 44px 64px">
+      <div style="padding: 7px; border: 1px solid #C9A85C; border-radius: 999px 999px 4px 4px; background: #FFFFFF">
+        <div style="border-radius: 999px 999px 2px 2px; overflow: hidden"><img src="/images/products/peach-white-blooming-box.jpg" alt="Peach and white roses in a black blooming box" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block"></div>
+      </div>
+      <div style="position: absolute; left: 20px; bottom: 44px; background: #FFFFFF; border: 1px solid #C9A85C; padding: 10px 14px; display: flex; align-items: center; gap: 10px">
+        <img src="/images/products/single-red-rose.jpg" alt="" style="width: 40px; height: 40px; object-fit: cover; display: block">
+        <div><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #625B52">Bouquets</div><div style="font-family: 'Bodoni Moda', serif; font-size: 17px; line-height: 1.1">from ₹200</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- marquee -->
+  <div style="background: #1A1A1A; overflow: hidden; padding: 14px 0">
+    <div class="gl-mq" style="display: flex; width: max-content; gap: 24px; align-items: center">
+      <sc-for list="{{marquee}}" as="m" hint-placeholder-count="8">
+        <div style="display: flex; align-items: center; gap: 24px; font-family: 'Bodoni Moda', serif; font-size: 22px; font-style: italic; white-space: nowrap; color: #F3EBDD">{{m}}<svg width="12" height="12" viewBox="0 0 16 16"><path d="M2 14C2 6 7 2 14 2C14 9 9 14 2 14Z" fill="#C9A85C"></path></svg></div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- collections -->
+  <section style="padding: 56px 16px 0; display: flex; flex-direction: column; gap: 22px">
+    <div style="text-align: center">
+      <div style="font-family: 'Great Vibes', cursive; font-size: 30px; line-height: 1; color: #8A6A26">Collections</div>
+      <h2 style="margin: 4px 0 0; font-family: 'Bodoni Moda', serif; font-weight: 400; font-size: 34px; line-height: 1.08">Find the one <span style="font-style: italic">they'll love</span></h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+      <sc-for list="{{tiles}}" as="t" hint-placeholder-count="4">
+        <a href="MobileCatalog.dc.html" style="position: relative; border-radius: 12px; overflow: hidden; background: #F7F3EC">
+          <img src="{{t.img}}" alt="{{t.name}}" style="width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block">
+          <div style="position: absolute; left: 8px; right: 8px; bottom: 8px; background: #FFFFFF; border: 1px solid #C9A85C; padding: 7px 10px">
+            <div style="font-family: 'Bodoni Moda', serif; font-size: 16px; line-height: 1.15">{{t.name}}</div>
+            <div style="font-size: 12px; color: #8A6A26; font-weight: 700">{{t.from}}</div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+    <div class="gl-row" style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -16px; padding: 0 16px">
+      <sc-for list="{{more}}" as="m" hint-placeholder-count="6">
+        <a href="MobileCatalog.dc.html" style="flex: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #E8DFCC; padding: 10px 14px; font-size: 13px; font-weight: 600; min-height: 44px; box-sizing: border-box; white-space: nowrap">
+          <svg width="10" height="10" viewBox="0 0 16 16"><path d="M2 14C2 6 7 2 14 2C14 9 9 14 2 14Z" fill="#B8913F"></path></svg>{{m}}
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- signature picks -->
+  <section style="padding: 60px 0 0; display: flex; flex-direction: column; gap: 18px">
+    <div style="text-align: center; padding: 0 16px">
+      <div style="font-family: 'Great Vibes', cursive; font-size: 30px; line-height: 1; color: #8A6A26">Signature</div>
+      <h2 style="margin: 4px 0 0; font-family: 'Bodoni Moda', serif; font-weight: 400; font-size: 34px; line-height: 1.08">Our favourite <span style="font-style: italic">picks</span></h2>
+    </div>
+    <div onTouchStart="{{pause}}" style="padding: 0 16px">
+      <div role="tablist" aria-label="Collections" style="overflow: hidden; border-bottom: 1px solid #E8DFCC; -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%)">
+        <div style="display: flex; transform: translateX({{tabOffset}}); transition: {{tabTrans}}">
+          <sc-for list="{{tabTrack}}" as="t" hint-placeholder-count="9">
+            <sc-if value="{{t.on}}" hint-placeholder-val="{{false}}">
+              <button type="button" role="tab" aria-selected="true" onClick="{{t.pick}}" style="flex: 0 0 33.3333%; position: relative; min-height: 52px; padding: 8px 4px 12px; border: none; background: transparent; font: inherit; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; line-height: 1.3; text-transform: uppercase; color: #1A1A1A">{{t.name}}<span style="position: absolute; left: 20%; right: 20%; bottom: -1px; height: 2px; background: #B8913F; display: block"></span></button>
+            </sc-if>
+            <sc-if value="{{t.off}}" hint-placeholder-val="{{true}}">
+              <button type="button" role="tab" aria-selected="false" onClick="{{t.pick}}" style="flex: 0 0 33.3333%; min-height: 52px; padding: 8px 4px 12px; border: none; background: transparent; font: inherit; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; line-height: 1.3; text-transform: uppercase; color: #8C8278">{{t.name}}</button>
+            </sc-if>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    <div class="gl-row" style="display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 16px 4px">
+      <sc-for list="{{picks}}" as="p" hint-placeholder-count="4">
+        <a href="MobileProduct.dc.html" style="flex: none; width: 230px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 8px; text-align: center">
+          <div style="padding: 6px; border: 1px solid #E8DFCC; border-radius: 14px">
+            <div style="border-radius: 9px; overflow: hidden; position: relative; background: #F7F3EC">
+              <img src="{{p.img}}" alt="{{p.name}}" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block">
+              <div style="position: absolute; top: 10px; left: 10px; background: #FFFFFF; border: 1px solid #C9A85C; padding: 3px 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em">{{p.tag}}</div>
+            </div>
+          </div>
+          <div style="font-family: 'Bodoni Moda', serif; font-size: 19px; line-height: 1.2">{{p.name}}</div>
+          <div style="font-size: 14px; font-weight: 700; color: #8A6A26; margin-top: -4px">{{p.price}}</div>
+        </a>
+      </sc-for>
+      <sc-if value="{{noPicks}}" hint-placeholder-val="{{false}}">
+        <div style="flex: none; width: 100%; box-sizing: border-box; background: #FBF8F2; border: 1.5px dashed #C9A85C; border-radius: 14px; padding: 36px 18px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px">
+          <div style="font-family: 'Great Vibes', cursive; font-size: 28px; line-height: 1; color: #8A6A26">Coming soon</div>
+          <div style="font-family: 'Bodoni Moda', serif; font-size: 24px; line-height: 1.1">{{tabName}}</div>
+          <p style="margin: 0; color: #625B52; font-size: 14px">New designs are being added. Message us for options and prices.</p>
+          <a href="https://wa.me/916238823455" style="display: inline-flex; align-items: center; gap: 8px; background: #1A1A1A; color: #FFFFFF; padding: 14px 22px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#E6CF93"><path d="M2.5 13.5l.9-2.6A6 6 0 1 1 5.6 13z"></path></svg>Ask on WhatsApp</a>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- size guide -->
+  <section style="padding: 60px 16px 0">
+    <div style="position: relative; background: #F7F3EC; padding: 36px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px">
+      <div style="position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px; border: 1px solid #C9A85C; pointer-events: none"></div>
+      <div style="font-family: 'Great Vibes', cursive; font-size: 28px; line-height: 1; color: #8A6A26; position: relative">Box size reference</div>
+      <h2 style="margin: 0; font-family: 'Bodoni Moda', serif; font-weight: 400; font-size: 30px; line-height: 1.08; position: relative">One design. <span style="font-style: italic">Three sizes.</span></h2>
+      <div style="display: flex; justify-content: center; align-items: flex-end; gap: 12px; padding-top: 8px; position: relative">
+        <sc-for list="{{sizes}}" as="s" hint-placeholder-count="3">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+            <div style="width: {{s.d}}; height: {{s.d}}; border-radius: 999px; padding: 4px; border: 1px solid #C9A85C; background: #FFFFFF; box-sizing: border-box"><img src="{{boxImg}}" alt="{{s.name}} box" style="width: 100%; height: 100%; border-radius: 999px; object-fit: cover; display: block"></div>
+            <div style="width: {{s.d}}; display: flex; align-items: center; gap: 3px; color: #8A6A26">
+              <span style="width: 1px; height: 9px; background: #B8913F; display: block"></span>
+              <span style="flex: 1; height: 1px; background: #B8913F; display: block"></span>
+              <span style="font-size: 11px; font-weight: 700; white-space: nowrap">{{s.inch}}</span>
+              <span style="flex: 1; height: 1px; background: #B8913F; display: block"></span>
+              <span style="width: 1px; height: 9px; background: #B8913F; display: block"></span>
+            </div>
+            <div style="font-family: 'Bodoni Moda', serif; font-size: 18px; line-height: 1">{{s.name}}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- our work -->
+  <section style="padding: 60px 0 0; display: flex; flex-direction: column; gap: 18px">
+    <div style="text-align: center; padding: 0 16px">
+      <div style="font-family: 'Great Vibes', cursive; font-size: 30px; line-height: 1; color: #8A6A26">Our work</div>
+      <h2 style="margin: 4px 0 0; font-family: 'Bodoni Moda', serif; font-weight: 400; font-size: 34px; line-height: 1.08">Made for your <span style="font-style: italic">big moments</span></h2>
+    </div>
+    <div class="gl-row" style="display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 16px">
+      <sc-for list="{{work}}" as="w" hint-placeholder-count="3">
+        <div style="flex: none; width: 220px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 8px; text-align: center">
+          <div style="padding: 6px; border: 1px solid #C9A85C; border-radius: 999px 999px 4px 4px">
+            <div style="aspect-ratio: 3 / 4; border-radius: 999px 999px 2px 2px; background: #F7F3EC; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #625B52">{{w.ph}}</div>
+          </div>
+          <div style="font-family: 'Bodoni Moda', serif; font-size: 22px">{{w.name}}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- how to order -->
+  <section style="padding: 60px 20px 0; display: flex; flex-direction: column; gap: 20px">
+    <div style="text-align: center">
+      <div style="font-family: 'Great Vibes', cursive; font-size: 30px; line-height: 1; color: #8A6A26">Easy ordering</div>
+      <h2 style="margin: 4px 0 0; font-family: 'Bodoni Moda', serif; font-weight: 400; font-size: 34px; line-height: 1.08">Order in <span style="font-style: italic">one minute</span></h2>
+    </div>
+    <sc-for list="{{steps}}" as="s" hint-placeholder-count="4">
+      <div style="display: flex; gap: 16px; align-items: flex-start">
+        <div style="flex: none; width: 44px; height: 44px; border-radius: 999px; border: 1px solid #C9A85C; display: flex; align-items: center; justify-content: center; font-family: 'Bodoni Moda', serif; font-size: 18px; color: #8A6A26">{{s.n}}</div>
+        <div><div style="font-size: 16px; font-weight: 700">{{s.t}}</div><div style="color: #625B52; font-size: 14px">{{s.d}}</div></div>
+      </div>
+    </sc-for>
+  </section>
+
+  <!-- perfumes -->
+  <section style="position: relative; overflow: hidden; margin-top: 60px; background: #F8ECE7; color: #1A1A1A; border-top: 1px solid #EBD6CB; border-bottom: 1px solid #EBD6CB; padding: 48px 22px 52px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px">
+    <span class="gl-float" aria-hidden="true" style="position: absolute; left: 8%; top: 9%; width: 16px; height: 10px; border-radius: 70% 0 70% 0; background: #E9B4A4; display: block"></span>
+    <span class="gl-float" aria-hidden="true" style="position: absolute; right: 9%; top: 16%; width: 14px; height: 9px; border-radius: 70% 0 70% 0; background: #F0C6B9; display: block; animation-delay: -2s"></span>
+    <span class="gl-float" aria-hidden="true" style="position: absolute; left: 12%; top: 58%; width: 14px; height: 9px; border-radius: 70% 0 70% 0; background: #E3A895; display: block; animation-delay: -4s"></span>
+    <span class="gl-float" aria-hidden="true" style="position: absolute; right: 10%; top: 66%; width: 16px; height: 10px; border-radius: 70% 0 70% 0; background: #EDBDAE; display: block; animation-delay: -1s"></span>
+    <div style="position: relative; display: inline-flex; align-items: center; gap: 8px; background: #1A1A1A; color: #E6CF93; padding: 7px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase">
+      <span style="width: 6px; height: 6px; border-radius: 999px; background: #E6CF93; display: block"></span>Coming soon
+    </div>
+    <div style="position: relative; font-family: 'Great Vibes', cursive; font-size: 30px; line-height: 1; color: #8A6A26">Something new is blooming</div>
+    <h2 style="position: relative; margin: 0; display: flex; flex-direction: column; align-items: center; line-height: 1">
+      <span style="font-family: 'Cinzel', serif; font-weight: 600; font-size: 38px; letter-spacing: 0.08em">GLONIA</span>
+      <span class="gl-shine" style="font-family: 'Great Vibes', cursive; font-weight: 400; font-size: 54px; line-height: 1.15; padding: 0 0.15em">Perfumes</span>
+    </h2>
+    <p style="position: relative; margin: 0; font-size: 14px; color: #5A4F48">Signature fragrances to pair with your flowers. Launching soon — be the first to know.</p>
+    <div style="position: relative; width: 230px; height: 230px; border-radius: 999px; border: 1px solid #C9A85C; padding: 9px; box-sizing: border-box; margin: 8px 0 18px">
+      <div style="width: 100%; height: 100%; border-radius: 999px; background: #FFFFFF; border: 1px solid #E6D7B2; box-sizing: border-box; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 20px 40px rgba(160,100,80,0.15)">
+        <img src="/images/perfume-bottle.webp" alt="GLONIA perfume bottle in pink glass with a rose-gold cap" style="height: 76%; width: auto; display: block; filter: drop-shadow(0 14px 18px rgba(170, 90, 110, 0.28))">
+        <svg class="gl-tw" width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" style="position: absolute; left: 20%; top: 24%"><path d="M8 0L9.6 6.4L16 8L9.6 9.6L8 16L6.4 9.6L0 8L6.4 6.4Z" fill="#C9A85C"></path></svg>
+        <svg class="gl-tw" width="10" height="10" viewBox="0 0 16 16" aria-hidden="true" style="position: absolute; right: 20%; top: 40%; animation-delay: -1.5s"><path d="M8 0L9.6 6.4L16 8L9.6 9.6L8 16L6.4 9.6L0 8L6.4 6.4Z" fill="#B8913F"></path></svg>
+      </div>
+      <div style="position: absolute; left: 50%; bottom: -14px; transform: translateX(-50%); background: #FFFFFF; border: 1px solid #C9A85C; padding: 6px 16px; font-family: 'Great Vibes', cursive; font-size: 22px; line-height: 1; color: #8A6A26; white-space: nowrap">Launching soon</div>
+    </div>
+    <a href="https://wa.me/916238823455?text=Hi%20GLONIA%2C%20please%20let%20me%20know%20when%20your%20perfumes%20launch." style="position: relative; width: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 8px; background: #1A1A1A; color: #FFFFFF; padding: 16px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#E6CF93"><path d="M2.5 13.5l.9-2.6A6 6 0 1 1 5.6 13z"></path></svg>Notify me on WhatsApp
+    </a>
+    <div style="position: relative; font-size: 12px; color: #5A4F48">We'll message you on launch day.</div>
+  </section>
+
+  <!-- gallery -->
+  <section style="padding: 56px 0 0; display: flex; flex-direction: column; gap: 16px">
+    <div style="text-align: center">
+      <div style="font-family: 'Great Vibes', cursive; font-size: 28px; line-height: 1; color: #8A6A26">Fresh from the studio</div>
+      <div style="font-family: 'Bodoni Moda', serif; font-size: 24px">[@instagram]</div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 0 4px">
+      <sc-for list="{{gallery}}" as="g" hint-placeholder-count="6">
+        <img src="{{g}}" alt="GLONIA arrangement" style="width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; border-radius: 6px">
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer style="position: relative; overflow: hidden; margin-top: 56px; background: #F6F0E6; color: #1A1A1A; border-top: 1px solid #E6D7B2; padding: 48px 18px 110px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; font-size: 14px">
+    <img class="gl-sway-tl" src="/images/floral-corner-tl.jpg" alt="" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 120px; height: auto; mix-blend-mode: multiply; pointer-events: none">
+    <img class="gl-sway-br" src="/images/floral-corner-br.jpg" alt="" aria-hidden="true" style="position: absolute; right: 0; bottom: 0; width: 130px; height: auto; mix-blend-mode: multiply; pointer-events: none">
+    <img src="/images/logo.png" alt="GLONIA Flowers &amp; Perfumes" style="position: relative; width: 130px; height: auto; display: block; mix-blend-mode: multiply">
+    <div class="gl-shine" style="position: relative; font-family: 'Great Vibes', cursive; font-size: 32px; line-height: 1.2; padding: 0 0.2em">Flowers that say it for you</div>
+    <div style="position: relative; width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+      <a href="https://wa.me/916238823455" style="display: flex; align-items: center; justify-content: center; gap: 7px; background: #1A1A1A; color: #FFFFFF; min-height: 46px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#E6CF93"><path d="M2.5 13.5l.9-2.6A6 6 0 1 1 5.6 13z"></path></svg>WhatsApp</a>
+      <a href="https://instagram.com/" style="display: flex; align-items: center; justify-content: center; gap: 7px; background: #FFFFFF; border: 1px solid #C9A85C; color: #1A1A1A; min-height: 46px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#8A6A26"><rect x="2.5" y="2.5" width="11" height="11" rx="3.2"></rect><circle cx="8" cy="8" r="2.6"></circle></svg>Instagram</a>
+    </div>
+    <div style="position: relative; width: 100%; background: #FFFFFF; border: 1px solid #E8DFCC; border-top: 3px solid #C9A85C; padding: 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 6px; text-align: left; color: #4A443D">
+      <div style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; letter-spacing: 0.16em; color: #1A1A1A; padding-bottom: 2px">CONTACT</div>
+      <a href="tel:+916238823455">Call / WhatsApp +91 62388 23455</a>
+      <a href="mailto:Gloniadesigns@gmail.com">Gloniadesigns@gmail.com</a>
+    </div>
+    <div style="position: relative; width: 100%; background: #FFFFFF; border: 1px solid #E8DFCC; border-top: 3px solid #C9A85C; padding: 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 6px; text-align: left; color: #4A443D">
+      <div style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; letter-spacing: 0.16em; color: #1A1A1A; padding-bottom: 2px">VISIT</div>
+      <div>[Shop address] · [City, PIN]</div>
+      <div>Open every day · 9 AM – 9 PM</div>
+    </div>
+    <div style="position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; font-weight: 600; padding-top: 4px">
+      <a href="MobileCatalog.dc.html">Bouquets</a><a href="MobileCatalog.dc.html">Flower Boxes</a><a href="MobileCatalog.dc.html">Bridal</a>
+    </div>
+    <div style="position: relative; width: 100%; height: 1px; background: #E1D3B4"></div>
+    <div style="position: relative; font-size: 12px; color: #625B52">© 2026 GLONIA Flowers &amp; Perfumes<br>Flower shade may change depending on availability</div>
+  </footer>
+
+  <!-- sticky order bar -->
+  <div style="position: sticky; bottom: 0; z-index: 20; background: #FFFFFF; border-top: 1px solid #E8DFCC; padding: 10px 12px 14px; display: flex; gap: 8px; margin-top: -84px">
+    <a href="tel:+916238823455" aria-label="Call GLONIA" style="flex: none; width: 52px; height: 52px; border: 1px solid #C9A85C; display: flex; align-items: center; justify-content: center">
+      <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="#1A1A1A"><path d="M3 2.5h3l1.2 3-1.7 1.1a8 8 0 0 0 3.9 3.9l1.1-1.7 3 1.2v3c0 .5-.4 1-1 1A12 12 0 0 1 2 3.5c0-.6.5-1 1-1z"></path></svg>
+    </a>
+    <a href="https://wa.me/916238823455" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; background: #1A1A1A; color: #FFFFFF; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; min-height: 52px">
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#D9BE84"><path d="M2.5 13.5l.9-2.6A6 6 0 1 1 5.6 13z"></path></svg>Order on WhatsApp
+    </a>
+  </div>
+
+  <!-- menu drawer -->
+  <sc-if value="{{menuOpen}}" hint-placeholder-val="{{false}}">
+    <div style="position: absolute; top: 0; left: 0; width: 390px; height: 844px; z-index: 50; display: flex">
+      <div style="width: 312px; height: 100%; background: #FFFFFF; position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 18px 24px; box-sizing: border-box; gap: 6px; box-shadow: 0 0 40px rgba(26,26,26,0.25)">
+        <img class="gl-sway-br" src="/images/floral-corner-br.jpg" alt="" aria-hidden="true" style="position: absolute; right: 0; bottom: 0; width: 220px; height: auto; mix-blend-mode: multiply; pointer-events: none">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 18px">
+          <img src="/images/logo.png" alt="GLONIA" style="height: 56px; width: auto; display: block">
+          <button type="button" onClick="{{closeMenu}}" aria-label="Close menu" style="width: 44px; height: 44px; border: 1px solid #E8DFCC; background: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#1A1A1A"><path d="M3 3l10 10M13 3L3 13"></path></svg>
+          </button>
+        </div>
+        <sc-for list="{{menu}}" as="l" hint-placeholder-count="6">
+          <a href="{{l.href}}" style="font-family: 'Bodoni Moda', serif; font-size: 26px; padding: 8px 0; border-bottom: 1px solid #F0E9DC; position: relative">{{l.name}}</a>
+        </sc-for>
+        <div style="padding-top: 18px; font-size: 13px; color: #625B52; position: relative">Gloniadesigns@gmail.com<br>+91 62388 23455</div>
+      </div>
+      <button type="button" onClick="{{closeMenu}}" aria-label="Close menu" style="flex: 1; border: none; background: rgba(26,26,26,0.45); cursor: pointer"></button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { box: 'bloom', menu: false, pos: 10, anim: true };
+    this.paused = false;
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { if (!this.paused) this.go(1); }, 3500);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    clearTimeout(this.t2);
+  }
+  go(d, abs) {
+    const n = 10;
+    const p = abs === undefined ? this.state.pos + d : abs;
+    clearTimeout(this.t2);
+    this.setState({ pos: p, anim: true });
+    if (p >= 2 * n || p < n) {
+      this.t2 = setTimeout(() => this.setState({ pos: n + (((p % n) + n) % n), anim: false }), 650);
+    }
+  }
+  renderVals() {
+    const S = '/images/';
+    const words = ['Korean Bouquets', 'Blooming Boxes', 'Red Roses', 'Bridal', 'Classic Boxes', 'Car Décor'];
+    const sets = {
+      korean: [
+        { name: 'White Rose Mini', price: '₹200', tag: 'KOREAN', img: S + 'products/white-rose-mini.jpg' },
+        { name: 'Sunshine Yellow Rose', price: '₹200', tag: 'KOREAN', img: S + 'products/sunshine-yellow-rose.jpg' },
+        { name: 'Twin White Roses', price: '₹250', tag: 'KOREAN', img: S + 'products/twin-white-roses.jpg' },
+        { name: 'Single Red Rose', price: '₹300', tag: 'KOREAN', img: S + 'products/single-red-rose.jpg' }
+      ],
+      classic: [
+        { name: 'White Hydrangea Box', price: '₹2,000 – ₹2,500', tag: 'S · M · L', img: S + 'products/white-hydrangea-box.jpg' },
+        { name: 'Red Rose Classic Box', price: '₹2,000 – ₹2,500', tag: 'S · M · L', img: S + 'products/red-rose-classic-box.jpg' },
+        { name: 'Yellow & White Rose Box', price: '₹2,000 – ₹2,500', tag: 'S · M · L', img: S + 'products/yellow-white-rose-box.jpg' },
+        { name: 'Pink Rose Classic Box', price: '₹2,000 – ₹2,500', tag: 'S · M · L', img: S + 'products/pink-rose-classic-box.jpg' }
+      ],
+      bloom: [
+        { name: 'Peach & White Blooming Box', price: '₹4,000 – ₹4,500', tag: 'S · M · L', img: S + 'products/peach-white-blooming-box.jpg' },
+        { name: 'Blush Rose Blooming Box', price: '₹4,000 – ₹4,500', tag: 'S · M · L', img: S + 'products/blush-rose-blooming-box.jpg' },
+        { name: 'Pastel Garden Blooming Box', price: '₹4,000 – ₹4,500', tag: 'S · M · L', img: S + 'products/pastel-garden-blooming-box.jpg' },
+        { name: 'White Garden Gold Box', price: '₹4,000 – ₹4,500', tag: 'S · M · L', img: S + 'products/white-garden-gold-box.jpg' }
+      ]
+    };
+    sets.red = [
+      { name: 'Single Red Rose', price: '₹300', tag: 'RED ROSE', img: S + 'products/single-red-rose.jpg' },
+      { name: 'Red Rose Classic Box', price: '₹2,000 – ₹2,500', tag: 'S · M · L', img: S + 'products/red-rose-classic-box.jpg' }
+    ];
+    const tabDefs = [['korean', 'Korean Bouquets'], ['premium', 'Premium Bouquets'], ['custom', 'Customized Bouquets'], ['choco', 'Chocolate Bouquets'], ['red', 'Red Roses'], ['classic', 'Classic Boxes'], ['bloom', 'Blooming Boxes'], ['bridal', 'Bridal'], ['car', 'Car Décor'], ['gifts', 'Gifts']];
+    const nT = tabDefs.length;
+    const pos = this.state.pos;
+    const active = ((pos % nT) + nT) % nT;
+    const tabTrack = tabDefs.concat(tabDefs, tabDefs).map((d, j) => ({ name: d[1], on: j === pos, off: j !== pos, pick: () => { this.paused = true; this.go(0, j); } }));
+    const curPicks = sets[tabDefs[active][0]] || [];
+    const tabName = tabDefs[active][1];
+    const hr = new Date().getHours();
+    const isOpen = hr >= 9 && hr < 21;
+    const tk = [
+      isOpen ? "We're open now — quick replies on WhatsApp" : "Closed for the night — order anytime, we'll reply first thing at 9 AM",
+      'Shop hours: 9 AM – 9 PM, every day',
+      "Ordering at night? We'll get back to you at the earliest in the morning",
+      'Same-day delivery before [cut-off time]',
+      'WhatsApp +91 62388 23455'
+    ];
+    return {
+      isOpen: isOpen, isClosed: !isOpen, ticker: tk.concat(tk),
+      menuOpen: this.state.menu,
+      openMenu: () => this.setState({ menu: true }),
+      closeMenu: () => this.setState({ menu: false }),
+      menu: [
+        { name: 'Home', href: 'MobileHome.dc.html' }, { name: 'Shop all', href: 'MobileCatalog.dc.html' },
+        { name: 'Korean Bouquets', href: 'MobileCatalog.dc.html' }, { name: 'Flower Boxes', href: 'MobileCatalog.dc.html' },
+        { name: 'Bridal & Car Décor', href: 'MobileCatalog.dc.html' }, { name: 'Perfumes', href: 'MobileCatalog.dc.html' }
+      ],
+      marquee: words.concat(words),
+      tiles: [
+        { name: 'Blooming Boxes', from: 'from ₹4,000', img: S + 'products/pastel-garden-blooming-box.jpg' },
+        { name: 'Korean Bouquets', from: 'from ₹200', img: S + 'products/sunshine-yellow-rose.jpg' },
+        { name: 'Classic Boxes', from: 'from ₹2,000', img: S + 'products/red-rose-classic-box.jpg' },
+        { name: 'Red Roses', from: 'from ₹300', img: S + 'products/single-red-rose.jpg' }
+      ],
+      more: ['Bridal', 'Car Décor', 'Premium Bouquets', 'Customized', 'Chocolate Bouquets', 'Gifts', 'Perfumes'],
+      tabTrack: tabTrack,
+      tabOffset: 'calc(' + (-(pos - 1)) + ' * 100% / 3)',
+      tabTrans: this.state.anim ? 'transform 0.6s ease' : 'none',
+      pause: () => { this.paused = true; },
+      picks: curPicks, noPicks: curPicks.length === 0, tabName: tabName,
+      boxImg: S + 'products/peach-white-blooming-box.jpg',
+      sizes: [{ name: 'Small', inch: '5.5 inch', d: '88px' }, { name: 'Medium', inch: '6.5 inch', d: '102px' }, { name: 'Large', inch: '7.5 inch', d: '116px' }],
+      work: [{ name: 'Bridal', ph: '[Bridal photo]' }, { name: 'Car Décor', ph: '[Car décor photo]' }, { name: 'Customized', ph: '[Custom photo]' }],
+      steps: [
+        { n: '1', t: 'Pick a design', d: 'Browse and tap the one you love.' },
+        { n: '2', t: 'Choose date & time', d: 'Pick your delivery date and time.' },
+        { n: '3', t: 'Send on WhatsApp', d: 'Your order is typed for you. Just hit send.' },
+        { n: '4', t: 'We deliver fresh, on time', d: 'Hand-made on the day of delivery.' }
+      ],
+      gallery: [S + 'products/single-red-rose.jpg', S + 'products/pastel-garden-blooming-box.jpg', S + 'products/white-hydrangea-box.jpg', S + 'products/white-rose-mini.jpg', S + 'products/white-garden-gold-box.jpg', S + 'products/yellow-white-rose-box.jpg']
+    };
+  }
+}
+</script>
+</body>
+</html>
