@@ -1,0 +1,38 @@
+.gl-product-size-guide { max-width: 1320px; margin: 0 auto; padding: 40px 16px 0; scroll-margin-top: 24px; }
+.gl-product-size-guide-content { position: relative; display: flex; padding: 30px 18px; flex-direction: column; gap: 14px; background: var(--gl-champagne); text-align: center; }
+.gl-product-size-guide-outline { position: absolute; inset: 8px; border: 1px solid var(--gl-gold-400); pointer-events: none; }
+.gl-product-size-guide-heading { position: relative; min-width: 0; }
+.gl-product-size-guide-heading h2 { margin: 0; color: var(--gl-gold-text); font-family: var(--font-great-vibes), cursive; font-size: 26px; font-weight: 400; line-height: 1; }
+.gl-product-size-guide-title, .gl-product-size-guide-copy { display: none; }
+.gl-product-size-guide-options { position: relative; display: grid; width: min(100%, 326px); margin: 0 auto; padding: 6px 0 0; grid-template-columns: 5.5fr 6.5fr 7.5fr; align-items: end; gap: 12px; list-style: none; }
+.gl-product-size-guide-options li { min-width: 0; }
+.gl-product-size-guide-option { display: flex; margin: 0; flex-direction: column; align-items: center; gap: 8px; }
+.gl-product-size-guide-frame { width: 100%; padding: 4px; border: 1px solid var(--gl-gold-400); border-radius: 50%; background: var(--gl-white); }
+.gl-product-size-guide-photo { position: relative; overflow: hidden; aspect-ratio: 1; border-radius: 50%; }
+.gl-product-size-guide-image { object-fit: cover; }
+.gl-product-size-guide-caption { display: flex; width: 100%; flex-direction: column; align-items: center; gap: 8px; }
+.gl-product-size-guide-measure { display: flex; width: 100%; align-items: center; gap: 3px; color: var(--gl-gold-text); font-size: 11px; font-weight: 700; white-space: nowrap; }
+.gl-product-size-guide-tick { width: 1px; height: 9px; flex: none; background: var(--gl-gold-500); }
+.gl-product-size-guide-line { height: 1px; flex: 1; background: var(--gl-gold-500); }
+.gl-product-size-guide-name { font-family: var(--font-bodoni), serif; font-size: 18px; line-height: 1; }
+
+@media (min-width: 861px) {
+  .gl-product-size-guide { padding: 40px 28px 0; }
+  .gl-product-size-guide-content { padding: clamp(36px, 5vw, 66px); flex-direction: row; flex-wrap: wrap; align-items: center; gap: 48px; text-align: left; }
+  .gl-product-size-guide-outline { inset: 14px; }
+  .gl-product-size-guide-heading { display: flex; flex: 1 1 320px; flex-direction: column; gap: 12px; }
+  .gl-product-size-guide-heading h2 { font-size: 34px; }
+  .gl-product-size-guide-title { display: block; margin: 0; font-family: var(--font-bodoni), serif; font-size: clamp(36px, 4.4vw, 54px); line-height: 1.04; }
+  .gl-product-size-guide-title span { font-style: italic; }
+  .gl-product-size-guide-copy { display: block; margin: 0; color: var(--gl-muted); }
+  .gl-product-size-guide-options { width: auto; min-width: 0; max-width: 592px; padding-top: 0; flex: 1.6 1 520px; gap: clamp(12px, 3vw, 36px); }
+  .gl-product-size-guide-option, .gl-product-size-guide-caption { gap: 14px; }
+  .gl-product-size-guide-frame { padding: 6px; }
+  .gl-product-size-guide-measure { gap: 6px; font-size: 14px; }
+  .gl-product-size-guide-tick { height: 12px; }
+  .gl-product-size-guide-name { font-size: 26px; }
+}
+
+@media (min-width: 1024px) {
+  .gl-product-size-guide { padding-top: 0; }
+}

@@ -1,0 +1,13 @@
+.gl-product-info { display: flex; min-width: 0; flex-direction: column; gap: 10px; }
+.gl-product-info-tabs { display: flex; gap: 20px; border-bottom: 1px solid var(--gl-line); }
+.gl-product-info-tabs button { min-height: 44px; margin-bottom: -1px; padding: 12px 0; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--gl-muted); font-family: var(--font-cinzel), serif; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+.gl-product-info-tabs button[aria-selected="true"] { border-bottom-color: var(--gl-gold-500); color: var(--gl-ink); }
+.gl-product-info-panel ul { display: flex; margin: 0; padding-left: 18px; flex-direction: column; gap: 4px; list-style: disc; color: var(--gl-muted); font-size: 14px; }
+.gl-product-info-panel:focus-visible { outline-offset: 4px; }
+
+@media (min-width: 861px) {
+  .gl-product-info { gap: 14px; padding-top: 6px; border-top: 1px solid var(--gl-line); }
+  .gl-product-info-tabs { gap: 26px; }
+  .gl-product-info-tabs button { padding-inline: 2px; font-size: 13px; letter-spacing: 0.12em; }
+  .gl-product-info-panel ul { padding-left: 20px; gap: 6px; font-size: 16px; }
+}

@@ -1,0 +1,117 @@
+.gl-work-section {
+  position: relative;
+  overflow: hidden;
+  padding-top: 60px;
+  scroll-margin-top: 24px;
+}
+
+.gl-work-floral { display: none; }
+
+.gl-work-content {
+  position: relative;
+  display: flex;
+  max-width: 1320px;
+  margin: 0 auto;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.gl-work-heading {
+  padding: 0 16px;
+  text-align: center;
+}
+
+.gl-work-accent {
+  margin: 0;
+  font-family: var(--font-great-vibes), cursive;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--gl-gold-text);
+}
+
+.gl-work-heading h2 {
+  margin: 4px 0 0;
+  font-family: var(--font-bodoni), serif;
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.08;
+}
+
+.gl-work-heading h2 span { font-style: italic; }
+.gl-work-intro { display: none; }
+
+.gl-work-gallery {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  margin: 0;
+  padding: 0 16px;
+  list-style: none;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 16px;
+  scrollbar-width: none;
+}
+
+.gl-work-gallery::-webkit-scrollbar { display: none; }
+.gl-work-gallery:focus-visible { outline-offset: -3px; }
+
+.gl-work-card {
+  width: 220px;
+  min-width: 0;
+  flex: none;
+  scroll-snap-align: start;
+}
+
+.gl-work-figure {
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.gl-work-frame {
+  padding: 6px;
+  border: 1px solid var(--gl-gold-400);
+  border-radius: 999px 999px 4px 4px;
+}
+
+.gl-work-photo {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px 999px 2px 2px;
+  background: var(--gl-champagne);
+}
+
+.gl-work-image { object-fit: cover; }
+.gl-work-placeholder { padding: 12px; color: var(--gl-muted); font-size: 13px; }
+
+.gl-work-caption h3 {
+  margin: 0;
+  font-family: var(--font-bodoni), serif;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.gl-work-description { display: none; }
+
+@media (min-width: 861px) {
+  .gl-work-section { margin-top: 110px; padding-top: 0; }
+  .gl-work-floral { display: block; width: clamp(140px, 22vw, 340px); opacity: 0.9; }
+  .gl-work-content { padding: 40px 28px 0; gap: 48px; }
+  .gl-work-heading { max-width: 680px; padding: 0; text-align: left; }
+  .gl-work-accent { font-size: 36px; }
+  .gl-work-heading h2 { margin-top: 6px; font-size: clamp(40px, 5vw, 66px); line-height: 1.05; }
+  .gl-work-intro { display: block; margin: 14px 0 0; color: var(--gl-muted); font-size: 17px; }
+  .gl-work-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; overflow: visible; padding: 0; scroll-snap-type: none; }
+  .gl-work-card { width: auto; }
+  .gl-work-figure { gap: 16px; }
+  .gl-work-frame { padding: 8px; }
+  .gl-work-placeholder { font-size: 14px; }
+  .gl-work-caption h3 { font-size: 28px; line-height: 1.1; }
+  .gl-work-description { display: block; margin: 8px 0 0; color: var(--gl-muted); font-size: 14px; }
+}

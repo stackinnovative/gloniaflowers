@@ -1,0 +1,179 @@
+.gl-picks-products {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  margin: 0 -16px;
+  padding: 4px 16px;
+  list-style: none;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 16px;
+  scrollbar-width: none;
+}
+
+.gl-picks-products::-webkit-scrollbar {
+  display: none;
+}
+
+.gl-picks-products-item {
+  width: 230px;
+  min-width: 0;
+  flex: none;
+  scroll-snap-align: start;
+}
+
+.gl-picks-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--gl-ink);
+  text-align: center;
+}
+
+.gl-picks-card:hover {
+  color: var(--gl-ink);
+}
+
+.gl-picks-card:focus-visible {
+  outline-offset: 2px;
+}
+
+.gl-picks-card-frame {
+  padding: 6px;
+  border: 1px solid var(--gl-line);
+  border-radius: 14px;
+  background: var(--gl-white);
+}
+
+.gl-picks-card-photo {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border-radius: 9px;
+  background: var(--gl-champagne);
+}
+
+.gl-picks-card-image {
+  object-fit: cover;
+}
+
+.gl-picks-card-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  max-width: calc(100% - 20px);
+  padding: 3px 8px;
+  border: 1px solid var(--gl-gold-400);
+  background: var(--gl-white);
+  font-family: var(--font-cinzel), serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.gl-picks-card-title {
+  margin: 0;
+  font-family: var(--font-bodoni), serif;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.gl-picks-card-price {
+  margin: -4px 0 0;
+  color: var(--gl-gold-text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.gl-picks-empty {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px dashed var(--gl-gold-400);
+  border-radius: 14px;
+  padding: 36px 18px;
+  background: #fbf8f2;
+  text-align: center;
+}
+
+.gl-picks-empty-accent {
+  margin: 0;
+  color: var(--gl-gold-text);
+  font-family: var(--font-great-vibes), cursive;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.gl-picks-empty-title {
+  margin: 0;
+  font-family: var(--font-bodoni), serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.gl-picks-empty-copy {
+  max-width: 440px;
+  margin: 0;
+  color: var(--gl-muted);
+  font-size: 14px;
+}
+
+.gl-picks-empty-copy-desktop {
+  display: none;
+}
+
+.gl-picks-empty-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  background: var(--gl-ink);
+  color: var(--gl-white);
+  font-family: var(--font-cinzel), serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.gl-picks-empty-link:hover {
+  color: var(--gl-gold-200);
+}
+
+@media (min-width: 861px) {
+  .gl-picks-products {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 26px;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    scroll-snap-type: none;
+  }
+
+  .gl-picks-products-item { width: auto; }
+  .gl-picks-card { gap: 14px; }
+  .gl-picks-card-frame { padding: 8px; border-radius: 16px; }
+  .gl-picks-card-photo { border-radius: 10px; }
+  .gl-picks-card-badge { top: 12px; left: 12px; max-width: calc(100% - 24px); padding: 4px 10px; font-size: 11px; letter-spacing: 0.12em; }
+  .gl-picks-card-title { font-size: 22px; }
+  .gl-picks-card-price { margin-top: -8px; font-size: 15px; }
+  .gl-picks-empty { gap: 12px; border-radius: 16px; padding: 56px 24px; }
+  .gl-picks-empty-accent { font-size: 34px; }
+  .gl-picks-empty-title { font-size: 32px; }
+  .gl-picks-empty-copy { font-size: 16px; }
+  .gl-picks-empty-copy-mobile { display: none; }
+  .gl-picks-empty-copy-desktop { display: inline; }
+  .gl-picks-empty-link { gap: 9px; padding: 15px 26px; font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gl-picks-card-image { transition: transform 0.7s ease; }
+  .gl-picks-card:hover .gl-picks-card-image { transform: scale(1.04); }
+}

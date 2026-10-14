@@ -1,0 +1,111 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+:root {
+  --gl-ink: #1a1a1a;
+  --gl-white: #ffffff;
+  --gl-gold-500: #b8913f;
+  --gl-gold-400: #c9a85c;
+  --gl-gold-300: #d9be84;
+  --gl-gold-200: #e6cf93;
+  --gl-gold-text: #8a6a26;
+  --gl-champagne: #f7f3ec;
+  --gl-champagne-2: #f6f0e6;
+  --gl-line: #e8dfcc;
+  --gl-muted: #625b52;
+  --gl-blush: #f7eee8;
+  --gl-blush-2: #f8ece7;
+  --gl-sage: #e8ece1;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    background: var(--gl-white);
+    color: var(--gl-ink);
+    font-family: var(--font-manrope), system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--gl-gold-text);
+  }
+  :focus-visible {
+    outline: 2px solid var(--gl-gold-text);
+    outline-offset: 3px;
+  }
+}
+
+/* ---------- Motion (copied from design-reference/home-desktop.html) ---------- */
+
+@keyframes gl-tick {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.gl-tick { animation: gl-tick 48s linear infinite; }
+.gl-tick:hover { animation-play-state: paused; }
+
+@keyframes gl-sway {
+  0%, 100% { rotate: 0deg; }
+  50% { rotate: 2deg; }
+}
+.gl-sway-tl { transform-origin: 0 0; animation: gl-sway 7s ease-in-out infinite; }
+.gl-sway-tr { transform-origin: 100% 0; animation: gl-sway 8s ease-in-out infinite; animation-delay: -2s; }
+.gl-sway-bl { transform-origin: 0 100%; animation: gl-sway 8.5s ease-in-out infinite; animation-delay: -5s; }
+.gl-sway-br { transform-origin: 100% 100%; animation: gl-sway 7.5s ease-in-out infinite; animation-delay: -3s; }
+
+@keyframes gl-tw {
+  0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(45deg); }
+}
+.gl-tw { animation: gl-tw 3.4s ease-in-out infinite; }
+
+@keyframes gl-shine {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.gl-shine {
+  background: linear-gradient(100deg, #7a5c1e 0%, #b8913f 30%, #e6cf93 48%, #b8913f 66%, #7a5c1e 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gl-shine 6s ease-in-out infinite alternate;
+}
+
+@keyframes gl-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(28deg); }
+}
+.gl-float { animation: gl-float 6s ease-in-out infinite; }
+
+.gl-zoom img { transition: transform 0.7s ease; }
+.gl-zoom:hover img { transform: scale(1.04); }
+
+.gl-row { scrollbar-width: none; }
+.gl-row::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .gl-tick,
+  .gl-sway-tl,
+  .gl-sway-tr,
+  .gl-sway-bl,
+  .gl-sway-br,
+  .gl-tw,
+  .gl-shine,
+  .gl-float {
+    animation: none;
+  }
+  .gl-tw { opacity: 0.8; }
+  .gl-zoom img { transition: none; }
+  .gl-zoom:hover img { transform: none; }
+}

@@ -1,0 +1,144 @@
+.gl-picks-section {
+  display: flex;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 60px 16px 0;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.gl-picks-heading { text-align: center; }
+.gl-picks-accent {
+  margin: 0;
+  font-family: var(--font-great-vibes), cursive;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--gl-gold-text);
+}
+.gl-picks-heading h2 {
+  margin: 4px 0 0;
+  font-family: var(--font-bodoni), serif;
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.08;
+}
+.gl-picks-heading h2 span { font-style: italic; }
+
+.gl-picks-navigation {
+  display: grid;
+  width: min(780px, 100%);
+  margin: 0 auto;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  grid-template-areas: "tabs tabs tabs" "previous playback next";
+  align-items: center;
+  gap: 8px 12px;
+}
+.gl-picks-arrow {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gl-gold-400);
+  border-radius: 50%;
+  background: var(--gl-white);
+  color: var(--gl-ink);
+  cursor: pointer;
+}
+.gl-picks-arrow:hover { background: var(--gl-champagne); }
+.gl-picks-previous { grid-area: previous; }
+.gl-picks-next { grid-area: next; }
+.gl-picks-playback {
+  grid-area: playback;
+  justify-self: center;
+  min-height: 44px;
+  padding: 4px 14px;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-cinzel), serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--gl-muted);
+  cursor: pointer;
+}
+.gl-picks-playback:disabled { cursor: default; }
+.gl-picks-viewport {
+  grid-area: tabs;
+  min-width: 0;
+  overflow: hidden;
+  border-bottom: 1px solid var(--gl-line);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.gl-picks-track {
+  display: flex;
+  width: 100%;
+  transform: translateX(-33.333333%);
+}
+.gl-picks-tab {
+  position: relative;
+  min-width: 0;
+  min-height: 58px;
+  flex: 0 0 33.333333%;
+  padding: 8px 4px 12px;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-cinzel), serif;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--gl-muted);
+  cursor: pointer;
+}
+.gl-picks-tab[aria-selected="true"] { font-size: 11px; color: var(--gl-ink); }
+.gl-picks-tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  right: 20%;
+  bottom: 0;
+  left: 20%;
+  height: 2px;
+  background: var(--gl-gold-500);
+}
+.gl-picks-tab:focus-visible { outline-offset: -3px; }
+.gl-picks-panel { min-width: 0; min-height: 368px; }
+.gl-picks-catalogue { display: flex; justify-content: center; }
+.gl-picks-catalogue a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gl-ink);
+  padding: 16px 24px;
+  font-family: var(--font-cinzel), serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 861px) {
+  .gl-picks-section { padding: 120px 28px 0; gap: 32px; }
+  .gl-picks-accent { font-size: 36px; }
+  .gl-picks-heading h2 { margin-top: 6px; font-size: clamp(40px, 5vw, 66px); line-height: 1.05; }
+  .gl-picks-navigation { grid-template-areas: "previous tabs next" ". playback ."; row-gap: 0; }
+  .gl-picks-tab { min-height: 58px; padding: 10px 6px 14px; font-size: 12px; letter-spacing: 0.08em; }
+  .gl-picks-tab[aria-selected="true"] { font-size: 13px; }
+  .gl-picks-panel { min-height: clamp(330px, calc(31.25vw + 28px), 441px); }
+  .gl-picks-catalogue a { padding-inline: 32px; font-size: 13px; }
+}
+
+@keyframes gl-picks-next {
+  from { transform: translateX(-33.333333%); }
+  to { transform: translateX(-66.666666%); }
+}
+@keyframes gl-picks-previous {
+  from { transform: translateX(-33.333333%); }
+  to { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .gl-picks-track[data-direction="next"] { animation: gl-picks-next 0.6s ease both; }
+  .gl-picks-track[data-direction="previous"] { animation: gl-picks-previous 0.6s ease both; }
+}
