@@ -1,11 +1,11 @@
 [
-  {"id":"korean","name":"Korean Bouquets","order":1,"image":"/images/products/sunshine-yellow-rose.jpg"},
+  {"id":"korean","name":"Korean Bouquets","order":1,"image":"https://cdn.sanity.io/images/2hemi78c/production/1e9df5719218a48ee342e53a54c512d4d461abd1-228x290.jpg?w=1200&fit=max&auto=format"},
   {"id":"premium","name":"Premium Bouquets","order":2,"image":null},
   {"id":"custom","name":"Customized Bouquets","order":3,"image":null},
   {"id":"choco","name":"Chocolate Bouquets","order":4,"image":null},
-  {"id":"red","name":"Red Roses","order":5,"image":"/images/products/single-red-rose.jpg"},
-  {"id":"classic","name":"Classic Boxes","order":6,"image":"/images/products/red-rose-classic-box.jpg"},
-  {"id":"bloom","name":"Blooming Boxes","order":7,"image":"/images/products/pastel-garden-blooming-box.jpg"},
+  {"id":"red","name":"Red Roses","order":5,"image":"https://cdn.sanity.io/images/2hemi78c/production/80505a6646333f598f5a676b8fbda3575521a43d-208x290.jpg?w=1200&fit=max&auto=format"},
+  {"id":"classic","name":"Classic Boxes","order":6,"image":"https://cdn.sanity.io/images/2hemi78c/production/93087989d925f88b8e74b79b96e15732db28ea73-222x200.jpg?w=1200&fit=max&auto=format"},
+  {"id":"bloom","name":"Blooming Boxes","order":7,"image":"https://cdn.sanity.io/images/2hemi78c/production/7a9779275db5aaff92b43dc63467661a06708fba-228x216.jpg?w=1200&fit=max&auto=format"},
   {"id":"bridal","name":"Bridal","order":8,"image":null},
   {"id":"car","name":"Car Décor","order":9,"image":null},
   {"id":"gifts","name":"Gifts","order":10,"image":null}
