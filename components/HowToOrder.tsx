@@ -23,7 +23,7 @@ const steps = [
 ];
 
 function OrderExample() {
-  const product = getProduct("blush-rose-blooming-box");
+  const product = getProduct(site.featured.orderExample);
   if (!product) return null;
 
   return (
@@ -56,7 +56,7 @@ function OrderExample() {
         />
         <p className="m-0 px-1 text-[14px]">
           <span className="sr-only">You: </span>
-          Hi! I&apos;d like the <strong>{product.name}</strong>, size Medium ({formatPrice(product.sizes?.M ?? product.price)}), for tomorrow.
+          Hi! I&apos;d like the <strong>{product.name}</strong>{product.sizes ? `, size Medium (${formatPrice(product.sizes.M)})` : ` (${formatPrice(product.price)})`}, for tomorrow.
         </p>
       </div>
       <p className="m-0 max-w-[80%] self-start rounded-[16px_16px_16px_4px] bg-white px-3 py-2.5 text-[14px]">

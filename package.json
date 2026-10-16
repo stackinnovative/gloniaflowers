@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
+    "sync": "node scripts/sync-sanity.mjs",
+    "prebuild": "node scripts/sync-sanity.mjs",
     "build": "next build",
     "postbuild": "node scripts/finalize-export.mjs",
     "start": "node scripts/serve.mjs",

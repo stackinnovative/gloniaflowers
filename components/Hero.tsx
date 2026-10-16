@@ -1,22 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getProduct, getProductsIn } from "@/lib/products";
+import { getProduct, getProductsIn, type Product } from "@/lib/products";
 import { site } from "@/lib/site";
 import { customOrderMessage, formatPrice, waLink } from "@/lib/whatsapp";
 import { FloralCorner } from "./FloralCorner";
 import { LeafIcon } from "./Icons";
 import { Sparkles } from "./Sparkles";
 
-const photos = [
-  { slug: "single-red-rose", alt: "Single red rose bouquet in black wrap", centerpiece: false },
-  { slug: "peach-white-blooming-box", alt: "Peach and white roses in a black blooming box", centerpiece: true },
-  { slug: "white-hydrangea-box", alt: "White hydrangea in a black box", centerpiece: false },
-];
-
 const cornerClass = "w-[120px] md:w-[clamp(170px,25vw,390px)]";
 
 export function Hero() {
-  const bouquetPrice = Math.min(...getProductsIn("korean").map((product) => product.price));
+  // Cheapest bouquet for the mobile price badge.
+  const bouquet = getProductsIn("korean").reduce<Product | null>((min, product) => (!min || product.price < min.price ? product : min), null);
 
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden bg-white">
@@ -60,24 +55,28 @@ export function Hero() {
       </div>
 
       <div className="relative z-[1] mx-auto grid max-w-[1080px] grid-cols-1 items-end gap-7 px-11 pb-16 md:grid-cols-3 md:px-7 md:pb-[110px]">
-        {photos.map((photo) => {
-          const product = getProduct(photo.slug);
+        {site.featured.hero.map((slug, index) => {
+          const product = getProduct(slug);
           if (!product) return null;
+          // The middle photo is the centrepiece and the only one shown on mobile.
+          const centerpiece = index === 1;
           return (
-            <div key={photo.slug} className={`${photo.centerpiece ? "" : "hidden md:block"} rounded-t-[999px] rounded-b-[4px] border border-gold-400 bg-white p-[7px] md:p-2`}>
-              <div className={`gl-zoom relative overflow-hidden rounded-t-[999px] rounded-b-[2px] ${photo.centerpiece ? "aspect-[4/5] md:aspect-[3/4.4]" : "aspect-[3/4]"}`}>
-                <Image src={product.image} alt={photo.alt} fill sizes="(min-width: 1080px) 305px, (min-width: 768px) 30vw, 75vw" className="object-cover" />
+            <div key={slug} className={`${centerpiece ? "" : "hidden md:block"} rounded-t-[999px] rounded-b-[4px] border border-gold-400 bg-white p-[7px] md:p-2`}>
+              <div className={`gl-zoom relative overflow-hidden rounded-t-[999px] rounded-b-[2px] ${centerpiece ? "aspect-[4/5] md:aspect-[3/4.4]" : "aspect-[3/4]"}`}>
+                <Image src={product.image} alt={product.name} fill sizes="(min-width: 1080px) 305px, (min-width: 768px) 30vw, 75vw" className="object-cover" />
               </div>
             </div>
           );
         })}
-        <div className="absolute bottom-11 left-5 flex items-center gap-2.5 border border-gold-400 bg-white px-3.5 py-2.5 md:hidden">
-          <Image src="/images/products/single-red-rose.jpg" alt="" width={40} height={40} className="size-10 object-cover" />
-          <div>
-            <p className="m-0 font-caps text-[10px] font-semibold uppercase tracking-[0.12em] text-muted">Bouquets</p>
-            <p className="m-0 font-display text-[17px] leading-[1.1]">from {formatPrice(bouquetPrice)}</p>
+        {bouquet && (
+          <div className="absolute bottom-11 left-5 flex items-center gap-2.5 border border-gold-400 bg-white px-3.5 py-2.5 md:hidden">
+            <Image src={bouquet.image} alt="" width={40} height={40} className="size-10 object-cover" />
+            <div>
+              <p className="m-0 font-caps text-[10px] font-semibold uppercase tracking-[0.12em] text-muted">Bouquets</p>
+              <p className="m-0 font-display text-[17px] leading-[1.1]">from {formatPrice(bouquet.price)}</p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

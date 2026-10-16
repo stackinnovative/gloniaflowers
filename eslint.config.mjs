@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     ".audit-tools/**",
     "audit-results/**",
+    // Sanity Studio is its own package with its own tooling.
+    "studio/**",
   ]),
 ]);
 

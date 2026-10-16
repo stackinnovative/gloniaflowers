@@ -1,0 +1,59 @@
+{
+  "tagline": "Flowers that say it for you",
+  "description": "Korean bouquets, flower boxes and bridal décor — hand-made in our studio and delivered fresh to your door. Order on WhatsApp.",
+  "phoneDisplay": "+91 62388 23455",
+  "whatsappNumber": "916238823455",
+  "email": "Gloniadesigns@gmail.com",
+  "hours": {
+    "open": 9,
+    "close": 21
+  },
+  "address": {
+    "street": "[Shop address]",
+    "city": "[City, PIN]"
+  },
+  "sameDayCutoff": "[cut-off time]",
+  "instagram": {
+    "handle": "[@instagram handle]",
+    "url": "https://instagram.com/"
+  },
+  "addOns": [
+    {
+      "id": "card",
+      "name": "Message card",
+      "price": 0
+    },
+    {
+      "id": "choc",
+      "name": "Chocolates",
+      "price": null
+    },
+    {
+      "id": "gift",
+      "name": "Gift add-on",
+      "price": null
+    }
+  ],
+  "featured": {
+    "hero": [
+      "single-red-rose",
+      "peach-white-blooming-box",
+      "white-hydrangea-box"
+    ],
+    "orderExample": "blush-rose-blooming-box",
+    "sizeReference": "peach-white-blooming-box",
+    "customOrder": [
+      "single-red-rose",
+      "blush-rose-blooming-box",
+      "sunshine-yellow-rose"
+    ],
+    "gallery": [
+      "single-red-rose",
+      "pastel-garden-blooming-box",
+      "white-hydrangea-box",
+      "white-rose-mini",
+      "white-garden-gold-box",
+      "yellow-white-rose-box"
+    ]
+  }
+}

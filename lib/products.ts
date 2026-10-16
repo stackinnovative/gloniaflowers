@@ -5,7 +5,8 @@ import { formatPrice } from "./whatsapp";
 export type SizeKey = "S" | "M" | "L";
 export type Sizes = Record<SizeKey, number>;
 
-export type Collection = { id: string; name: string; order: number };
+/** image: tile photo, or null until the client supplies one. */
+export type Collection = { id: string; name: string; order: number; image: string | null };
 
 export type Product = {
   slug: string;

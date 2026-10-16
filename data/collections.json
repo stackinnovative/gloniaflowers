@@ -1,12 +1,12 @@
 [
-  { "id": "korean",  "name": "Korean Bouquets",     "order": 1 },
-  { "id": "premium", "name": "Premium Bouquets",    "order": 2 },
-  { "id": "custom",  "name": "Customized Bouquets", "order": 3 },
-  { "id": "choco",   "name": "Chocolate Bouquets",  "order": 4 },
-  { "id": "red",     "name": "Red Roses",           "order": 5 },
-  { "id": "classic", "name": "Classic Boxes",       "order": 6 },
-  { "id": "bloom",   "name": "Blooming Boxes",      "order": 7 },
-  { "id": "bridal",  "name": "Bridal",              "order": 8 },
-  { "id": "car",     "name": "Car Décor",           "order": 9 },
-  { "id": "gifts",   "name": "Gifts",               "order": 10 }
+  {"id":"korean","name":"Korean Bouquets","order":1,"image":"/images/products/sunshine-yellow-rose.jpg"},
+  {"id":"premium","name":"Premium Bouquets","order":2,"image":null},
+  {"id":"custom","name":"Customized Bouquets","order":3,"image":null},
+  {"id":"choco","name":"Chocolate Bouquets","order":4,"image":null},
+  {"id":"red","name":"Red Roses","order":5,"image":"/images/products/single-red-rose.jpg"},
+  {"id":"classic","name":"Classic Boxes","order":6,"image":"/images/products/red-rose-classic-box.jpg"},
+  {"id":"bloom","name":"Blooming Boxes","order":7,"image":"/images/products/pastel-garden-blooming-box.jpg"},
+  {"id":"bridal","name":"Bridal","order":8,"image":null},
+  {"id":"car","name":"Car Décor","order":9,"image":null},
+  {"id":"gifts","name":"Gifts","order":10,"image":null}
 ]

@@ -1,4 +1,8 @@
-@import "tailwindcss";
+/* Scan only the app source; studio/ has its own node_modules. */
+@import "tailwindcss" source(none);
+@source "../app";
+@source "../components";
+@source "../lib";
 @config "../tailwind.config.ts";
 
 :root {

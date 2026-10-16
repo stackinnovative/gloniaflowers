@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getCollection, getCollections, getProductsIn } from "@/lib/products";
-import { collectionImages } from "@/lib/site";
 import { formatPrice, waLink } from "@/lib/whatsapp";
 import { LeafIcon } from "./Icons";
 import "./CollectionsBento.css";
@@ -11,7 +10,7 @@ type TileId = (typeof TILE_IDS)[number];
 
 function CollectionTile({ id }: { id: TileId }) {
   const collection = getCollection(id);
-  const image = collectionImages[id];
+  const image = collection?.image;
   if (!collection || !image) return null;
 
   const products = getProductsIn(id);

@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { collectionImages, workPhotoPlaceholders } from "@/lib/site";
+import { getCollection } from "@/lib/products";
+import { workPhotoPlaceholders } from "@/lib/site";
 import { FloralCorner } from "./FloralCorner";
 import "./OurWork.css";
 
@@ -33,7 +34,7 @@ export function OurWork() {
         </div>
         <ul className="gl-work-gallery" role="list" aria-label="Our floral work" tabIndex={0}>
           {work.map((item) => {
-            const image = collectionImages[item.id];
+            const image = getCollection(item.id)?.image;
             return (
               <li key={item.id} className="gl-work-card">
                 <figure className="gl-work-figure">

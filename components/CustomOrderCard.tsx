@@ -5,8 +5,6 @@ import { customOrderMessage, waLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./Icons";
 import "./CustomOrderCard.css";
 
-const photoSlugs = ["single-red-rose", "blush-rose-blooming-box", "sunshine-yellow-rose"];
-
 export function CustomOrderCard() {
   return (
     <a href={waLink(customOrderMessage)} target="_blank" rel="noopener noreferrer" className="gl-custom-order-card">
@@ -15,7 +13,7 @@ export function CustomOrderCard() {
       <span aria-hidden="true" className="gl-float gl-custom-order-petal gl-custom-order-petal-two" />
       <span aria-hidden="true" className="gl-float gl-custom-order-petal gl-custom-order-petal-three" />
       <div aria-hidden="true" className="gl-custom-order-photos">
-        {photoSlugs.map((slug, index) => {
+        {site.featured.customOrder.map((slug, index) => {
           const product = getProduct(slug);
           return product ? (
             <Image key={slug} src={product.image} alt="" width={80} height={80} className={`gl-custom-order-photo gl-custom-order-photo-${index + 1}`} />

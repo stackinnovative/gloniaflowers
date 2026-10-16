@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getProduct, SIZE_KEYS, SIZE_NAMES, type SizeKey } from "@/lib/products";
+import { site } from "@/lib/site";
 
 // Circle diameters from design-reference (mobile / desktop), scaled to the box size.
 const CIRCLES: Record<SizeKey, { className: string; sizes: string }> = {
@@ -11,7 +12,7 @@ const CIRCLES: Record<SizeKey, { className: string; sizes: string }> = {
 const INCHES: Record<SizeKey, string> = { S: "5.5 inch", M: "6.5 inch", L: "7.5 inch" };
 
 export function SizeReference() {
-  const product = getProduct("peach-white-blooming-box");
+  const product = getProduct(site.featured.sizeReference);
   if (!product) return null;
 
   return (

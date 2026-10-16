@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { catalogProducts, priceFilters, type CatalogSort, type PriceFilter } from "@/lib/catalog";
-import { getCollections } from "@/lib/products";
-import { collectionImages } from "@/lib/site";
+import { getCollections, type Collection } from "@/lib/products";
 import { waLink } from "@/lib/whatsapp";
 import { CustomOrderCard } from "./CustomOrderCard";
 import { FloralCorner } from "./FloralCorner";
@@ -14,7 +13,7 @@ import { LeafIcon, WhatsAppIcon } from "./Icons";
 import { ProductCard } from "./ProductCard";
 import "./Catalog.css";
 
-const collections = [{ id: "all", name: "All flowers", order: 0 }, ...getCollections()];
+const collections: Collection[] = [{ id: "all", name: "All flowers", order: 0, image: "/images/products/blush-rose-blooming-box.jpg" }, ...getCollections()];
 const titles: Record<string, [string, string]> = {
   all: ["All", "flowers"], korean: ["Korean", "bouquets"], premium: ["Premium", "bouquets"],
   custom: ["Customized", "bouquets"], choco: ["Chocolate", "bouquets"], red: ["Red", "roses"],
@@ -48,13 +47,19 @@ export function CatalogDecoration() {
   );
 }
 
+/** Collections added in the CMS: first word upright, the rest in italics. */
+function splitTitle(name: string): [string, string] {
+  const [first, ...rest] = name.split(" ");
+  return [first, rest.join(" ")];
+}
+
 type CatalogContentProps = { collectionId?: string; priceId?: string; sortId?: string };
 
 export function CatalogContent({ collectionId = "all", priceId = "any", sortId = "featured" }: CatalogContentProps) {
   const active = collections.find((collection) => collection.id === collectionId) ?? collections[0];
   const price: PriceFilter = priceFilters.find((filter) => filter.id === priceId)?.id ?? "any";
   const sort: CatalogSort = sortId === "low" || sortId === "high" ? sortId : "featured";
-  const [title, italicTitle] = titles[active.id];
+  const [title, italicTitle] = titles[active.id] ?? splitTitle(active.name);
   const products = catalogProducts(active.id, price, sort);
   const collectionIsEmpty = catalogProducts(active.id, "any", "featured").length === 0;
   const collectionRow = useRef<HTMLDivElement>(null);
@@ -88,7 +93,7 @@ export function CatalogContent({ collectionId = "all", priceId = "any", sortId =
         </div>
         <div ref={collectionRow} className="gl-catalog-collections gl-row" role="group" aria-label="Filter by collection">
           {collections.map((collection) => {
-            const image = collection.id === "all" ? "/images/products/blush-rose-blooming-box.jpg" : collectionImages[collection.id];
+            const { image } = collection;
             return (
               <button key={collection.id} type="button" className="gl-catalog-collection" aria-pressed={active.id === collection.id} aria-controls="catalog-results" onClick={() => updateFilter("c", collection.id)}>
                 <span className="gl-catalog-bubble">

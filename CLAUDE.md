@@ -12,7 +12,7 @@ This file is the source of truth. The approved design is in `design-reference/`.
 - Tailwind CSS (design tokens below go in `tailwind.config.ts` and CSS variables)
 - `next/font/google` for fonts, `next/image` for every image
 - Static site: `output: 'export'` in `next.config.ts` (set `images.unoptimized: true`)
-- Product data from `data/*.json`. No database, no CMS, no API routes
+- Product data from `data/*.json`, synced from **Sanity** at build time (`scripts/sync-sanity.mjs`, runs as `prebuild`). Studio lives in `studio/` (separate package, see `studio/README.md`). No database, no API routes, no runtime CMS fetches
 - Cart state: React context + `localStorage` (wrapped in try/catch)
 - Deploy target: Vercel (or any static host)
 - No extra UI libraries. No animation libraries — CSS keyframes only
@@ -35,7 +35,8 @@ lib/
   whatsapp.ts           build wa.me links + messages
   hours.ts              isOpenNow() for the top bar
   products.ts           typed loaders for data/*.json
-data/                   products.json, collections.json (already provided)
+data/                   products.json, collections.json, settings.json (written by the Sanity sync; committed as fallback)
+studio/                 Sanity Studio (schemas, seed script) — own package.json
 public/images/          all images (already provided)
 design-reference/       approved design markup (read-only, do not ship)
 ```
@@ -134,7 +135,7 @@ Cart checkout lists every line item. Format prices with `toLocaleString('en-IN')
 A product appears in its `collection` and every id in `alsoIn`.
 `data/collections.json` — `id, name, order`. Only korean, red, classic, bloom have products right now.
 
-## 8. Placeholders (put in `lib/site.ts`, mark with `// TODO client`)
+## 8. Placeholders (listed in `lib/site.ts` with `// TODO client`; values live in Sanity Site settings / `data/settings.json`)
 - Shop address and city
 - Same-day delivery cut-off time
 - Instagram handle
