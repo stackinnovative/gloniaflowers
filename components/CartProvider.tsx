@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useSyncExternalStore } from "react";
-import { addCartItem, cartOrderLines, normalizeCart, type CartItem, type CartSelection } from "@/lib/cart";
+import { addCartItem, cartOrderLines, normalizeCart, setCartItemQty, type CartItem, type CartSelection } from "@/lib/cart";
 import { isValidDeliveryDate, subscribeIndiaDate, todayInIndia } from "@/lib/delivery";
 import type { OrderLine } from "@/lib/whatsapp";
 
@@ -15,6 +15,8 @@ type CartContextValue = {
   hasUnpricedAddOns: boolean;
   hasExpiredDelivery: boolean;
   add: (item: CartSelection, quantity?: number) => void;
+  /** Change a line (by cartLineKey) to an exact quantity; 0 removes it. */
+  setQty: (key: string, qty: number) => void;
   clear: () => void;
 };
 
@@ -93,6 +95,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     add: (item, quantity = 1) => {
       const current = read();
       const next = addCartItem(current, item, quantity);
+      if (next !== current) write(next);
+    },
+    setQty: (key, qty) => {
+      const current = read();
+      const next = setCartItemQty(current, key, qty);
       if (next !== current) write(next);
     },
     clear: () => write(EMPTY),

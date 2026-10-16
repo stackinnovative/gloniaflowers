@@ -31,7 +31,7 @@ function updateFilter(key: "c" | "price" | "sort", value: string) {
   window.history.pushState(null, "", `${url.pathname}${url.search}`);
 }
 
-function CatalogDecoration() {
+export function CatalogDecoration() {
   return (
     <div className="gl-catalog-decoration" aria-hidden="true">
       <div className="gl-catalog-frame" />

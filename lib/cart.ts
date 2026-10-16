@@ -61,7 +61,8 @@ function readItem(value: unknown): CartItem | null {
   };
 }
 
-function lineKey(item: CartSelection): string {
+/** Identity of a cart line: same product, size, add-ons, delivery and card message. */
+export function cartLineKey(item: CartSelection): string {
   return JSON.stringify([item.slug, item.size, item.addOns, item.delivery?.date, item.delivery?.slot, item.cardMessage ?? ""]);
 }
 
@@ -90,7 +91,7 @@ export function normalizeCart(value: unknown): CartItem[] {
     const nextTotal = total + unitPrice(item) * item.qty;
     // Individually valid quantities must also produce reliable combined counts and amounts.
     if (!totalsAreSafe(nextCount, nextTotal)) continue;
-    const key = lineKey(item);
+    const key = cartLineKey(item);
     const existing = lines.get(key);
     const qty = (existing?.qty ?? 0) + item.qty;
     lines.set(key, { ...item, qty });
@@ -107,11 +108,22 @@ export function addCartItem(items: CartItem[], selection: CartSelection, quantit
   const count = items.reduce((sum, line) => sum + line.qty, quantity);
   const total = items.reduce((sum, line) => sum + unitPrice(line) * line.qty, unitPrice(item) * quantity);
   if (!totalsAreSafe(count, total)) return items;
-  const key = lineKey(item);
-  const existing = items.find((line) => lineKey(line) === key);
+  const key = cartLineKey(item);
+  const existing = items.find((line) => cartLineKey(line) === key);
   if (!existing) return [...items, item];
   if (!Number.isSafeInteger(existing.qty + quantity)) return items;
   return items.map((line) => (line === existing ? { ...line, qty: line.qty + quantity } : line));
+}
+
+/** Set one line's quantity; 0 removes it. Totals must stay safe, as with additions. */
+export function setCartItemQty(items: CartItem[], key: string, qty: number): CartItem[] {
+  if (!Number.isSafeInteger(qty) || qty < 0) return items;
+  const next = qty === 0
+    ? items.filter((line) => cartLineKey(line) !== key)
+    : items.map((line) => (cartLineKey(line) === key ? { ...line, qty } : line));
+  const count = next.reduce((sum, line) => sum + line.qty, 0);
+  const total = next.reduce((sum, line) => sum + unitPrice(line) * line.qty, 0);
+  return totalsAreSafe(count, total) ? next : items;
 }
 
 /** Names and amounts always come from the current catalogue, never persisted prices. */

@@ -37,14 +37,15 @@ function NavLink({ item, active }: { item: NavItem; active: boolean }) {
   );
 }
 
-function CartLink() {
+function CartLink({ active }: { active: boolean }) {
   const { count } = useCart();
   return (
     <Link
-      href={count > 0 ? "#cart" : "/catalog"}
+      href="/cart"
       prefetch={false}
       aria-label={`Cart, ${count} ${count === 1 ? "item" : "items"}`}
-      className="relative inline-flex size-11 items-center justify-center lg:border lg:border-line"
+      aria-current={active ? "page" : undefined}
+      className={`relative inline-flex size-11 items-center justify-center lg:border ${active ? "lg:border-gold-500" : "lg:border-line"}`}
     >
       <CartIcon size={20} stroke="#1A1A1A" />
       {count > 0 && (
@@ -76,7 +77,7 @@ export function Header() {
         <div className="flex justify-center">
           <Logo priority={pathname === "/"} className="h-[58px] w-auto" />
         </div>
-        <CartLink />
+        <CartLink active={pathname === "/cart"} />
       </div>
 
       {/* Desktop */}
@@ -93,7 +94,7 @@ export function Header() {
               <NavLink key={item.href} item={item} active={false} />
             ))}
           </nav>
-          <CartLink />
+          <CartLink active={pathname === "/cart"} />
           <a
             href={waLink()}
             target="_blank"
