@@ -49,7 +49,7 @@ export const site = {
   shortName: "GLONIA",
   tagline: settings.tagline,
   description: settings.description,
-  url: "https://glonia.example", // TODO client: live domain
+  url: "https://gloniaflowers.vercel.app", // TODO client: switch to the custom domain when there is one
 
   phoneDisplay: settings.phoneDisplay,
   phoneTel: `+${settings.whatsappNumber}`,

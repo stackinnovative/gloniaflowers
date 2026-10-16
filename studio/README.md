@@ -48,4 +48,4 @@ Products picked here can't be deleted while they're in use; Sanity asks you to s
 
 ## Still in code
 
-The site domain (`site.url` in `lib/site.ts`), delivery time slots, page wording, and the "Our work" placeholder labels shown until the Bridal / Car Décor / Customized collections get a photo.
+The site address (`site.url` in `lib/site.ts`, currently gloniaflowers.vercel.app), delivery time slots, page wording, and the "Our work" placeholder labels shown until the Bridal / Car Décor / Customized collections get a photo.
