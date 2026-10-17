@@ -3,6 +3,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import { waLink } from "@/lib/whatsapp";
 import { FloralCorner } from "./FloralCorner";
+import { FooterMap } from "./FooterMap";
 import { CartIcon, InstagramIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "./Icons";
 
 const cardClass =
@@ -87,6 +88,8 @@ export function Footer() {
           <Link href="/#work">Bridal &amp; Car Décor</Link>
         </div>
       </div>
+
+      <FooterMap />
 
       <div className="relative mx-auto mt-8 flex max-w-[1180px] flex-col gap-1 border-t border-[#E1D3B4] px-[18px] pb-[110px] pt-[22px] text-center text-[12px] text-muted sm:mt-[52px] sm:pb-7 sm:flex-row sm:flex-wrap sm:justify-between sm:gap-2.5 sm:px-7 sm:text-left sm:text-[13px]">
         <p className="m-0">

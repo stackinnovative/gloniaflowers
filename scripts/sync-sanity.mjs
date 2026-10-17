@@ -33,7 +33,7 @@ const query = `{
   },
   "settings": *[_id == "siteSettings"][0] {
     tagline, description, phoneDisplay, whatsappNumber, email,
-    hours { open, close }, address { street, city }, sameDayCutoff, instagram { handle, url },
+    hours { open, close }, address { street, city }, mapQuery, sameDayCutoff, instagram { handle, url },
     "addOns": addOns[] { "id": id.current, name, "price": coalesce(price, null) },
     "featured": {
       "hero": hero[]->slug.current,
@@ -104,6 +104,8 @@ function readSettings(raw) {
   const { open, close } = raw.hours ?? {};
   if (!(Number.isInteger(open) && Number.isInteger(close) && open >= 0 && close <= 24 && open < close)) problems.push(`${label}: invalid opening hours`);
   if (!isText(raw.address?.street) || !isText(raw.address?.city)) problems.push(`${label}: missing address`);
+  const mapQuery = typeof raw.mapQuery === "string" ? raw.mapQuery.trim() : "";
+  if (/^https?:/i.test(mapQuery)) problems.push(`${label}: Map location must be an address or coordinates, not a link`);
   if (!isText(raw.instagram?.handle) || !/^https:\/\//.test(raw.instagram?.url ?? "")) problems.push(`${label}: missing Instagram handle or link`);
   const addOns = (raw.addOns ?? []).map((a) => ({ id: a.id, name: a.name, price: a.price ?? null }));
   for (const a of addOns) {
@@ -132,6 +134,7 @@ function readSettings(raw) {
     email: raw.email,
     hours: { open, close },
     address: { street: raw.address?.street, city: raw.address?.city },
+    mapQuery,
     sameDayCutoff: raw.sameDayCutoff,
     instagram: { handle: raw.instagram?.handle, url: raw.instagram?.url },
     addOns,

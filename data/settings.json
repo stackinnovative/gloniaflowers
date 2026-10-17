@@ -9,9 +9,10 @@
     "close": 21
   },
   "address": {
-    "street": "[Shop address]",
-    "city": "[City, PIN]"
+    "street": "A1, SOE, Cresent Building, Paramal road, Malaparamba",
+    "city": "Calicut 673009"
   },
+  "mapQuery": "",
   "sameDayCutoff": "[cut-off time]",
   "instagram": {
     "handle": "[@instagram handle]",

@@ -24,6 +24,7 @@ type SeedSettings = {
   email: string;
   hours: { open: number; close: number };
   address: { street: string; city: string };
+  mapQuery: string;
   sameDayCutoff: string;
   instagram: { handle: string; url: string };
   addOns: { id: string; name: string; price: number | null }[];

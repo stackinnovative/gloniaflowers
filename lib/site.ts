@@ -3,7 +3,7 @@
 // (Site settings) and synced into data/settings.json at build time.
 //
 // TODO client — still placeholders in Site settings (or data/settings.json):
-// - Shop address and city
+// - Shop address and city, and the Map location for the footer map (hidden while empty)
 // - Same-day delivery cut-off time
 // - Instagram handle and link
 // - Add-on names and prices (empty price is shown as "Price to confirm")
@@ -23,6 +23,8 @@ type Settings = {
   /** Whole hours, 24-hour clock, shop time zone. */
   hours: { open: number; close: number };
   address: { street: string; city: string };
+  /** Google Maps search for the footer map: shop name + address, or "lat,long". Empty hides the map. */
+  mapQuery: string;
   sameDayCutoff: string;
   instagram: { handle: string; url: string };
   addOns: AddOn[];
@@ -64,6 +66,7 @@ export const site = {
   },
 
   address: { ...settings.address, country: "IN" },
+  mapQuery: settings.mapQuery.trim(),
   sameDayCutoff: settings.sameDayCutoff,
   instagram: settings.instagram,
   featured: settings.featured,

@@ -55,6 +55,17 @@ export const siteSettings = defineType({
       ],
     }),
     defineField({
+      name: "mapQuery",
+      title: "Map location",
+      type: "string",
+      group: "contact",
+      description:
+        "Shown as a map in the footer and used for “Get directions”. Type the shop name and full address as you would search it on Google Maps (e.g. “GLONIA Flowers, MG Road, Kochi 682016”), or coordinates like 9.9667,76.2420. Leave empty to hide the map.",
+      validation: (rule) =>
+        rule.max(200).custom((value: string | undefined) =>
+          value && /^https?:/i.test(value.trim()) ? "Paste the address or coordinates, not a link." : true),
+    }),
+    defineField({
       name: "instagram",
       title: "Instagram",
       type: "object",
