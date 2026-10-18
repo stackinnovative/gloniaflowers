@@ -25,8 +25,8 @@ export default function HomePage() {
       <SizeReference />
       <OurWork />
       <HowToOrder />
-      <GoogleReviews />
       <PerfumeTeaser />
+      <GoogleReviews />
       <Gallery />
     </>
   );
