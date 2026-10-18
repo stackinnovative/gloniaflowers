@@ -24,6 +24,9 @@ type Settings = {
   mapQuery: string;
   /** The shop's Google Maps listing name, used as the directions destination. */
   googleListing: string;
+  /** Google Place ID (ChIJ…) for the reviews section. */
+  googlePlaceId: string;
+  showReviews: boolean;
   sameDayCutoff: string;
   instagram: { handle: string; url: string };
   addOns: AddOn[];
@@ -74,6 +77,8 @@ export const site = {
   ],
   mapQuery: settings.mapQuery.trim(),
   googleListing: settings.googleListing.trim(),
+  googlePlaceId: settings.googlePlaceId,
+  showReviews: settings.showReviews,
   sameDayCutoff: settings.sameDayCutoff,
   instagram: settings.instagram,
   featured: settings.featured,

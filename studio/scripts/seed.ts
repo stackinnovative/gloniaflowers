@@ -26,6 +26,8 @@ type SeedSettings = {
   address: { street: string; city: string };
   mapQuery: string;
   googleListing: string;
+  googlePlaceId: string;
+  showReviews: boolean;
   sameDayCutoff: string;
   instagram: { handle: string; url: string };
   addOns: { id: string; name: string; price: number | null }[];

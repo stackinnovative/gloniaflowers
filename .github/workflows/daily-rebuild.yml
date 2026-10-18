@@ -1,0 +1,22 @@
+# Rebuild the site every morning so the Google reviews (fetched at build time) stay fresh.
+# Needs a repository secret VERCEL_DEPLOY_HOOK: Vercel → Project → Settings → Git → Deploy Hooks.
+name: Daily rebuild
+
+on:
+  schedule:
+    - cron: "30 0 * * *" # 06:00 India time
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::warning::VERCEL_DEPLOY_HOOK secret is not set; skipping."
+            exit 0
+          fi
+          curl --fail --silent --show-error -X POST "$HOOK"

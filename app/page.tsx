@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CollectionsBento } from "@/components/CollectionsBento";
 import { FavouritePicks } from "@/components/FavouritePicks";
 import { Gallery } from "@/components/Gallery";
+import { GoogleReviews } from "@/components/GoogleReviews";
 import { Hero } from "@/components/Hero";
 import { HowToOrder } from "@/components/HowToOrder";
 import { OurWork } from "@/components/OurWork";
@@ -24,6 +25,7 @@ export default function HomePage() {
       <SizeReference />
       <OurWork />
       <HowToOrder />
+      <GoogleReviews />
       <PerfumeTeaser />
       <Gallery />
     </>

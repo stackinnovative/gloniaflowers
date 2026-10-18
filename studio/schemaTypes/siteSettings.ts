@@ -21,7 +21,7 @@ export const siteSettings = defineType({
     { name: "contact", title: "Contact", default: true },
     { name: "shop", title: "Hours & delivery" },
     { name: "addOns", title: "Add-ons" },
-    { name: "featured", title: "Home page photos" },
+    { name: "featured", title: "Home page" },
   ],
   fields: [
     defineField({ name: "tagline", title: "Tagline", type: "string", group: "contact", validation: (rule) => rule.required().max(60) }),
@@ -72,6 +72,14 @@ export const siteSettings = defineType({
       group: "contact",
       description: "The shop's name and area exactly as on Google Maps, e.g. “Glonia flowers and perfumes, Malaparamba, Kozhikode”. Get directions opens this listing. Leave empty to use the Map location.",
       validation: (rule) => rule.max(120),
+    }),
+    defineField({
+      name: "googlePlaceId",
+      title: "Google Place ID",
+      type: "string",
+      group: "contact",
+      description: "Identifies the Google listing for the reviews section (starts with ChIJ). Find it at developers.google.com/maps/documentation/places/web-service/place-id.",
+      validation: (rule) => rule.regex(/^[A-Za-z0-9_-]{10,}$/, { name: "Place ID" }),
     }),
     defineField({
       name: "instagram",
@@ -129,6 +137,14 @@ export const siteSettings = defineType({
           const ids = (items ?? []).map((item) => item.id?.current);
           return new Set(ids).size === ids.length ? true : "Each add-on needs its own id.";
         }),
+    }),
+    defineField({
+      name: "showReviews",
+      title: "Show Google reviews",
+      type: "boolean",
+      group: "featured",
+      description: "Rating and the latest Google reviews on the home page, refreshed daily. Needs the Google Place ID.",
+      initialValue: true,
     }),
     productPicks("hero", "Hero photos", "Three arched photos at the top. The middle one is the large centrepiece and the only one shown on phones.", 3, 3),
     defineField({ name: "orderExample", title: "WhatsApp example product", type: "reference", to: [{ type: "product" }], group: "featured", description: "Shown in the How to order chat.", validation: (rule) => rule.required() }),

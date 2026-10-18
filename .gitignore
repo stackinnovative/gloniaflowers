@@ -36,6 +36,9 @@ yarn-error.log*
 .env*
 !.env.example
 
+# Google reviews are fetched fresh on every build (Places API terms)
+/data/reviews.json
+
 # vercel
 .vercel
 

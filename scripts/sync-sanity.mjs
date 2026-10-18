@@ -33,7 +33,7 @@ const query = `{
   },
   "settings": *[_id == "siteSettings"][0] {
     tagline, description, phoneDisplay, whatsappNumber, email,
-    hours { open, close }, address { street, city }, mapQuery, googleListing, sameDayCutoff, instagram { handle, url },
+    hours { open, close }, address { street, city }, mapQuery, googleListing, googlePlaceId, showReviews, sameDayCutoff, instagram { handle, url },
     "addOns": addOns[] { "id": id.current, name, "price": coalesce(price, null) },
     "featured": {
       "hero": hero[]->slug.current,
@@ -107,6 +107,8 @@ function readSettings(raw) {
   if (!(isTime(open) && isTime(close) && open < close)) problems.push(`${label}: opening hours must be HH:MM, closing after opening`);
   if (!isText(raw.address?.street) || !isText(raw.address?.city)) problems.push(`${label}: missing address`);
   const mapQuery = typeof raw.mapQuery === "string" ? raw.mapQuery.trim() : "";
+  const googlePlaceId = typeof raw.googlePlaceId === "string" ? raw.googlePlaceId.trim() : "";
+  if (googlePlaceId && !/^[A-Za-z0-9_-]{10,}$/.test(googlePlaceId)) problems.push(`${label}: Google Place ID looks wrong (it starts with ChIJ)`);
   if (/^https?:/i.test(mapQuery)) problems.push(`${label}: Map location must be an address or coordinates, not a link`);
   if (!isText(raw.instagram?.handle) || !/^https:\/\//.test(raw.instagram?.url ?? "")) problems.push(`${label}: missing Instagram handle or link`);
   const addOns = (raw.addOns ?? []).map((a) => ({ id: a.id, name: a.name, price: a.price ?? null }));
@@ -138,6 +140,8 @@ function readSettings(raw) {
     address: { street: raw.address?.street, city: raw.address?.city },
     mapQuery,
     googleListing: typeof raw.googleListing === "string" ? raw.googleListing.trim() : "",
+    googlePlaceId,
+    showReviews: raw.showReviews !== false,
     sameDayCutoff: raw.sameDayCutoff,
     instagram: { handle: raw.instagram?.handle, url: raw.instagram?.url },
     addOns,
