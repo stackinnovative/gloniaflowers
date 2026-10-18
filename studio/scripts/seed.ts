@@ -22,9 +22,10 @@ type SeedSettings = {
   phoneDisplay: string;
   whatsappNumber: string;
   email: string;
-  hours: { open: number; close: number };
+  hours: { open: string; close: string };
   address: { street: string; city: string };
   mapQuery: string;
+  googleListing: string;
   sameDayCutoff: string;
   instagram: { handle: string; url: string };
   addOns: { id: string; name: string; price: number | null }[];

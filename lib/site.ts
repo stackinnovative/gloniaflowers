@@ -7,7 +7,6 @@
 // - Same-day delivery cut-off time
 // - Instagram handle and link
 // - Add-on names and prices (empty price is shown as "Price to confirm")
-// - Confirm shop hours (9 AM – 9 PM is assumed)
 // - Collection photos for premium, custom, choco, bridal, car, gifts (Collections in the Studio)
 // - Higher-resolution product photos (current ones are crops from the catalogue)
 import settingsData from "@/data/settings.json";
@@ -20,11 +19,13 @@ type Settings = {
   phoneDisplay: string;
   whatsappNumber: string;
   email: string;
-  /** Whole hours, 24-hour clock, shop time zone. */
-  hours: { open: number; close: number };
+  /** "HH:MM", 24-hour clock, shop time zone. */
+  hours: { open: string; close: string };
   address: { street: string; city: string };
   /** Google Maps search for the footer map: shop name + address, or "lat,long". Empty hides the map. */
   mapQuery: string;
+  /** The shop's Google Maps listing name, used as the directions destination. */
+  googleListing: string;
   sameDayCutoff: string;
   instagram: { handle: string; url: string };
   addOns: AddOn[];
@@ -40,10 +41,11 @@ type Settings = {
 
 const settings: Settings = settingsData;
 
-/** 9 → "9 AM", 21 → "9 PM", 12 → "12 PM". */
-function formatHour(hour: number): string {
+/** "08:30" → "8:30 AM", "21:00" → "9 PM", "12:00" → "12 PM". */
+function formatTime(time: string): string {
+  const [hour, minute] = time.split(":").map(Number);
   const h = hour % 12 || 12;
-  return `${h} ${hour % 24 < 12 ? "AM" : "PM"}`;
+  return `${h}${minute ? `:${String(minute).padStart(2, "0")}` : ""} ${hour < 12 ? "AM" : "PM"}`;
 }
 
 export const site = {
@@ -61,12 +63,13 @@ export const site = {
   timeZone: "Asia/Kolkata",
   hours: {
     ...settings.hours,
-    label: `${formatHour(settings.hours.open)} – ${formatHour(settings.hours.close)}`,
-    opensAt: formatHour(settings.hours.open),
+    label: `${formatTime(settings.hours.open)} – ${formatTime(settings.hours.close)}`,
+    opensAt: formatTime(settings.hours.open),
   },
 
   address: { ...settings.address, country: "IN" },
   mapQuery: settings.mapQuery.trim(),
+  googleListing: settings.googleListing.trim(),
   sameDayCutoff: settings.sameDayCutoff,
   instagram: settings.instagram,
   featured: settings.featured,

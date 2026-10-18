@@ -43,8 +43,6 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#FFFFFF" };
 
-const pad = (h: number) => String(h).padStart(2, "0");
-
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Florist",
@@ -59,7 +57,7 @@ const jsonLd = {
     addressLocality: site.address.city,
     addressCountry: site.address.country,
   },
-  openingHours: `Mo-Su ${pad(site.hours.open)}:00-${pad(site.hours.close)}:00`,
+  openingHours: `Mo-Su ${site.hours.open}-${site.hours.close}`,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

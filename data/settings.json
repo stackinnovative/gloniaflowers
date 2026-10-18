@@ -5,14 +5,15 @@
   "whatsappNumber": "916238823455",
   "email": "Gloniadesigns@gmail.com",
   "hours": {
-    "open": 9,
-    "close": 21
+    "open": "08:30",
+    "close": "19:30"
   },
   "address": {
     "street": "A1, SOE, Cresent Building, Paramal road, Malaparamba",
     "city": "Calicut 673009"
   },
   "mapQuery": "11.289957,75.797104",
+  "googleListing": "Glonia flowers and perfumes, Malaparamba, Kozhikode",
   "sameDayCutoff": "[cut-off time]",
   "instagram": {
     "handle": "[@instagram handle]",

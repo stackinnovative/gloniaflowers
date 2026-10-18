@@ -1,12 +1,15 @@
 import { site } from "@/lib/site";
 import { DirectionsIcon } from "./Icons";
 
-/** Map preview that fills its footer card. The whole preview links to Google Maps directions. */
-export function FooterMap({ query }: { query: string }) {
+/**
+ * Map preview that fills its footer card. The pin uses `query` (coordinates keep Google's
+ * info box off the small map); directions go to `destination`, the shop's Google listing.
+ */
+export function FooterMap({ query, destination }: { query: string; destination: string }) {
   const encoded = encodeURIComponent(query);
   // Keyless embed; Maps' directions link opens the app on phones.
   const embedSrc = `https://maps.google.com/maps?q=${encoded}&z=15&output=embed`;
-  const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${encoded}`;
+  const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
 
   return (
     <div className="relative mt-1 min-h-[180px] flex-1 overflow-hidden border border-line bg-champagne">

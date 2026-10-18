@@ -33,7 +33,7 @@ const query = `{
   },
   "settings": *[_id == "siteSettings"][0] {
     tagline, description, phoneDisplay, whatsappNumber, email,
-    hours { open, close }, address { street, city }, mapQuery, sameDayCutoff, instagram { handle, url },
+    hours { open, close }, address { street, city }, mapQuery, googleListing, sameDayCutoff, instagram { handle, url },
     "addOns": addOns[] { "id": id.current, name, "price": coalesce(price, null) },
     "featured": {
       "hero": hero[]->slug.current,
@@ -102,7 +102,9 @@ function readSettings(raw) {
   }
   if (!/^[1-9]\d{9,14}$/.test(raw.whatsappNumber ?? "")) problems.push(`${label}: WhatsApp number must be digits with country code`);
   const { open, close } = raw.hours ?? {};
-  if (!(Number.isInteger(open) && Number.isInteger(close) && open >= 0 && close <= 24 && open < close)) problems.push(`${label}: invalid opening hours`);
+  // "HH:MM" strings compare correctly as text.
+  const isTime = (value) => typeof value === "string" && /^([01]\d|2[0-3]):[0-5]\d$/.test(value);
+  if (!(isTime(open) && isTime(close) && open < close)) problems.push(`${label}: opening hours must be HH:MM, closing after opening`);
   if (!isText(raw.address?.street) || !isText(raw.address?.city)) problems.push(`${label}: missing address`);
   const mapQuery = typeof raw.mapQuery === "string" ? raw.mapQuery.trim() : "";
   if (/^https?:/i.test(mapQuery)) problems.push(`${label}: Map location must be an address or coordinates, not a link`);
@@ -135,6 +137,7 @@ function readSettings(raw) {
     hours: { open, close },
     address: { street: raw.address?.street, city: raw.address?.city },
     mapQuery,
+    googleListing: typeof raw.googleListing === "string" ? raw.googleListing.trim() : "",
     sameDayCutoff: raw.sameDayCutoff,
     instagram: { handle: raw.instagram?.handle, url: raw.instagram?.url },
     addOns,

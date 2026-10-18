@@ -66,6 +66,14 @@ export const siteSettings = defineType({
           value && /^https?:/i.test(value.trim()) ? "Paste the address or coordinates, not a link." : true),
     }),
     defineField({
+      name: "googleListing",
+      title: "Google Maps listing name",
+      type: "string",
+      group: "contact",
+      description: "The shop's name and area exactly as on Google Maps, e.g. “Glonia flowers and perfumes, Malaparamba, Kozhikode”. Get directions opens this listing. Leave empty to use the Map location.",
+      validation: (rule) => rule.max(120),
+    }),
+    defineField({
       name: "instagram",
       title: "Instagram",
       type: "object",
@@ -80,15 +88,15 @@ export const siteSettings = defineType({
       title: "Opening hours (India time)",
       type: "object",
       group: "shop",
-      description: "Whole hours on a 24-hour clock, e.g. 9 and 21 for 9 AM – 9 PM. Drives the Open now / Closed now strip. Delivery time slots stay 9 AM – 9 PM.",
+      description: "24-hour clock, e.g. 08:30 and 19:30 for 8:30 AM – 7:30 PM. Keep in step with Google Maps. Drives the Open now / Closed now strip. Delivery time slots stay 9 AM – 9 PM.",
       options: { columns: 2 },
       fields: [
-        defineField({ name: "open", title: "Opens", type: "number", validation: (rule) => rule.required().integer().min(0).max(23) }),
-        defineField({ name: "close", title: "Closes", type: "number", validation: (rule) => rule.required().integer().min(1).max(24) }),
+        defineField({ name: "open", title: "Opens", type: "string", validation: (rule) => rule.required().regex(/^([01]\d|2[0-3]):[0-5]\d$/, { name: "HH:MM" }) }),
+        defineField({ name: "close", title: "Closes", type: "string", validation: (rule) => rule.required().regex(/^([01]\d|2[0-3]):[0-5]\d$/, { name: "HH:MM" }) }),
       ],
       validation: (rule) =>
-        rule.custom((hours: { open?: number; close?: number } | undefined) =>
-          hours?.open !== undefined && hours.close !== undefined && hours.open >= hours.close ? "Closing time must be after opening time." : true),
+        rule.custom((hours: { open?: string; close?: string } | undefined) =>
+          hours?.open && hours.close && hours.open >= hours.close ? "Closing time must be after opening time." : true),
     }),
     defineField({ name: "sameDayCutoff", title: "Same-day delivery cut-off", type: "string", group: "shop", description: "e.g. 2 PM", validation: (rule) => rule.required() }),
     defineField({

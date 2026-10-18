@@ -95,7 +95,7 @@ export function Footer() {
         {site.mapQuery && (
           <div className={cardClass}>
             <CardTitle icon={<DirectionsIcon size={16} stroke="#8A6A26" />}>FIND US</CardTitle>
-            <FooterMap query={site.mapQuery} />
+            <FooterMap query={site.mapQuery} destination={site.googleListing || site.mapQuery} />
           </div>
         )}
       </div>
