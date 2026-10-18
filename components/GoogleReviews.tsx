@@ -1,5 +1,26 @@
+import { Google_Sans } from "next/font/google";
 import Image from "next/image";
 import { googleReviews, writeReviewUrl, type Review } from "@/lib/reviews";
+
+// Only this section uses it, below the fold, so it isn't preloaded.
+const googleSans = Google_Sans({ subsets: ["latin"], weight: "500", display: "swap", preload: false });
+
+// Google's brand colours for the wordmark letters.
+const GOOGLE_LETTERS: [string, string][] = [
+  ["G", "#4285F4"], ["o", "#EA4335"], ["o", "#FBBC05"], ["g", "#4285F4"], ["l", "#34A853"], ["e", "#EA4335"],
+];
+
+function GoogleReviewsLabel() {
+  return (
+    <p className={`${googleSans.className} m-0 text-[26px] leading-none tracking-[-0.01em] lg:text-[32px]`}>
+      <span aria-hidden="true">
+        {GOOGLE_LETTERS.map(([letter, color], index) => <span key={index} style={{ color }}>{letter}</span>)}
+        <span className="text-muted"> reviews</span>
+      </span>
+      <span className="sr-only">Google reviews</span>
+    </p>
+  );
+}
 
 function Stars({ rating, size }: { rating: number; size: number }) {
   return (
@@ -56,7 +77,7 @@ export function GoogleReviews() {
   return (
     <section id="reviews" aria-labelledby="reviews-heading" className="bg-champagne py-[60px] lg:py-[110px]">
       <div className="mx-auto flex max-w-site flex-col items-center gap-3 px-5 text-center lg:gap-4 lg:px-7">
-        <p className="m-0 font-script text-[30px] leading-none text-gold-text lg:text-[36px]">Kind words</p>
+        <GoogleReviewsLabel />
         <h2 id="reviews-heading" className="m-0 font-display text-[34px] font-normal leading-[1.08] lg:text-[clamp(40px,5vw,66px)] lg:leading-[1.05]">
           Loved in <span className="italic">Kozhikode</span>
         </h2>
