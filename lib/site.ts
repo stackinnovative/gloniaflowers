@@ -3,9 +3,7 @@
 // (Site settings) and synced into data/settings.json at build time.
 //
 // TODO client — still placeholders in Site settings (or data/settings.json):
-// - Shop address and city, and the Map location for the footer map (hidden while empty)
 // - Same-day delivery cut-off time
-// - Instagram handle and link
 // - Add-on names and prices (empty price is shown as "Price to confirm")
 // - Collection photos for premium, custom, choco, bridal, car, gifts (Collections in the Studio)
 // - Higher-resolution product photos (current ones are crops from the catalogue)

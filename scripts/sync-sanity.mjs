@@ -45,9 +45,9 @@ const query = `{
   }
 }`;
 
-// The CDN host is cached; a token (private dataset) needs the live API host.
-const host = token ? "api.sanity.io" : "apicdn.sanity.io";
-const url = `https://${projectId}.${host}/v2025-02-19/data/query/${dataset}?query=${encodeURIComponent(query)}&perspective=published`;
+// Always the live API: the CDN (apicdn) can serve a stale copy for a while after a publish,
+// and a webhook-triggered build would then deploy old content. One request per build.
+const url = `https://${projectId}.api.sanity.io/v2025-02-19/data/query/${dataset}?query=${encodeURIComponent(query)}&perspective=published`;
 const response = await fetch(url, token ? { headers: { Authorization: `Bearer ${token}` } } : undefined);
 if (!response.ok) throw new Error(`Sanity: query failed (${response.status}) ${await response.text()}`);
 const { result } = await response.json();
