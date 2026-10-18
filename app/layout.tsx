@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     template: `%s · ${site.shortName}`,
   },
   description: site.description,
-  icons: { icon: "/images/logo.png" },
+  icons: { icon: "/images/logo-mark.png", apple: "/images/logo-mark.png" },
   openGraph: {
     type: "website",
     locale: "en_IN",
