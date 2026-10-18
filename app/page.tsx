@@ -9,8 +9,10 @@ import { PerfumeTeaser } from "@/components/PerfumeTeaser";
 import { SizeReference } from "@/components/SizeReference";
 
 export const metadata: Metadata = {
-  title: { absolute: "GLONIA Flowers & Perfumes — Korean bouquets & flower boxes" },
-  description: "Explore Korean bouquets, fresh flower boxes and wedding florals from GLONIA. Pick your flowers and order on WhatsApp.",
+  title: { absolute: "GLONIA — Florist in Kozhikode | Korean Bouquets & Flower Boxes" },
+  description:
+    "Florist in Malaparamba, Kozhikode (Calicut). Korean bouquets, flower boxes, bridal bouquets and wedding car décor, hand-made and delivered fresh across Kozhikode. Order on WhatsApp.",
+  alternates: { canonical: "/" },
 };
 
 export default function HomePage() {

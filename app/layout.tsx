@@ -4,7 +4,9 @@ import { CartProvider } from "@/components/CartProvider";
 import { CartBar } from "@/components/CartBar";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { JsonLd } from "@/components/JsonLd";
 import { TopBar } from "@/components/TopBar";
+import { floristJsonLd, websiteJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -27,13 +29,14 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — Korean bouquets & flower boxes`,
+    default: `${site.shortName} — Florist in Kozhikode | Korean Bouquets & Flower Boxes`,
     template: `%s · ${site.shortName}`,
   },
   description: site.description,
   icons: { icon: "/images/logo.png" },
   openGraph: {
     type: "website",
+    locale: "en_IN",
     siteName: site.name,
     title: site.name,
     description: site.description,
@@ -43,23 +46,6 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#FFFFFF" };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Florist",
-  name: site.name,
-  url: site.url,
-  image: `${site.url}/images/logo.png`,
-  telephone: site.phoneTel,
-  email: site.email,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: site.address.street,
-    addressLocality: site.address.city,
-    addressCountry: site.address.country,
-  },
-  openingHours: `Mo-Su ${site.hours.open}-${site.hours.close}`,
-};
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -67,10 +53,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${bodoni.variable} ${cinzel.variable} ${greatVibes.variable} ${manrope.variable} antialiased`}
     >
       <body className="font-sans">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
-        />
+        <JsonLd data={floristJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
         <a
           href="#main"
           className="sr-only z-50 bg-ink px-4 py-3 font-caps text-white focus:not-sr-only focus:fixed focus:left-3 focus:top-3"

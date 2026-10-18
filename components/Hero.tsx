@@ -34,6 +34,8 @@ export function Hero() {
       <div className="relative z-[1] mx-auto flex max-w-[980px] flex-col items-center gap-3.5 px-5 pb-9 pt-[60px] text-center md:gap-[22px] md:px-7 md:pb-[72px] md:pt-[100px]">
         <h1 id="hero-title" className="m-0">
           <Image src="/images/logo.png" alt={site.name} width={515} height={430} preload fetchPriority="high" className="h-auto w-[230px] md:w-[clamp(240px,26vw,360px)]" />
+          {/* The logo is the heading; this gives it a readable name with the location. */}
+          <span className="sr-only">, florist in Kozhikode</span>
         </h1>
         <div aria-hidden="true" className="flex items-center gap-2.5 text-gold-500 md:gap-3.5">
           <span className="h-px w-11 bg-gold-500 md:w-[70px]" />

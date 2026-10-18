@@ -67,7 +67,13 @@ export const site = {
     opensAt: formatTime(settings.hours.open),
   },
 
-  address: { ...settings.address, country: "IN" },
+  // Locality and region match the Google listing ("Malaparamba, Kozhikode, Keralam") for search.
+  address: { ...settings.address, locality: "Kozhikode", region: "Kerala", country: "IN" },
+  // TODO client: confirm delivery / service areas (used in search data and llms.txt).
+  areaServed: [
+    { type: "City", name: "Kozhikode" },
+    { type: "State", name: "Kerala" },
+  ],
   mapQuery: settings.mapQuery.trim(),
   googleListing: settings.googleListing.trim(),
   sameDayCutoff: settings.sameDayCutoff,
