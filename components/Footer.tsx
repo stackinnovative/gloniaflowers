@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 import { waLink } from "@/lib/whatsapp";
 import { FloralCorner } from "./FloralCorner";
 import { FooterMap } from "./FooterMap";
-import { CartIcon, InstagramIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "./Icons";
+import { CartIcon, DirectionsIcon, InstagramIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "./Icons";
 
 const cardClass =
   "flex min-w-0 flex-col gap-1.5 border border-line border-t-[3px] border-t-gold-400 bg-white p-[18px] text-left text-[15px] text-[#4A443D] [overflow-wrap:anywhere] sm:gap-2 sm:p-[26px]";
@@ -62,7 +62,12 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="relative mx-auto grid max-w-[1180px] grid-cols-1 gap-3 px-[18px] pt-8 sm:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] sm:gap-[18px] sm:px-7 sm:pt-[52px]">
+      <div
+        className={`relative mx-auto grid max-w-[1180px] grid-cols-1 gap-3 px-[18px] pt-8 sm:gap-[18px] sm:px-7 sm:pt-[52px] ${
+          // With the map: four in a row on wide screens, 2 × 2 on tablets.
+          site.mapQuery ? "sm:grid-cols-2 xl:grid-cols-4" : "sm:grid-cols-[repeat(auto-fit,minmax(250px,1fr))]"
+        }`}
+      >
         <div className={cardClass}>
           <CardTitle icon={<PhoneIcon size={17} stroke="#8A6A26" />}>CONTACT</CardTitle>
           <a href={waLink()} target="_blank" rel="noopener noreferrer">
@@ -87,9 +92,13 @@ export function Footer() {
           <Link href="/catalog?c=bloom">Blooming Boxes</Link>
           <Link href="/#work">Bridal &amp; Car Décor</Link>
         </div>
+        {site.mapQuery && (
+          <div className={cardClass}>
+            <CardTitle icon={<DirectionsIcon size={16} stroke="#8A6A26" />}>FIND US</CardTitle>
+            <FooterMap query={site.mapQuery} />
+          </div>
+        )}
       </div>
-
-      <FooterMap />
 
       <div className="relative mx-auto mt-8 flex max-w-[1180px] flex-col gap-1 border-t border-[#E1D3B4] px-[18px] pb-[110px] pt-[22px] text-center text-[12px] text-muted sm:mt-[52px] sm:pb-7 sm:flex-row sm:flex-wrap sm:justify-between sm:gap-2.5 sm:px-7 sm:text-left sm:text-[13px]">
         <p className="m-0">

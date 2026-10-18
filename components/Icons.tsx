@@ -52,6 +52,14 @@ export function PinIcon(props: IconProps) {
   );
 }
 
+export function DirectionsIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M14 2L2 7.2l5.2 1.6L8.8 14z" />
+    </Svg>
+  );
+}
+
 export function InstagramIcon(props: IconProps) {
   return (
     <Svg {...props}>
