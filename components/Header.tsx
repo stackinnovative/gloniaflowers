@@ -57,11 +57,13 @@ function CartLink({ active }: { active: boolean }) {
   );
 }
 
-function Logo({ className, priority }: { className: string; priority: boolean }) {
+/** On the home page the hero shows the full logo, so the header keeps an empty slot of the same size. */
+function Logo({ className, onHome }: { className: string; onHome: boolean }) {
+  if (onHome) return <span aria-hidden="true" className={`flex-none ${className}`} />;
   return (
     <Link href="/" prefetch={false} aria-label="GLONIA home" className="flex flex-none">
       {/* Just the G emblem; the full wordmark is in the hero and footer. */}
-      <Image src="/images/logo-mark.png" alt="GLONIA Flowers & Perfumes" width={225} height={225} loading="eager" fetchPriority={priority ? "high" : "low"} className={className} />
+      <Image src="/images/logo-mark.png" alt="GLONIA Flowers & Perfumes" width={225} height={225} loading="eager" className={className} />
     </Link>
   );
 }
@@ -76,7 +78,7 @@ export function Header() {
       <div className="grid grid-cols-[44px_1fr_44px] items-center px-3 py-2 lg:hidden">
         <MobileMenu />
         <div className="flex justify-center">
-          <Logo priority={pathname === "/"} className="size-12" />
+          <Logo onHome={pathname === "/"} className="size-12" />
         </div>
         <CartLink active={pathname === "/cart"} />
       </div>
@@ -88,7 +90,7 @@ export function Header() {
             <NavLink key={item.href} item={item} active={item.href === "/catalog" && shopActive} />
           ))}
         </nav>
-        <Logo priority={pathname === "/"} className="size-16" />
+        <Logo onHome={pathname === "/"} className="size-16" />
         <div className="flex flex-1 flex-wrap items-center justify-end gap-[22px]">
           <nav aria-label="More" className="flex gap-[22px]">
             {NAV_RIGHT.map((item) => (
