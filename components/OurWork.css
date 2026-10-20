@@ -107,11 +107,11 @@
   .gl-work-accent { font-size: 36px; }
   .gl-work-heading h2 { margin-top: 6px; font-size: clamp(40px, 5vw, 66px); line-height: 1.05; }
   .gl-work-intro { display: block; margin: 14px 0 0; color: var(--gl-muted); font-size: 17px; }
-  .gl-work-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; overflow: visible; padding: 0; scroll-snap-type: none; }
+  .gl-work-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 1.8vw, 26px); overflow: visible; padding: 0; scroll-snap-type: none; }
   .gl-work-card { width: auto; }
   .gl-work-figure { gap: 16px; }
   .gl-work-frame { padding: 8px; }
   .gl-work-placeholder { font-size: 14px; }
-  .gl-work-caption h3 { font-size: 28px; line-height: 1.1; }
+  .gl-work-caption h3 { font-size: clamp(22px, 2.1vw, 28px); line-height: 1.1; }
   .gl-work-description { display: block; margin: 8px 0 0; color: var(--gl-muted); font-size: 14px; }
 }

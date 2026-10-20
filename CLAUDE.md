@@ -78,7 +78,7 @@ design-reference/       approved design markup (read-only, do not ship)
 
 ## 4. Global pieces
 
-**TopBar (ticker)** — thin scrolling strip on every page. Shows shop hours **9 AM – 9 PM** and a live status: "Open now — we reply in minutes" or "Closed now — message us, we reply first thing in the morning". Uses `lib/hours.ts` with India time (Asia/Kolkata).
+**TopBar (ticker)** — thin scrolling strip on every page. Shows shop hours **8:30 AM – 7:30 PM** (from Site settings) and a live status: "Open now — we reply in minutes" or "Closed now — message us, we reply first thing in the morning". Uses `lib/hours.ts` with India time (Asia/Kolkata).
 
 **Header** — nav left (Shop now, Collections, etc. — see reference), **logo centred** (`/images/logo.png`), "Order on WhatsApp" button right, cart icon with count. Mobile: hamburger + logo + cart.
 
@@ -98,9 +98,9 @@ design-reference/       approved design markup (read-only, do not ship)
 
 ### Catalog (`catalog-desktop.html`, `catalog-mobile.html`)
 - Collection bubbles (filter), price filter chips, sort (featured / price low–high / high–low).
-- Product cards: image, name, price ("from ₹X" when sizes exist), **Add to cart** and **Buy now**.
-  - Buy now → opens WhatsApp with that one product.
-  - Add to cart → adds to cart, sticky **cart bar** appears at the bottom with count + total + "Checkout on WhatsApp".
+- Product cards: image, name, price, and the **S · M · L badge on the photo is the size selector** (when sizes exist; price follows the selected size, default S) and **Buy now**. No add-to-cart on cards.
+  - Buy now → product details page with the selected size (same as photo / name), so date, slot and add-ons are always chosen before WhatsApp.
+  - Photo / name → product details page with the selected size (`/product/<slug>?size=L`); items are added to the cart there, after choosing date, slot and add-ons. The sticky **cart bar** (count + total + "Checkout on WhatsApp") shows whenever the cart has items.
 - "Made just for you" custom-order card (light, not dark) → WhatsApp.
 - Start with an **empty** cart (the design shows one item only for preview).
 
@@ -109,7 +109,7 @@ design-reference/       approved design markup (read-only, do not ship)
 - Name, price (updates with size), short description, trust tiles.
 - **Size picker S / M / L** (only when `sizes` is not null) — shows inches 5.5 / 6.5 / 7.5.
 - **Add-ons** (checkboxes; prices are placeholders).
-- **Delivery date** (date input, no past dates) + **time slot** select: 9 AM–12 PM, 12–3 PM, 3–6 PM, 6–9 PM. No pincode field.
+- **Delivery date** (date input, no past dates) + **time slot** select: one-hour slots from 9–10 AM to 7–8 PM (11 slots). No pincode field.
 - Buttons: Add to cart, Order on WhatsApp.
 - Info tabs (Details, Care, Delivery), size guide circles, related products (same collection).
 
@@ -120,14 +120,22 @@ Number: **916238823455**. Link: `https://wa.me/916238823455?text=<encodeURICompo
 Message format (plain text, keep it short):
 ```
 Hi GLONIA, I'd like to order:
-• Blush Rose Blooming Box — Size M — ₹4,300
-  Add-ons: Greeting card
-Delivery: 14 Oct 2026, 3–6 PM
-Total: ₹4,300
-Name:
-Address:
+* Peach & White Blooming Box
+* Size M — ₹4,300
+* Add-ons: Nil
+* Chocolates: Nil
+* Message card: xyzzx
+
+Delivery Date: 19 Oct 2026
+Delivery Time: 5–6 PM
+
+Customization (optional):
+
+Receiver Name:
+Receiver Number:
+Delivery Location (map link/ address):
 ```
-Cart checkout lists every line item. Format prices with `toLocaleString('en-IN')`.
+Cart checkout repeats the item block (with its own delivery date/time) for every line item and adds a `Total:` line before Customization. Fields the site doesn't know are left blank for the customer to fill. Format prices with `toLocaleString('en-IN')`.
 
 ## 7. Data model
 
@@ -141,7 +149,6 @@ A product appears in its `collection` and every id in `alsoIn`.
 - Instagram handle
 - Add-on names and prices
 - Photos for: premium, custom, choco, bridal, car, gifts collections
-- Confirm shop hours (9 AM – 9 PM is assumed)
 - Higher-resolution product photos (current ones are crops from the catalogue)
 
 Known real details: email **Gloniadesigns@gmail.com**, phone **+91 62388 23455**.

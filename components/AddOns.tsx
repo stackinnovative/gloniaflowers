@@ -32,9 +32,12 @@ export function AddOns({ value, onChange }: AddOnsProps) {
                 <path className="gl-detail-addons-check" d="M3 8.5l3 3 7-7" />
               </svg>
               <span>{addOn.name}</span>
-              <span className="gl-detail-addons-price">
-                {addOn.price === null ? "Price to confirm" : addOn.price === 0 ? "Free" : formatPrice(addOn.price)}
-              </span>
+              {/* No price line for ₹0 add-ons (e.g. the message card). */}
+              {addOn.price !== 0 && (
+                <span className="gl-detail-addons-price">
+                  {addOn.price === null ? "Price to confirm" : formatPrice(addOn.price)}
+                </span>
+              )}
             </span>
           </label>
         ))}

@@ -20,11 +20,18 @@
   --gl-blush: #f7eee8;
   --gl-blush-2: #f8ece7;
   --gl-sage: #e8ece1;
+  /* Height of the sticky header (mobile / from lg); anchors and sticky panels sit below it. */
+  --gl-header-h: 65px;
+}
+
+@media (min-width: 1024px) {
+  :root { --gl-header-h: 93px; }
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: var(--gl-header-h);
   }
   body {
     margin: 0;

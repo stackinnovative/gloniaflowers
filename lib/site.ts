@@ -86,12 +86,17 @@ export const site = {
 
 export const addOns: AddOn[] = settings.addOns;
 
-export const deliverySlots = ["9 AM–12 PM", "12–3 PM", "3–6 PM", "6–9 PM"] as const;
+// One-hour delivery slots, 9 AM – 8 PM.
+export const deliverySlots = [
+  "9–10 AM", "10–11 AM", "11 AM–12 PM", "12–1 PM", "1–2 PM", "2–3 PM",
+  "3–4 PM", "4–5 PM", "5–6 PM", "6–7 PM", "7–8 PM",
+] as const;
 export type DeliverySlot = (typeof deliverySlots)[number];
 
 // Shown in the Our work cards until the collection has a photo.
 export const workPhotoPlaceholders: Record<string, string> = {
   bridal: "[Bridal photo]",
   car: "[Car décor photo]",
+  boutonnieres: "[Boutonniere photo]",
   custom: "[Custom bouquet photo]",
 };

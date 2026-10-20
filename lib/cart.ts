@@ -138,7 +138,7 @@ export function cartOrderLines(items: CartItem[]): OrderLine[] {
       size: item.size,
       qty: item.qty,
       unitPrice: unitPrice(item),
-      addOns: selectedAddOns.map((addOn) => hasConfirmedPrice(addOn) ? addOn.name : `${addOn.name} (price to confirm)`),
+      addOns: selectedAddOns.map((addOn) => ({ id: addOn.id, name: addOn.name, priced: hasConfirmedPrice(addOn) })),
       ...(hasUnpricedAddOns ? { hasUnpricedAddOns: true } : {}),
       ...(item.delivery ? { delivery: item.delivery } : {}),
       ...(item.cardMessage ? { cardMessage: item.cardMessage } : {}),

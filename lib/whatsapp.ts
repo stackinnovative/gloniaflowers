@@ -7,11 +7,17 @@ export type OrderLine = {
   qty: number;
   /** Price of one item including add-ons with confirmed prices. */
   unitPrice: number;
-  addOns: string[];
+  addOns: OrderAddOn[];
   hasUnpricedAddOns?: boolean;
   delivery?: Delivery;
   cardMessage?: string;
 };
+
+export type OrderAddOn = { id: string; name: string; priced: boolean };
+
+// Add-ons that get their own line in the order message.
+const CHOCOLATES_ID = "choc";
+const CARD_ID = "card";
 
 export type Delivery = { date: string; slot: DeliverySlot };
 
@@ -38,26 +44,44 @@ export function formatDeliveryDate(isoDate: string): string {
   });
 }
 
-function formatLine(line: OrderLine, fallbackDelivery?: Delivery): string {
-  const parts = [line.qty > 1 ? `${line.name} × ${line.qty}` : line.name];
-  if (line.size) parts.push(`Size ${line.size}`);
-  parts.push(formatPrice(line.unitPrice * line.qty));
-  const out = [`• ${parts.join(" — ")}`];
-  if (line.addOns.length) out.push(`  Add-ons: ${line.addOns.join(", ")}`);
-  const delivery = line.delivery ?? fallbackDelivery;
-  if (delivery) out.push(`  Delivery: ${formatDeliveryDate(delivery.date)}, ${delivery.slot}`);
-  if (line.cardMessage) out.push(`  Card message: ${line.cardMessage.replace(/\r?\n/g, "\n  ")}`);
-  return out.join("\n");
+/** "Chocolates" or "Chocolates (price to confirm)" */
+export function addOnLabel(addOn: OrderAddOn): string {
+  return addOn.priced ? addOn.name : `${addOn.name} (price to confirm)`;
 }
 
-export function buildOrderMessage(lines: OrderLine[], delivery?: Delivery): string {
-  const total = lines.reduce((sum, l) => sum + l.unitPrice * l.qty, 0);
-  const hasLineDelivery = lines.some((line) => line.delivery !== undefined);
-  const out = ["Hi GLONIA, I'd like to order:", ...lines.map((line) => formatLine(line, hasLineDelivery ? delivery : undefined))];
-  if (delivery?.date && !hasLineDelivery) out.push(`Delivery: ${formatDeliveryDate(delivery.date)}, ${delivery.slot}`);
-  const unpricedNote = lines.some((line) => line.hasUnpricedAddOns) ? " + add-ons to confirm" : "";
-  out.push(`Total: ${formatPrice(total)}${unpricedNote}`, "Name:", "Address:");
-  return out.join("\n");
+const UNPRICED_NOTE = " + add-ons to confirm";
+
+function formatLine(line: OrderLine, showUnpricedNote: boolean): string {
+  const price = `${formatPrice(line.unitPrice * line.qty)}${showUnpricedNote && line.hasUnpricedAddOns ? UNPRICED_NOTE : ""}`;
+  const chocolates = line.addOns.find((addOn) => addOn.id === CHOCOLATES_ID);
+  const hasCard = line.addOns.some((addOn) => addOn.id === CARD_ID);
+  const others = line.addOns.filter((addOn) => addOn.id !== CHOCOLATES_ID && addOn.id !== CARD_ID);
+  const card = line.cardMessage ? line.cardMessage.replace(/\r?\n/g, "\n  ") : hasCard ? "Yes" : "Nil";
+  return [
+    `* ${line.qty > 1 ? `${line.name} × ${line.qty}` : line.name}`,
+    line.size ? `* Size ${line.size} — ${price}` : `* Price: ${price}`,
+    `* Add-ons: ${others.length ? others.map(addOnLabel).join(", ") : "Nil"}`,
+    `* Chocolates: ${chocolates ? (chocolates.priced ? "Yes" : "Yes (price to confirm)") : "Nil"}`,
+    `* Message card: ${card}`,
+    "",
+    `Delivery Date: ${line.delivery ? formatDeliveryDate(line.delivery.date) : ""}`,
+    `Delivery Time: ${line.delivery?.slot ?? ""}`,
+  ].join("\n");
+}
+
+export function buildOrderMessage(lines: OrderLine[]): string {
+  const single = lines.length === 1;
+  const out = [`Hi GLONIA, I'd like to order:\n${lines.map((line) => formatLine(line, single)).join("\n\n")}`];
+  if (!single) {
+    const total = lines.reduce((sum, l) => sum + l.unitPrice * l.qty, 0);
+    const unpricedNote = lines.some((line) => line.hasUnpricedAddOns) ? UNPRICED_NOTE : "";
+    out.push(`Total: ${formatPrice(total)}${unpricedNote}`);
+  }
+  out.push(
+    "Customization (optional): ",
+    ["Receiver Name: ", "Receiver Number: ", "Delivery Location (map link/ address): "].join("\n"),
+  );
+  return out.join("\n\n");
 }
 
 export const perfumeNotifyMessage = "Hi GLONIA, please let me know when your perfumes launch.";

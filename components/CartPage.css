@@ -80,7 +80,7 @@
   .gl-cartp-meta { font-size: 14px; }
   .gl-cartp-controls { grid-column: 3; flex-direction: column; flex-wrap: nowrap; align-items: flex-end; justify-content: space-between; gap: 12px; }
   .gl-cartp-line-total { order: -1; margin: 0; font-size: 26px; }
-  .gl-cartp-summary { position: sticky; top: 24px; gap: 18px; padding: 36px 30px 28px; }
+  .gl-cartp-summary { position: sticky; top: calc(var(--gl-header-h) + 24px); gap: 18px; padding: 36px 30px 28px; }
   .gl-cartp-summary::before { inset: 12px; }
   .gl-cartp-summary h2 { font-size: 30px; }
   .gl-cartp-empty { gap: 14px; padding: 76px 32px; }

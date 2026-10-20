@@ -104,7 +104,6 @@ export function Footer() {
         <p className="m-0">
           © {new Date().getFullYear()} {site.name}
         </p>
-        <p className="m-0">Flower shade may change depending on availability</p>
       </div>
     </footer>
   );

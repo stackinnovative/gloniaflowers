@@ -1,0 +1,46 @@
+.gl-shop-fab {
+  position: fixed;
+  z-index: 30;
+  right: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 18px;
+  border: 1px solid var(--gl-gold-400);
+  border-radius: 14px;
+  outline: 1px solid var(--gl-ink);
+  background: var(--gl-ink);
+  box-shadow: 0 12px 30px rgb(26 26 26 / 25%), inset 0 0 12px 1px rgb(201 168 92 / 45%);
+  animation: gl-shop-glow 2.8s ease-in-out infinite;
+  color: var(--gl-white);
+  font-family: var(--font-cinzel), serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.gl-shop-fab:hover { color: var(--gl-gold-200); box-shadow: 0 12px 30px rgb(26 26 26 / 25%), inset 0 0 20px 4px rgb(201 168 92 / 70%); animation: none; }
+
+@keyframes gl-shop-glow {
+  0%, 100% { box-shadow: 0 12px 30px rgb(26 26 26 / 25%), inset 0 0 8px 0 rgb(201 168 92 / 35%); }
+  50% { box-shadow: 0 12px 30px rgb(26 26 26 / 25%), inset 0 0 18px 3px rgb(201 168 92 / 65%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gl-shop-fab { animation: none; }
+}
+.gl-shop-fab:focus-visible { outline: 2px solid var(--gl-gold-200); outline-offset: 2px; }
+.gl-shop-fab svg { flex: none; }
+
+/* Mobile cart bar is full width at the bottom (~77px + safe area). */
+.gl-shop-fab--lifted { bottom: calc(92px + env(safe-area-inset-bottom, 0px)); }
+
+@media (min-width: 768px) {
+  .gl-shop-fab { right: 24px; bottom: 24px; }
+  /* Desktop cart bar floats 16px up and is ~74px tall. */
+  .gl-shop-fab--lifted { bottom: 106px; }
+}

@@ -56,7 +56,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative z-[1] mx-auto grid max-w-[1080px] grid-cols-1 items-end gap-7 px-11 pb-16 md:grid-cols-3 md:px-7 md:pb-[110px]">
+      <div className="relative z-[1] mx-auto grid max-w-[1080px] grid-cols-1 items-end gap-7 px-11 pb-8 md:grid-cols-3 md:px-7 md:pb-7">
         {site.featured.hero.map((slug, index) => {
           const product = getProduct(slug);
           if (!product) return null;
@@ -71,7 +71,7 @@ export function Hero() {
           );
         })}
         {bouquet && (
-          <div className="absolute bottom-11 left-5 flex items-center gap-2.5 border border-gold-400 bg-white px-3.5 py-2.5 md:hidden">
+          <div className="absolute bottom-3 left-5 flex items-center gap-2.5 border border-gold-400 bg-white px-3.5 py-2.5 md:hidden">
             <Image src={bouquet.image} alt="" width={40} height={40} className="size-10 object-cover" />
             <div>
               <p className="m-0 font-caps text-[10px] font-semibold uppercase tracking-[0.12em] text-muted">Bouquets</p>
@@ -80,6 +80,9 @@ export function Hero() {
           </div>
         )}
       </div>
+      <p className="relative z-[1] mx-auto mb-0 mt-0 max-w-[16rem] px-6 pb-16 text-center text-[13px] italic text-gold-text md:max-w-none md:pb-[96px] md:text-[15px]">
+        We use fresh flowers in all our floral arrangements
+      </p>
     </section>
   );
 }

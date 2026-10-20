@@ -16,6 +16,11 @@ const work = [
     description: "Fresh flowers for the wedding car",
   },
   {
+    id: "boutonnieres",
+    name: "Boutonnieres",
+    description: "For the groom and groomsmen",
+  },
+  {
     id: "custom",
     name: "Customized",
     description: "Your colours, your flowers",
@@ -30,7 +35,7 @@ export function OurWork() {
         <div className="gl-work-heading">
           <p className="gl-work-accent">Our work</p>
           <h2 id="our-work-heading">Made for your <span>big moments</span></h2>
-          <p className="gl-work-intro">Bridal bouquets, wedding car décor and custom pieces.</p>
+          <p className="gl-work-intro">Bridal bouquets, boutonnieres, wedding car décor and custom pieces.</p>
         </div>
         <ul className="gl-work-gallery" role="list" aria-label="Our floral work" tabIndex={0}>
           {work.map((item) => {

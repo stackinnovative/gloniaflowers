@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useSyncExternalStore, type FormEvent } from "react";
+import { Suspense, useState, useSyncExternalStore, type FormEvent } from "react";
 import { cartOrderLines, type CartSelection } from "@/lib/cart";
 import { isValidDeliveryDate, subscribeIndiaDate, todayInIndia } from "@/lib/delivery";
 import { getCollection, SIZE_NAMES, type Product, type SizeKey } from "@/lib/products";
@@ -13,6 +13,7 @@ import { DeliveryPicker } from "./DeliveryPicker";
 import { CartIcon, LeafIcon, WhatsAppIcon } from "./Icons";
 import { InfoTabs } from "./InfoTabs";
 import { ProductPhoto } from "./ProductPhoto";
+import { SizeFromUrl } from "./SizeFromUrl";
 import { SizePicker } from "./SizePicker";
 import "./ProductDetails.css";
 
@@ -68,6 +69,7 @@ export function ProductDetails({ product }: { product: Product }) {
         <Link href={`/catalog?c=${product.collection}`}>{collection?.name ?? "Shop"}</Link><span aria-hidden="true"> / </span>
         <span aria-current="page">{product.name}</span>
       </nav>
+      {product.sizes && <Suspense fallback={null}><SizeFromUrl onSize={setSize} /></Suspense>}
       <section className="gl-detail-main" aria-labelledby="product-heading">
         <ProductPhoto product={product} size={product.sizes ? size : null} />
         <div className="gl-detail-panel">

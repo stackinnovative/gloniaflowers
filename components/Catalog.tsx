@@ -88,7 +88,7 @@ export function CatalogContent({ collectionId = "all", priceId = "any", sortId =
             </nav>
             <p className="gl-catalog-accent">Catalogue 2026</p>
             <h1 id="catalog-heading">{title} <em>{italicTitle}</em></h1>
-            <p className="gl-catalog-shade">Flower shade may change depending on availability</p>
+            <p className="gl-catalog-shade">We use fresh flowers in all our floral arrangements</p>
           </div>
         </div>
         <div ref={collectionRow} className="gl-catalog-collections gl-row" role="group" aria-label="Filter by collection">

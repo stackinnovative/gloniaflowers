@@ -5,6 +5,7 @@ import { CartBar } from "@/components/CartBar";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
+import { ShopButton } from "@/components/ShopButton";
 import { TopBar } from "@/components/TopBar";
 import { floristJsonLd, websiteJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Header />
           <main id="main">{children}</main>
           <Footer />
+          <ShopButton />
           <CartBar />
         </CartProvider>
       </body>

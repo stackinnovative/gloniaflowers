@@ -40,8 +40,8 @@ A private dataset also works. Create a *Viewer* token under *API → Tokens* and
 One document, at the bottom of the Studio menu:
 
 - **Contact:** tagline, shop description, WhatsApp number (every order goes here), phone, email, address, Instagram.
-- **Hours & delivery:** opening hours, which drive the "Open now / Closed now" strip, and the same-day cut-off. The four delivery time slots stay fixed at 9 AM – 9 PM in code.
-- **Add-ons:** name, id and price. Leave the price empty for "Price to confirm"; 0 shows "Free". Don't change an add-on's id after launch, because carts already saved in customers' browsers use it.
+- **Hours & delivery:** opening hours, which drive the "Open now / Closed now" strip, and the same-day cut-off. The delivery time slots (one hour each, 9 AM – 8 PM) are fixed in code.
+- **Add-ons:** name, id and price. Leave the price empty for "Price to confirm"; 0 shows no price. Don't change an add-on's id after launch, because carts already saved in customers' browsers use it.
 - **Home page photos:** the three hero arches (the middle one is the centrepiece), the WhatsApp example, the size-reference box, the custom-order card photos and the gallery.
 
 Products picked here can't be deleted while they're in use; Sanity asks you to swap them out first. Collection tile photos are on each **Collection**.

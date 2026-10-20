@@ -6,7 +6,7 @@ import { useSyncExternalStore } from "react";
 import { cartLineKey, cartOrderLines, type CartItem } from "@/lib/cart";
 import { getCollection, getProduct, SIZE_INCHES, SIZE_NAMES } from "@/lib/products";
 import { site } from "@/lib/site";
-import { formatDeliveryDate, formatPrice, waLink } from "@/lib/whatsapp";
+import { addOnLabel, formatDeliveryDate, formatPrice, waLink } from "@/lib/whatsapp";
 import { CartCheckout } from "./CartCheckout";
 import { useCart } from "./CartProvider";
 import { CatalogDecoration } from "./Catalog";
@@ -33,7 +33,7 @@ function CartLine({ item }: { item: CartItem }) {
         <h3 className="gl-cartp-name"><Link href={href} prefetch={false}>{product.name}</Link></h3>
         <dl className="gl-cartp-meta">
           {item.size && <div><dt>Size</dt><dd>{SIZE_NAMES[item.size]} ({item.size}) · {SIZE_INCHES[item.size]}</dd></div>}
-          {line.addOns.length > 0 && <div><dt>Add-ons</dt><dd>{line.addOns.join(", ")}</dd></div>}
+          {line.addOns.length > 0 && <div><dt>Add-ons</dt><dd>{line.addOns.map(addOnLabel).join(", ")}</dd></div>}
           {item.delivery && <div><dt>Delivery</dt><dd>{formatDeliveryDate(item.delivery.date)}, {item.delivery.slot}</dd></div>}
           {item.cardMessage && <div><dt>Card</dt><dd className="gl-cartp-card">“{item.cardMessage}”</dd></div>}
         </dl>
@@ -78,7 +78,7 @@ function Summary() {
       <dl className="gl-cartp-rows">
         <div><dt>Items</dt><dd>{count}</dd></div>
         {hasUnpricedAddOns && <div><dt>Add-ons</dt><dd>Price to confirm</dd></div>}
-        <div><dt>Delivery</dt><dd>Confirmed on WhatsApp</dd></div>
+        <div><dt>Delivery</dt><dd>Confirm on WhatsApp</dd></div>
         <div className="gl-cartp-total" role="status" aria-live="polite" aria-atomic="true">
           <dt>Total</dt><dd>{formatPrice(total)}{hasUnpricedAddOns ? " +" : ""}</dd>
         </div>

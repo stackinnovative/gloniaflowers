@@ -1,5 +1,5 @@
 import { getCollections, getProductsIn, priceLabel } from "@/lib/products";
-import { site } from "@/lib/site";
+import { deliverySlots, site } from "@/lib/site";
 
 export const dynamic = "force-static";
 
@@ -33,7 +33,7 @@ export function GET() {
 ## How to order
 
 1. Pick flowers at ${site.url}/catalog. Flower boxes come in Small (5.5"), Medium (6.5") and Large (7.5").
-2. Choose a delivery date and time slot (9 AM–12 PM, 12–3 PM, 3–6 PM or 6–9 PM).
+2. Choose a delivery date and a one-hour time slot between 9 AM and 8 PM (${deliverySlots.join(", ")}).
 3. Send the order on WhatsApp (https://wa.me/${site.whatsappNumber}); the shop confirms availability and delivery.
 4. Custom bouquets for any colour, budget or date can be requested on WhatsApp.
 
@@ -43,7 +43,7 @@ ${collections}
 
 ## Also available
 
-- Bridal bouquets and wedding car décor (enquire on WhatsApp)
+- Bridal bouquets, boutonnieres and wedding car décor (enquire on WhatsApp)
 - Perfumes: coming soon
 `;
 

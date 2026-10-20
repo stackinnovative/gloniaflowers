@@ -96,7 +96,7 @@ export const siteSettings = defineType({
       title: "Opening hours (India time)",
       type: "object",
       group: "shop",
-      description: "24-hour clock, e.g. 08:30 and 19:30 for 8:30 AM – 7:30 PM. Keep in step with Google Maps. Drives the Open now / Closed now strip. Delivery time slots stay 9 AM – 9 PM.",
+      description: "24-hour clock, e.g. 08:30 and 19:30 for 8:30 AM – 7:30 PM. Keep in step with Google Maps. Drives the Open now / Closed now strip. Delivery time slots (one hour each, 9 AM – 8 PM) are set in code.",
       options: { columns: 2 },
       fields: [
         defineField({ name: "open", title: "Opens", type: "string", validation: (rule) => rule.required().regex(/^([01]\d|2[0-3]):[0-5]\d$/, { name: "HH:MM" }) }),
@@ -112,7 +112,7 @@ export const siteSettings = defineType({
       title: "Add-ons",
       type: "array",
       group: "addOns",
-      description: "Extras on the product page. Leave the price empty to show “Price to confirm”; 0 shows “Free”.",
+      description: "Extras on the product page. Leave the price empty to show “Price to confirm”; 0 shows no price.",
       of: [
         defineArrayMember({
           type: "object",
@@ -129,7 +129,7 @@ export const siteSettings = defineType({
             }),
             defineField({ name: "price", title: "Price (₹)", type: "number", validation: (rule) => rule.integer().min(0) }),
           ],
-          preview: { select: { title: "name", price: "price" }, prepare: ({ title, price }) => ({ title, subtitle: price === undefined ? "Price to confirm" : price === 0 ? "Free" : `₹${price}` }) },
+          preview: { select: { title: "name", price: "price" }, prepare: ({ title, price }) => ({ title, subtitle: price === undefined ? "Price to confirm" : price === 0 ? "No charge" : `₹${price}` }) },
         }),
       ],
       validation: (rule) =>

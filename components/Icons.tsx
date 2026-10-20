@@ -85,6 +85,14 @@ export function CloseIcon(props: IconProps) {
   );
 }
 
+export function GridIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M2.5 2.5h4.5v4.5H2.5zM9 2.5h4.5v4.5H9zM2.5 9h4.5v4.5H2.5zM9 9h4.5v4.5H9z" />
+    </Svg>
+  );
+}
+
 export function MoonIcon(props: IconProps) {
   return (
     <Svg {...props}>

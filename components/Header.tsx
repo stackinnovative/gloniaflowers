@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { waLink } from "@/lib/whatsapp";
 import { useCart } from "./CartProvider";
 import { CartIcon, WhatsAppIcon } from "./Icons";
@@ -22,7 +23,7 @@ const NAV_RIGHT: NavItem[] = [
 ];
 
 const navLinkClass =
-  "py-1 font-caps text-[13px] font-semibold uppercase tracking-[0.14em] border-b border-transparent";
+  "py-1 font-caps text-[13px] font-semibold uppercase tracking-[0.12em] border-b border-transparent xl:text-[14px] xl:tracking-[0.14em]";
 
 function NavLink({ item, active }: { item: NavItem; active: boolean }) {
   return (
@@ -57,11 +58,40 @@ function CartLink({ active }: { active: boolean }) {
   );
 }
 
-/** On the home page the hero shows the full logo, so the header keeps an empty slot of the same size. */
-function Logo({ className, onHome }: { className: string; onHome: boolean }) {
-  if (onHome) return <span aria-hidden="true" className={`flex-none ${className}`} />;
+/** True once the hero's logo has scrolled up under the sticky header (home page only). */
+function useHeroLogoScrolledPast(active: boolean): boolean {
+  const [past, setPast] = useState(false);
+  useEffect(() => {
+    const hero = active ? document.getElementById("hero-title") : null;
+    if (!hero) return;
+    const headerHeight = Math.round(document.querySelector("header")?.getBoundingClientRect().height ?? 0);
+    const observer = new IntersectionObserver(
+      ([entry]) => setPast(!entry.isIntersecting && entry.boundingClientRect.top < headerHeight),
+      { rootMargin: `-${headerHeight}px 0px 0px 0px` },
+    );
+    observer.observe(hero);
+    return () => {
+      observer.disconnect();
+      setPast(false);
+    };
+  }, [active]);
+  return past;
+}
+
+/**
+ * On the home page the hero shows the full logo, so the header emblem stays hidden (keeping its
+ * space) until the hero logo scrolls out of view, then fades in.
+ */
+function Logo({ className, hidden }: { className: string; hidden: boolean }) {
   return (
-    <Link href="/" prefetch={false} aria-label="GLONIA home" className="flex flex-none">
+    <Link
+      href="/"
+      prefetch={false}
+      aria-label="GLONIA home"
+      aria-hidden={hidden || undefined}
+      tabIndex={hidden ? -1 : undefined}
+      className={`flex flex-none transition-opacity duration-300 motion-reduce:transition-none ${hidden ? "pointer-events-none opacity-0" : "opacity-100"}`}
+    >
       {/* Just the G emblem; the full wordmark is in the hero and footer. */}
       <Image src="/images/logo-mark.png" alt="GLONIA Flowers & Perfumes" width={225} height={225} loading="eager" className={className} />
     </Link>
@@ -71,28 +101,32 @@ function Logo({ className, onHome }: { className: string; onHome: boolean }) {
 export function Header() {
   const pathname = usePathname();
   const shopActive = pathname.startsWith("/catalog") || pathname.startsWith("/product");
+  const onHome = pathname === "/";
+  const heroLogoScrolledPast = useHeroLogoScrolledPast(onHome);
+  const logoHidden = onHome && !heroLogoScrolledPast;
 
   return (
-    <header className="border-b border-line bg-white">
+    <header className="sticky top-0 z-40 border-b border-line bg-white">
       {/* Mobile / tablet */}
       <div className="grid grid-cols-[44px_1fr_44px] items-center px-3 py-2 lg:hidden">
         <MobileMenu />
         <div className="flex justify-center">
-          <Logo onHome={pathname === "/"} className="size-12" />
+          <Logo hidden={logoHidden} className="size-12" />
         </div>
         <CartLink active={pathname === "/cart"} />
       </div>
 
       {/* Desktop */}
-      <div className="mx-auto hidden max-w-site items-center justify-between gap-[18px] px-7 py-3.5 lg:flex">
-        <nav aria-label="Main" className="flex flex-1 flex-wrap gap-[26px]">
+      {/* Wider than the page content so the nav sits close to the screen edges. */}
+      <div className="mx-auto hidden max-w-[1600px] items-center justify-between gap-4 px-5 py-3.5 lg:flex xl:px-6">
+        <nav aria-label="Main" className="flex flex-1 flex-wrap gap-[18px] xl:gap-[26px]">
           {NAV_LEFT.map((item) => (
             <NavLink key={item.href} item={item} active={item.href === "/catalog" && shopActive} />
           ))}
         </nav>
-        <Logo onHome={pathname === "/"} className="size-16" />
-        <div className="flex flex-1 flex-wrap items-center justify-end gap-[22px]">
-          <nav aria-label="More" className="flex gap-[22px]">
+        <Logo hidden={logoHidden} className="size-16" />
+        <div className="flex flex-1 flex-wrap items-center justify-end gap-4 xl:gap-[22px]">
+          <nav aria-label="More" className="flex gap-4 xl:gap-[22px]">
             {NAV_RIGHT.map((item) => (
               <NavLink key={item.href} item={item} active={false} />
             ))}
@@ -102,10 +136,12 @@ export function Header() {
             href={waLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center gap-2.5 bg-ink px-5 py-[13px] font-caps text-[13px] font-semibold uppercase tracking-[0.1em] text-white hover:text-gold-200"
+            aria-label="Order on WhatsApp"
+            className="inline-flex min-h-11 items-center gap-2.5 whitespace-nowrap bg-ink px-4 py-[13px] font-caps text-[13px] font-semibold uppercase tracking-[0.1em] text-white hover:text-gold-200 xl:px-5 xl:text-[14px]"
           >
             <WhatsAppIcon size={16} stroke="#D9BE84" />
-            Order on WhatsApp
+            {/* Shorter label on small laptops so the nav stays on one line. */}
+            <span><span className="hidden xl:inline">Order on </span>WhatsApp</span>
           </a>
         </div>
       </div>
