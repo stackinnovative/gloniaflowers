@@ -126,16 +126,15 @@ Hi GLONIA, I'd like to order:
 * Chocolates: Nil
 * Message card: xyzzx
 
+Customization (optional):
 Delivery Date: 19 Oct 2026
 Delivery Time: 5–6 PM
-
-Customization (optional):
 
 Receiver Name:
 Receiver Number:
 Delivery Location (map link/ address):
 ```
-Cart checkout repeats the item block (with its own delivery date/time) for every line item and adds a `Total:` line before Customization. Fields the site doesn't know are left blank for the customer to fill. Format prices with `toLocaleString('en-IN')`.
+Cart checkout repeats the item block (with its own customization and delivery date/time) for every line item and adds a `Total:` line before the receiver details. Fields the site doesn't know are left blank for the customer to fill. Format prices with `toLocaleString('en-IN')`.
 
 ## 7. Data model
 

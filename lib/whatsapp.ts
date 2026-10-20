@@ -67,6 +67,8 @@ function formatLine(line: OrderLine, showUnpricedNote: boolean): string {
     `* Chocolates: ${chocolateLabels.length ? chocolateLabels.join(", ") : "Nil"}`,
     `* Message card: ${card}`,
     "",
+    // Per item: each one in a multi-item order can be customised differently.
+    "Customization (optional): ",
     `Delivery Date: ${line.delivery ? formatDeliveryDate(line.delivery.date) : ""}`,
     `Delivery Time: ${line.delivery?.slot ?? ""}`,
   ].join("\n");
@@ -80,10 +82,7 @@ export function buildOrderMessage(lines: OrderLine[]): string {
     const unpricedNote = lines.some((line) => line.hasUnpricedAddOns) ? UNPRICED_NOTE : "";
     out.push(`Total: ${formatPrice(total)}${unpricedNote}`);
   }
-  out.push(
-    "Customization (optional): ",
-    ["Receiver Name: ", "Receiver Number: ", "Delivery Location (map link/ address): "].join("\n"),
-  );
+  out.push(["Receiver Name: ", "Receiver Number: ", "Delivery Location (map link/ address): "].join("\n"));
   return out.join("\n\n");
 }
 
