@@ -139,7 +139,7 @@ export const siteSettings = defineType({
               name: "options",
               title: "Choices",
               type: "array",
-              description: "Optional. List different kinds with their own price (e.g. each chocolate or gift); customers can pick one or more. Leave empty for a single tick box.",
+              description: "Optional. List different kinds with their own price (e.g. each chocolate or gift); customers pick one from a dropdown. Leave empty for a single tick box.",
               of: [
                 defineArrayMember({
                   type: "object",

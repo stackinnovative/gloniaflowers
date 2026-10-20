@@ -61,7 +61,7 @@ export function DeliveryPicker({
       {error && <p id="delivery-date-error" className="gl-detail-delivery-error" role="alert">{error}</p>}
       {cardEnabled && (
         <label className="gl-detail-delivery-label" htmlFor="card-message">
-          Message for the card (free)
+          Message for the card
           <textarea
             id="card-message"
             name="card-message"

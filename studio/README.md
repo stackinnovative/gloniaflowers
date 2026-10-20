@@ -41,7 +41,7 @@ One document, at the bottom of the Studio menu:
 
 - **Contact:** tagline, shop description, WhatsApp number (every order goes here), phone, email, address, Instagram.
 - **Hours & delivery:** opening hours, which drive the "Open now / Closed now" strip, and the same-day cut-off. The delivery time slots (one hour each, 9 AM – 8 PM) are fixed in code.
-- **Add-ons:** name, id and price. Leave the price empty for "Price to confirm"; 0 shows no price. To offer several kinds (e.g. different chocolates or gifts), add them under **Choices**, each with its own name and price; customers can tick one or more, and the add-on's own price is then not used. Keep the ids `card` (message card) and `choc` (chocolates), because the WhatsApp message uses them. Don't change any add-on or choice id after launch, because carts already saved in customers' browsers use it.
+- **Add-ons:** name, id and price. Leave the price empty for "Price to confirm"; 0 shows no price. To offer several kinds (e.g. different chocolates or gifts), add them under **Choices**, each with its own name and price; customers pick one from a dropdown, and the add-on's own price is then not used. Keep the ids `card` (message card) and `choc` (chocolates), because the WhatsApp message uses them. Don't change any add-on or choice id after launch, because carts already saved in customers' browsers use it.
 - **Home page photos:** the three hero arches (the middle one is the centrepiece), the WhatsApp example, the size-reference box, the custom-order card photos and the gallery.
 
 Products picked here can't be deleted while they're in use; Sanity asks you to swap them out first. Collection tile photos are on each **Collection**.

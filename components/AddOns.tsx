@@ -11,6 +11,10 @@ type AddOnsProps = {
 
 type ChoiceProps = AddOnsProps & { choice: AddOnOption };
 
+function choicePrice(price: number | null): string {
+  return price === null ? "Price to confirm" : price === 0 ? "No charge" : formatPrice(price);
+}
+
 function Choice({ choice, value, onChange }: ChoiceProps) {
   return (
     <label className="gl-detail-addons-option">
@@ -30,12 +34,8 @@ function Choice({ choice, value, onChange }: ChoiceProps) {
           <path className="gl-detail-addons-check" d="M3 8.5l3 3 7-7" />
         </svg>
         <span>{choice.name}</span>
-        {/* No price line for ₹0 add-ons (e.g. the message card). */}
-        {choice.price !== 0 && (
-          <span className="gl-detail-addons-price">
-            {choice.price === null ? "Price to confirm" : formatPrice(choice.price)}
-          </span>
-        )}
+        {/* No price line for ₹0 add-ons. */}
+        {choice.price !== 0 && <span className="gl-detail-addons-price">{choicePrice(choice.price)}</span>}
       </span>
     </label>
   );
@@ -53,17 +53,30 @@ export function AddOns({ value, onChange }: AddOnsProps) {
           {plain.map((addOn) => <Choice key={addOn.id} choice={addOn} value={value} onChange={onChange} />)}
         </div>
       )}
-      {/* Add-ons with several choices (e.g. different chocolates) get their own labelled row. */}
-      {withOptions.map((addOn) => (
-        <div key={addOn.id} role="group" aria-labelledby={`addon-${addOn.id}`} className="gl-detail-addons-group">
-          <p id={`addon-${addOn.id}`} className="gl-detail-addons-group-name">{addOn.name}</p>
-          <div className="gl-detail-addons-options">
-            {addOnChoices.filter((choice) => choice.group === addOn.id).map((choice) => (
-              <Choice key={choice.id} choice={choice} value={value} onChange={onChange} />
-            ))}
-          </div>
+      {/* Add-ons with several choices (e.g. different chocolates) are a dropdown: one pick each. */}
+      {withOptions.length > 0 && (
+        <div className="gl-detail-addons-selects">
+          {withOptions.map((addOn) => {
+            const choices = addOnChoices.filter((choice) => choice.group === addOn.id);
+            const others = value.filter((id) => !choices.some((choice) => choice.id === id));
+            return (
+              <label key={addOn.id} className="gl-detail-addons-select">
+                {addOn.name}
+                <select
+                  name={`addon-${addOn.id}`}
+                  value={choices.find((choice) => value.includes(choice.id))?.id ?? ""}
+                  onChange={(event) => onChange(event.target.value ? [...others, event.target.value] : others)}
+                >
+                  <option value="">None</option>
+                  {choices.map((choice) => (
+                    <option key={choice.id} value={choice.id}>{choice.name} — {choicePrice(choice.price)}</option>
+                  ))}
+                </select>
+              </label>
+            );
+          })}
         </div>
-      ))}
+      )}
     </fieldset>
   );
 }

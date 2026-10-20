@@ -17,9 +17,11 @@
 .gl-size-picker-option input:checked + .gl-size-picker-tile .gl-size-picker-price { color: var(--gl-gold-300); }
 .gl-detail-addons-options { display: flex; max-width: 100%; gap: 8px; overflow-x: auto; margin: -4px; padding: 4px; }
 .gl-detail-addons-option { position: relative; flex: none; cursor: pointer; }
-.gl-detail-addons-group { margin-top: 18px; }
-.gl-detail-controls-legend + .gl-detail-addons-group { margin-top: 0; }
-.gl-detail-addons-group-name { margin: 0 0 8px; color: var(--gl-muted); font-size: 13px; font-weight: 600; }
+.gl-detail-addons-selects { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 14px; }
+.gl-detail-controls-legend + .gl-detail-addons-selects { margin-top: 0; }
+.gl-detail-addons-select { display: flex; min-width: 0; flex-direction: column; gap: 6px; color: var(--gl-muted); font-size: 13px; font-weight: 600; }
+.gl-detail-addons-select select { box-sizing: border-box; width: 100%; min-width: 0; min-height: 46px; padding: 10px 12px; border: 1px solid var(--gl-line); border-radius: 2px; background: var(--gl-white); color: var(--gl-ink); font-family: var(--font-manrope), sans-serif; font-size: 16px; font-weight: 500; }
+.gl-detail-addons-select select:focus-visible { outline: 2px solid var(--gl-gold-text); outline-offset: 2px; }
 .gl-detail-addons-tile { display: inline-flex; min-height: 46px; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--gl-line); border-radius: 2px; background: var(--gl-white); font-size: 13px; font-weight: 600; white-space: nowrap; }
 .gl-detail-addons-icon { flex: none; }
 .gl-detail-addons-price { color: var(--gl-muted); }
@@ -51,6 +53,7 @@
   .gl-size-picker-option input:checked + .gl-size-picker-tile .gl-size-picker-circle-stage > span { border-color: var(--gl-gold-300); }
   .gl-detail-addons-options { flex-wrap: wrap; gap: 10px; overflow-x: visible; }
   .gl-detail-addons-tile { min-height: 48px; gap: 10px; padding: 10px 16px; font-size: 14px; }
+  .gl-detail-addons-selects { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
   .gl-detail-delivery { gap: 14px; padding: 22px; }
   .gl-detail-delivery-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .gl-detail-delivery-label { gap: 6px; font-size: 12px; }
