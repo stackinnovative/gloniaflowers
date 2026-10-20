@@ -46,14 +46,14 @@ export function FavouritePicksSlider({ collections }: { collections: CollectionP
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [touching, setTouching] = useState(false);
-  const [playing, setPlaying] = useState(true);
   const reducedMotion = useSyncExternalStore(subscribeMotion, reducedMotionSnapshot, pausedServerSnapshot);
   const hidden = useSyncExternalStore(subscribeVisibility, hiddenSnapshot, pausedServerSnapshot);
   const tabs = useRef(new Map<string, HTMLButtonElement>());
   const focusSelection = useRef(false);
   const activeIndex = wrap(slide.index + slide.direction, count);
   const active = collections[activeIndex];
-  const canAutoplay = playing && !reducedMotion && !hidden && !hovered && !focused && !touching && count > 1;
+  // Pauses on hover, focus and touch (and under reduced motion), so no separate pause button.
+  const canAutoplay = !reducedMotion && !hidden && !hovered && !focused && !touching && count > 1;
 
   useEffect(() => {
     if (!canAutoplay) return;
@@ -157,15 +157,6 @@ export function FavouritePicksSlider({ collections }: { collections: CollectionP
         </div>
         <button type="button" className="gl-picks-arrow gl-picks-next" aria-label="Next collection" aria-controls="favourite-picks-panel" aria-disabled={!!slide.direction} onClick={() => move(1)}>
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M6 3l5 5-5 5" /></svg>
-        </button>
-        <button
-          type="button"
-          className="gl-picks-playback"
-          disabled={reducedMotion}
-          aria-label={reducedMotion ? "Automatic rotation disabled by reduced motion preference" : playing ? "Pause automatic rotation" : "Start automatic rotation"}
-          onClick={() => setPlaying(!playing)}
-        >
-          {reducedMotion ? "Paused" : playing ? "Pause" : "Play"}
         </button>
       </div>
 

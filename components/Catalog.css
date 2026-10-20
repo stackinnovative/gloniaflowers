@@ -18,7 +18,8 @@
 .gl-catalog-breadcrumb { display: none; }
 .gl-catalog-accent { margin: 0; font-family: var(--font-great-vibes), cursive; font-size: 28px; line-height: 1; color: var(--gl-gold-text); }
 .gl-catalog-title-content h1 { margin: 0; font-family: var(--font-bodoni), serif; font-size: 40px; font-weight: 400; line-height: 1.02; }
-.gl-catalog-shade { margin: 0; font-size: 12px; font-style: italic; color: var(--gl-gold-text); }
+/* On phones the line sits over the floral corners: keep it narrow and give it a soft backing. */
+.gl-catalog-shade { max-width: 15rem; margin: 2px 0 0; padding: 3px 10px; background: rgb(255 255 255 / 88%); font-size: 12px; font-style: italic; line-height: 1.4; color: var(--gl-gold-text); }
 .gl-catalog-collections { position: relative; display: flex; gap: 12px; overflow-x: auto; padding: 18px 16px 16px; border-bottom: 1px solid var(--gl-line); }
 .gl-catalog-collection { display: flex; width: 74px; flex: none; flex-direction: column; align-items: center; gap: 6px; padding: 0; border: 0; background: transparent; color: var(--gl-ink); font: inherit; font-size: 11px; font-weight: 600; line-height: 1.25; text-align: center; cursor: pointer; }
 .gl-catalog-collection[aria-pressed="true"] { color: var(--gl-gold-text); font-weight: 700; }
@@ -61,7 +62,7 @@
   .gl-catalog-breadcrumb [aria-current] { color: var(--gl-gold-text); font-weight: 600; }
   .gl-catalog-accent { font-size: 40px; }
   .gl-catalog-title-content h1 { font-size: clamp(46px, 6vw, 86px); line-height: 1; letter-spacing: -.015em; }
-  .gl-catalog-shade { padding-top: 4px; font-size: 14px; }
+  .gl-catalog-shade { max-width: none; margin: 0; padding: 4px 0 0; background: none; font-size: 14px; }
   .gl-catalog-collections { max-width: 1044px; margin: 0 auto 56px; padding: 32px 4px 12px; gap: 18px; border: 0; }
   /* Mouse users need a visible scrollbar to reach the last bubbles. */
   .gl-catalog-collections.gl-row { scrollbar-width: thin; scrollbar-color: var(--gl-gold-300) transparent; }

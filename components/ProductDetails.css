@@ -17,7 +17,7 @@
 .gl-detail-size-card small { color: var(--gl-muted); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 .gl-detail-size-card strong { font-family: var(--font-bodoni), serif; font-size: 16px; font-weight: 400; }
 .gl-detail-shade { margin: 4px 0 0; color: var(--gl-gold-text); font-size: 12px; font-style: italic; text-align: center; }
-.gl-detail-trust { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
+.gl-detail-trust { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
 .gl-detail-trust li { display: flex; min-width: 0; flex-direction: column; align-items: center; gap: 4px; padding: 10px 4px; border: 1px solid #efe6d6; border-radius: 12px; background: #fbf8f2; font-size: 11px; font-weight: 600; text-align: center; }
 .gl-detail-trust svg { width: 18px; height: 18px; flex: none; color: var(--gl-gold-text); }
 .gl-detail-panel { display: flex; min-width: 0; flex-direction: column; gap: 22px; padding: 0 4px; }
