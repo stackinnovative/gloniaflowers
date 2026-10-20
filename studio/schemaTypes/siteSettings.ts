@@ -13,6 +13,13 @@ const productPicks = (name: string, title: string, description: string, min: num
     validation: (rule) => rule.required().unique().min(min).max(max),
   });
 
+const priceLabel = (price: unknown) => (typeof price !== "number" ? "Price to confirm" : price === 0 ? "No charge" : `₹${price}`);
+
+const uniqueIds = (message: string) => (items: { id?: { current?: string } }[] | undefined) => {
+  const ids = (items ?? []).map((item) => item.id?.current);
+  return new Set(ids).size === ids.length ? true : message;
+};
+
 export const siteSettings = defineType({
   name: "siteSettings",
   title: "Site settings",
@@ -127,16 +134,44 @@ export const siteSettings = defineType({
               options: { source: (_doc, { parent }) => (parent as { name?: string }).name ?? "", maxLength: 30 },
               validation: (rule) => rule.required(),
             }),
-            defineField({ name: "price", title: "Price (₹)", type: "number", validation: (rule) => rule.integer().min(0) }),
+            defineField({ name: "price", title: "Price (₹)", type: "number", description: "Not used when choices are listed below.", validation: (rule) => rule.integer().min(0) }),
+            defineField({
+              name: "options",
+              title: "Choices",
+              type: "array",
+              description: "Optional. List different kinds with their own price (e.g. each chocolate or gift); customers can pick one or more. Leave empty for a single tick box.",
+              of: [
+                defineArrayMember({
+                  type: "object",
+                  name: "addOnOption",
+                  fields: [
+                    defineField({ name: "name", title: "Name", type: "string", validation: (rule) => rule.required().max(40) }),
+                    defineField({
+                      name: "id",
+                      title: "Id",
+                      type: "slug",
+                      description: "Internal; don't change after launch.",
+                      options: { source: (_doc, { parent }) => (parent as { name?: string }).name ?? "", maxLength: 30 },
+                      validation: (rule) => rule.required(),
+                    }),
+                    defineField({ name: "price", title: "Price (₹)", type: "number", description: "Leave empty for “Price to confirm”.", validation: (rule) => rule.integer().min(0) }),
+                  ],
+                  preview: { select: { title: "name", price: "price" }, prepare: ({ title, price }) => ({ title, subtitle: priceLabel(price) }) },
+                }),
+              ],
+              validation: (rule) => rule.custom(uniqueIds("Each choice needs its own id.")),
+            }),
           ],
-          preview: { select: { title: "name", price: "price" }, prepare: ({ title, price }) => ({ title, subtitle: price === undefined ? "Price to confirm" : price === 0 ? "No charge" : `₹${price}` }) },
+          preview: {
+            select: { title: "name", price: "price", options: "options" },
+            prepare: ({ title, price, options }) => ({
+              title,
+              subtitle: Array.isArray(options) && options.length ? `${options.length} choices` : priceLabel(price),
+            }),
+          },
         }),
       ],
-      validation: (rule) =>
-        rule.custom((items: { id?: { current?: string } }[] | undefined) => {
-          const ids = (items ?? []).map((item) => item.id?.current);
-          return new Set(ids).size === ids.length ? true : "Each add-on needs its own id.";
-        }),
+      validation: (rule) => rule.custom(uniqueIds("Each add-on needs its own id.")),
     }),
     defineField({
       name: "showReviews",

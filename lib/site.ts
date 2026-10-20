@@ -9,7 +9,11 @@
 // - Higher-resolution product photos (current ones are crops from the catalogue)
 import settingsData from "@/data/settings.json";
 
-export type AddOn = { id: string; name: string; price: number | null };
+export type AddOnOption = { id: string; name: string; price: number | null };
+/** With `options` (e.g. different chocolates) customers pick those instead, and `price` is unused. */
+export type AddOn = AddOnOption & { options?: AddOnOption[] };
+/** One thing a customer can tick: a plain add-on, or one option of an add-on. */
+export type AddOnChoice = AddOnOption & { group: string };
 
 type Settings = {
   tagline: string;
@@ -85,6 +89,11 @@ export const site = {
 } as const;
 
 export const addOns: AddOn[] = settings.addOns;
+
+// Option ids are only unique within their add-on, so they are prefixed with it ("choc/ferrero").
+export const addOnChoices: AddOnChoice[] = addOns.flatMap(({ options, ...addOn }) => options?.length
+  ? options.map((option) => ({ ...option, id: `${addOn.id}/${option.id}`, group: addOn.id }))
+  : [{ ...addOn, group: addOn.id }]);
 
 // One-hour delivery slots, 9 AM – 8 PM.
 export const deliverySlots = [

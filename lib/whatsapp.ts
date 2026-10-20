@@ -13,7 +13,8 @@ export type OrderLine = {
   cardMessage?: string;
 };
 
-export type OrderAddOn = { id: string; name: string; priced: boolean };
+/** `group` is the add-on's id, also for one of its options (e.g. a chocolate under "choc"). */
+export type OrderAddOn = { group: string; name: string; priced: boolean; isOption: boolean };
 
 // Add-ons that get their own line in the order message.
 const CHOCOLATES_ID = "choc";
@@ -53,15 +54,17 @@ const UNPRICED_NOTE = " + add-ons to confirm";
 
 function formatLine(line: OrderLine, showUnpricedNote: boolean): string {
   const price = `${formatPrice(line.unitPrice * line.qty)}${showUnpricedNote && line.hasUnpricedAddOns ? UNPRICED_NOTE : ""}`;
-  const chocolates = line.addOns.find((addOn) => addOn.id === CHOCOLATES_ID);
-  const hasCard = line.addOns.some((addOn) => addOn.id === CARD_ID);
-  const others = line.addOns.filter((addOn) => addOn.id !== CHOCOLATES_ID && addOn.id !== CARD_ID);
+  const chocolates = line.addOns.filter((addOn) => addOn.group === CHOCOLATES_ID);
+  const hasCard = line.addOns.some((addOn) => addOn.group === CARD_ID);
+  const others = line.addOns.filter((addOn) => addOn.group !== CHOCOLATES_ID && addOn.group !== CARD_ID);
   const card = line.cardMessage ? line.cardMessage.replace(/\r?\n/g, "\n  ") : hasCard ? "Yes" : "Nil";
+  // A plain "Chocolates" add-on (no options listed) reads as "Yes".
+  const chocolateLabels = chocolates.map((addOn) => addOnLabel(addOn.isOption ? addOn : { ...addOn, name: "Yes" }));
   return [
     `* ${line.qty > 1 ? `${line.name} × ${line.qty}` : line.name}`,
     line.size ? `* Size ${line.size} — ${price}` : `* Price: ${price}`,
     `* Add-ons: ${others.length ? others.map(addOnLabel).join(", ") : "Nil"}`,
-    `* Chocolates: ${chocolates ? (chocolates.priced ? "Yes" : "Yes (price to confirm)") : "Nil"}`,
+    `* Chocolates: ${chocolateLabels.length ? chocolateLabels.join(", ") : "Nil"}`,
     `* Message card: ${card}`,
     "",
     `Delivery Date: ${line.delivery ? formatDeliveryDate(line.delivery.date) : ""}`,

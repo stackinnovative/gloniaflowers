@@ -17,6 +17,9 @@
 .gl-size-picker-option input:checked + .gl-size-picker-tile .gl-size-picker-price { color: var(--gl-gold-300); }
 .gl-detail-addons-options { display: flex; max-width: 100%; gap: 8px; overflow-x: auto; margin: -4px; padding: 4px; }
 .gl-detail-addons-option { position: relative; flex: none; cursor: pointer; }
+.gl-detail-addons-group { margin-top: 18px; }
+.gl-detail-controls-legend + .gl-detail-addons-group { margin-top: 0; }
+.gl-detail-addons-group-name { margin: 0 0 8px; color: var(--gl-muted); font-size: 13px; font-weight: 600; }
 .gl-detail-addons-tile { display: inline-flex; min-height: 46px; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--gl-line); border-radius: 2px; background: var(--gl-white); font-size: 13px; font-weight: 600; white-space: nowrap; }
 .gl-detail-addons-icon { flex: none; }
 .gl-detail-addons-price { color: var(--gl-muted); }

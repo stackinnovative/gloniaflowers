@@ -34,7 +34,7 @@ const query = `{
   "settings": *[_id == "siteSettings"][0] {
     tagline, description, phoneDisplay, whatsappNumber, email,
     hours { open, close }, address { street, city }, mapQuery, googleListing, googlePlaceId, showReviews, sameDayCutoff, instagram { handle, url },
-    "addOns": addOns[] { "id": id.current, name, "price": coalesce(price, null) },
+    "addOns": addOns[] { "id": id.current, name, "price": coalesce(price, null), "options": options[] { "id": id.current, name, "price": coalesce(price, null) } },
     "featured": {
       "hero": hero[]->slug.current,
       "orderExample": orderExample->slug.current,
@@ -111,12 +111,22 @@ function readSettings(raw) {
   if (googlePlaceId && !/^[A-Za-z0-9_-]{10,}$/.test(googlePlaceId)) problems.push(`${label}: Google Place ID looks wrong (it starts with ChIJ)`);
   if (/^https?:/i.test(mapQuery)) problems.push(`${label}: Map location must be an address or coordinates, not a link`);
   if (!isText(raw.instagram?.handle) || !/^https:\/\//.test(raw.instagram?.url ?? "")) problems.push(`${label}: missing Instagram handle or link`);
-  const addOns = (raw.addOns ?? []).map((a) => ({ id: a.id, name: a.name, price: a.price ?? null }));
-  for (const a of addOns) {
-    if (!isId(a.id) || !isText(a.name)) problems.push(`${label}: add-on "${a.name ?? a.id}" needs a name and id`);
-    if (a.price !== null && !(Number.isSafeInteger(a.price) && a.price >= 0)) problems.push(`${label}: add-on "${a.name}" has an invalid price`);
-  }
-  if (new Set(addOns.map((a) => a.id)).size !== addOns.length) problems.push(`${label}: two add-ons share an id`);
+  const readAddOn = (a, where) => {
+    if (!isId(a.id) || !isText(a.name)) problems.push(`${label}: ${where} "${a.name ?? a.id}" needs a name and id`);
+    if (a.price != null && !(Number.isSafeInteger(a.price) && a.price >= 0)) problems.push(`${label}: ${where} "${a.name}" has an invalid price`);
+    return { id: a.id, name: a.name, price: a.price ?? null };
+  };
+  const uniqueIds = (items, message) => {
+    if (new Set(items.map((item) => item.id)).size !== items.length) problems.push(`${label}: ${message}`);
+  };
+  // Choices (e.g. different chocolates) are only written when the add-on has some.
+  const addOns = (raw.addOns ?? []).map((a) => {
+    const addOn = readAddOn(a, "add-on");
+    const options = (a.options ?? []).map((o) => readAddOn(o, `${a.name} choice`));
+    uniqueIds(options, `two choices of "${a.name}" share an id`);
+    return options.length ? { ...addOn, options } : addOn;
+  });
+  uniqueIds(addOns, "two add-ons share an id");
 
   // Featured products must be published; unpublished picks are dropped with a warning.
   const known = (slug, where) => {

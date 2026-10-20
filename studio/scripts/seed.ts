@@ -16,6 +16,7 @@ type SeedProduct = {
   image: string;
   description: string;
 };
+type AddOnOption = { id: string; name: string; price: number | null };
 type SeedSettings = {
   tagline: string;
   description: string;
@@ -30,7 +31,7 @@ type SeedSettings = {
   showReviews: boolean;
   sameDayCutoff: string;
   instagram: { handle: string; url: string };
-  addOns: { id: string; name: string; price: number | null }[];
+  addOns: (AddOnOption & { options?: AddOnOption[] })[];
   featured: { hero: string[]; orderExample: string; sizeReference: string; customOrder: string[]; gallery: string[] };
 };
 
@@ -91,17 +92,18 @@ for (const [index, product] of products.entries()) {
   });
 }
 
+function addOnFields({ id, name, price }: AddOnOption, type: string) {
+  return { _key: id, _type: type, id: { _type: "slug", current: id }, name, ...(price === null ? {} : { price }) };
+}
+
 const { featured, addOns, ...details } = settings;
 tx.createOrReplace({
   _id: "siteSettings",
   _type: "siteSettings",
   ...details,
-  addOns: addOns.map(({ id, name, price }) => ({
-    _key: id,
-    _type: "addOn",
-    id: { _type: "slug", current: id },
-    name,
-    ...(price === null ? {} : { price }),
+  addOns: addOns.map(({ options, ...addOn }) => ({
+    ...addOnFields(addOn, "addOn"),
+    ...(options ? { options: options.map((option) => addOnFields(option, "addOnOption")) } : {}),
   })),
   hero: refList("product", featured.hero),
   orderExample: ref("product", featured.orderExample),

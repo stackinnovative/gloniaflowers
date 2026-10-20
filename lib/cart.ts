@@ -1,6 +1,6 @@
 import { getProduct, type SizeKey } from "./products";
 import { isValidDeliveryDate } from "./delivery";
-import { addOns, deliverySlots, type AddOn } from "./site";
+import { addOnChoices, deliverySlots, type AddOnChoice } from "./site";
 import type { Delivery, OrderLine } from "./whatsapp";
 
 export type CartItem = {
@@ -14,9 +14,9 @@ export type CartItem = {
 
 export type CartSelection = Omit<CartItem, "qty">;
 
-type PricedAddOn = AddOn & { price: number };
+type PricedAddOn = AddOnChoice & { price: number };
 
-function hasConfirmedPrice(addOn: AddOn): addOn is PricedAddOn {
+function hasConfirmedPrice(addOn: AddOnChoice): addOn is PricedAddOn {
   return addOn.price !== null && Number.isFinite(addOn.price) && addOn.price >= 0;
 }
 
@@ -35,7 +35,7 @@ function readItem(value: unknown): CartItem | null {
   const product = getProduct(candidate.slug);
   if (!product || !Array.isArray(candidate.addOns)) return null;
   const requestedAddOns: unknown[] = candidate.addOns;
-  if (!requestedAddOns.every((id) => typeof id === "string" && addOns.some((addOn) => addOn.id === id))) return null;
+  if (!requestedAddOns.every((id) => typeof id === "string" && addOnChoices.some((addOn) => addOn.id === id))) return null;
 
   let size: SizeKey | null = null;
   if (product.sizes) {
@@ -54,7 +54,7 @@ function readItem(value: unknown): CartItem | null {
   return {
     slug: product.slug,
     size,
-    addOns: addOns.filter((addOn) => requestedAddOns.includes(addOn.id)).map((addOn) => addOn.id),
+    addOns: addOnChoices.filter((addOn) => requestedAddOns.includes(addOn.id)).map((addOn) => addOn.id),
     qty: candidate.qty,
     ...(delivery ? { delivery } : {}),
     ...(cardMessage ? { cardMessage } : {}),
@@ -70,7 +70,7 @@ function unitPrice(item: CartSelection): number {
   const product = getProduct(item.slug);
   if (!product) return 0;
   const basePrice = product.sizes && item.size ? product.sizes[item.size] : product.price;
-  return basePrice + addOns.filter((addOn) => item.addOns.includes(addOn.id) && hasConfirmedPrice(addOn))
+  return basePrice + addOnChoices.filter((addOn) => item.addOns.includes(addOn.id) && hasConfirmedPrice(addOn))
     .reduce((sum, addOn) => sum + (addOn.price ?? 0), 0);
 }
 
@@ -131,14 +131,19 @@ export function cartOrderLines(items: CartItem[]): OrderLine[] {
   return normalizeCart(items).flatMap((item) => {
     const product = getProduct(item.slug);
     if (!product) return [];
-    const selectedAddOns = addOns.filter((addOn) => item.addOns.includes(addOn.id));
+    const selectedAddOns = addOnChoices.filter((addOn) => item.addOns.includes(addOn.id));
     const hasUnpricedAddOns = selectedAddOns.some((addOn) => !hasConfirmedPrice(addOn));
     return [{
       name: product.name,
       size: item.size,
       qty: item.qty,
       unitPrice: unitPrice(item),
-      addOns: selectedAddOns.map((addOn) => ({ id: addOn.id, name: addOn.name, priced: hasConfirmedPrice(addOn) })),
+      addOns: selectedAddOns.map((addOn) => ({
+        group: addOn.group,
+        name: addOn.name,
+        priced: hasConfirmedPrice(addOn),
+        isOption: addOn.id !== addOn.group,
+      })),
       ...(hasUnpricedAddOns ? { hasUnpricedAddOns: true } : {}),
       ...(item.delivery ? { delivery: item.delivery } : {}),
       ...(item.cardMessage ? { cardMessage: item.cardMessage } : {}),
