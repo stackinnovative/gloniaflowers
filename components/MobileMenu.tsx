@@ -13,7 +13,8 @@ const MENU = [
   { label: "Korean Bouquets", href: "/catalog?c=korean" },
   { label: "Flower Boxes", href: "/catalog?c=bloom" },
   { label: "Bridal & Car Décor", href: "/#work" },
-  { label: "Perfumes", href: "/#perfumes" },
+  // Goes with the home page section (Site settings → Perfumes → Show).
+  ...(site.perfumes.show ? [{ label: "Perfumes", href: "/#perfumes" }] : []),
   { label: "Contact", href: "#contact" },
 ];
 

@@ -1,5 +1,6 @@
 import collectionsData from "@/data/collections.json";
 import productsData from "@/data/products.json";
+import { site } from "./site";
 import { formatPrice } from "./whatsapp";
 
 export type SizeKey = "S" | "M" | "L";
@@ -21,7 +22,12 @@ export type Product = {
 
 export const SIZE_KEYS: SizeKey[] = ["S", "M", "L"];
 export const SIZE_NAMES: Record<SizeKey, string> = { S: "Small", M: "Medium", L: "Large" };
-export const SIZE_INCHES: Record<SizeKey, string> = { S: '5.5"', M: '6.5"', L: '7.5"' };
+/** '5.5"' etc., from Site settings → Hours & delivery → Box sizes. */
+export const SIZE_INCHES: Record<SizeKey, string> = {
+  S: `${site.boxSizes.S}"`,
+  M: `${site.boxSizes.M}"`,
+  L: `${site.boxSizes.L}"`,
+};
 
 const products: Product[] = productsData;
 const collections: Collection[] = [...collectionsData].sort((a, b) => a.order - b.order);

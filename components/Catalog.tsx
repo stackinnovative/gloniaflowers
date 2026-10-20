@@ -53,9 +53,10 @@ function splitTitle(name: string): [string, string] {
   return [first, rest.join(" ")];
 }
 
-type CatalogContentProps = { collectionId?: string; priceId?: string; sortId?: string };
+// `year` is set when the page is built (the site rebuilds on every content change).
+type CatalogContentProps = { year: number; collectionId?: string; priceId?: string; sortId?: string };
 
-export function CatalogContent({ collectionId = "all", priceId = "any", sortId = "featured" }: CatalogContentProps) {
+export function CatalogContent({ year, collectionId = "all", priceId = "any", sortId = "featured" }: CatalogContentProps) {
   const active = collections.find((collection) => collection.id === collectionId) ?? collections[0];
   const price: PriceFilter = priceFilters.find((filter) => filter.id === priceId)?.id ?? "any";
   const sort: CatalogSort = sortId === "low" || sortId === "high" ? sortId : "featured";
@@ -86,7 +87,7 @@ export function CatalogContent({ collectionId = "all", priceId = "any", sortId =
               <Link href="/catalog">Shop</Link><span aria-hidden="true"> / </span>
               <span aria-current="page">{active.name}</span>
             </nav>
-            <p className="gl-catalog-accent">Catalogue 2026</p>
+            <p className="gl-catalog-accent">Catalogue {year}</p>
             <h1 id="catalog-heading">{title} <em>{italicTitle}</em></h1>
             <p className="gl-catalog-shade">We use fresh flowers in all our floral arrangements</p>
           </div>
@@ -148,7 +149,7 @@ export function CatalogContent({ collectionId = "all", priceId = "any", sortId =
   );
 }
 
-export function Catalog() {
+export function Catalog({ year }: { year: number }) {
   const searchParams = useSearchParams();
-  return <CatalogContent collectionId={searchParams.get("c") ?? "all"} priceId={searchParams.get("price") ?? "any"} sortId={searchParams.get("sort") ?? "featured"} />;
+  return <CatalogContent year={year} collectionId={searchParams.get("c") ?? "all"} priceId={searchParams.get("price") ?? "any"} sortId={searchParams.get("sort") ?? "featured"} />;
 }

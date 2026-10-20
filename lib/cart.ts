@@ -24,8 +24,9 @@ function readDelivery(value: unknown): Delivery | null {
   if (typeof value !== "object" || value === null) return null;
   const candidate = value as Record<string, unknown>;
   if (typeof candidate.date !== "string" || !isValidDeliveryDate(candidate.date)) return null;
+  // A slot no longer offered is dropped, keeping the line and its date; the customer adds a time on WhatsApp.
   const slot = deliverySlots.find((slot) => slot === candidate.slot);
-  return slot ? { date: candidate.date, slot } : null;
+  return slot ? { date: candidate.date, slot } : { date: candidate.date };
 }
 
 function readItem(value: unknown): CartItem | null {

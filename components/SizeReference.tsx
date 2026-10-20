@@ -9,8 +9,6 @@ const CIRCLES: Record<SizeKey, { className: string; sizes: string }> = {
   L: { className: "w-[116px] min-[861px]:w-[200px]", sizes: "(min-width: 861px) 188px, 108px" },
 };
 
-const INCHES: Record<SizeKey, string> = { S: "5.5 inch", M: "6.5 inch", L: "7.5 inch" };
-
 export function SizeReference() {
   const product = getProduct(site.featured.sizeReference);
   if (!product) return null;
@@ -40,7 +38,7 @@ export function SizeReference() {
               <div className={`${CIRCLES[size].className} flex items-center gap-[3px] text-gold-text min-[861px]:gap-1.5`}>
                 <span aria-hidden="true" className="h-[9px] w-px shrink-0 bg-gold-500 min-[861px]:h-3" />
                 <span aria-hidden="true" className="h-px flex-1 bg-gold-500" />
-                <span className="whitespace-nowrap text-[11px] font-bold min-[861px]:text-[14px]">{INCHES[size]}</span>
+                <span className="whitespace-nowrap text-[11px] font-bold min-[861px]:text-[14px]">{site.boxSizes[size]} inch</span>
                 <span aria-hidden="true" className="h-px flex-1 bg-gold-500" />
                 <span aria-hidden="true" className="h-[9px] w-px shrink-0 bg-gold-500 min-[861px]:h-3" />
               </div>

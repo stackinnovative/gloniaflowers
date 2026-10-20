@@ -1,4 +1,4 @@
-import { getCollections, getProductsIn, priceLabel } from "@/lib/products";
+import { getCollections, getProductsIn, priceLabel, SIZE_INCHES } from "@/lib/products";
 import { deliverySlots, site } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -16,6 +16,10 @@ export function GET() {
       ].join("\n"),
     )
     .join("\n\n");
+  const alsoAvailable = [
+    ...site.ourWork.items.map((item) => `${item.name}: ${item.description || "enquire on WhatsApp"}`),
+    ...(site.perfumes.show ? [`${site.perfumes.title}: ${site.perfumes.badge || site.perfumes.text}`] : []),
+  ];
 
   const body = `# ${site.name}
 
@@ -32,8 +36,8 @@ export function GET() {
 
 ## How to order
 
-1. Pick flowers at ${site.url}/catalog. Flower boxes come in Small (5.5"), Medium (6.5") and Large (7.5").
-2. Choose a delivery date and a one-hour time slot between 9 AM and 8 PM (${deliverySlots.join(", ")}).
+1. Pick flowers at ${site.url}/catalog. Flower boxes come in Small (${SIZE_INCHES.S}), Medium (${SIZE_INCHES.M}) and Large (${SIZE_INCHES.L}).
+2. Choose a delivery date and a time slot (${deliverySlots.join(", ")}).
 3. Send the order on WhatsApp (https://wa.me/${site.whatsappNumber}); the shop confirms availability and delivery.
 4. Custom bouquets for any colour, budget or date can be requested on WhatsApp.
 
@@ -43,8 +47,7 @@ ${collections}
 
 ## Also available
 
-- Bridal bouquets, boutonnieres and wedding car décor (enquire on WhatsApp)
-- Perfumes: coming soon
+${alsoAvailable.map((line) => `- ${line}`).join("\n")}
 `;
 
   return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8" } });

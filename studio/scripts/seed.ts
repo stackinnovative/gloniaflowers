@@ -29,9 +29,15 @@ type SeedSettings = {
   googleListing: string;
   googlePlaceId: string;
   showReviews: boolean;
-  sameDayCutoff: string;
   instagram: { handle: string; url: string };
   addOns: (AddOnOption & { options?: AddOnOption[] })[];
+  productInfo: { details: string[]; careBox: string[]; careBouquet: string[]; delivery: string[] };
+  heroText: string;
+  deliverySlots: string[];
+  boxSizes: { S: number; M: number; L: number };
+  // Photos are CDN URLs once synced from Sanity, so the seed leaves them out.
+  ourWork: { intro: string; items: { name: string; description: string; image: string | null }[] };
+  perfumes: { show: boolean; image: string | null } & Record<"badge" | "eyebrow" | "title" | "text" | "imageLabel" | "buttonLabel" | "whatsappMessage" | "note", string>;
   featured: { hero: string[]; orderExample: string; sizeReference: string; customOrder: string[]; gallery: string[] };
 };
 
@@ -96,11 +102,16 @@ function addOnFields({ id, name, price }: AddOnOption, type: string) {
   return { _key: id, _type: type, id: { _type: "slug", current: id }, name, ...(price === null ? {} : { price }) };
 }
 
-const { featured, addOns, ...details } = settings;
+const { featured, addOns, ourWork, perfumes: { image: _perfumeImage, ...perfumes }, ...details } = settings;
 tx.createOrReplace({
   _id: "siteSettings",
   _type: "siteSettings",
   ...details,
+  perfumes,
+  ourWork: {
+    intro: ourWork.intro,
+    items: ourWork.items.map(({ name, description }, index) => ({ _key: `work-${index}`, _type: "workItem", name, description })),
+  },
   addOns: addOns.map(({ options, ...addOn }) => ({
     ...addOnFields(addOn, "addOn"),
     ...(options ? { options: options.map((option) => addOnFields(option, "addOnOption")) } : {}),

@@ -16,7 +16,6 @@
   "googleListing": "Glonia flowers and perfumes, Malaparamba, Kozhikode",
   "googlePlaceId": "ChIJ569uA5FZpjsR_g_mhcb5XSI",
   "showReviews": true,
-  "sameDayCutoff": "[cut-off time]",
   "instagram": {
     "handle": "@gloniaflowers",
     "url": "https://www.instagram.com/gloniaflowers/"
@@ -30,7 +29,19 @@
     {
       "id": "choc",
       "name": "Chocolates",
-      "price": null
+      "price": null,
+      "options": [
+        {
+          "id": "snickers",
+          "name": "Snickers",
+          "price": 35
+        },
+        {
+          "id": "galaxy",
+          "name": "Galaxy",
+          "price": 65
+        }
+      ]
     },
     {
       "id": "gift",
@@ -38,6 +49,81 @@
       "price": null
     }
   ],
+  "heroText": "Korean bouquets, flower boxes and bridal décor — hand-made in our studio and delivered fresh to your door.",
+  "deliverySlots": [
+    "9–10 AM",
+    "10–11 AM",
+    "11 AM–12 PM",
+    "12–1 PM",
+    "1–2 PM",
+    "2–3 PM",
+    "3–4 PM",
+    "4–5 PM",
+    "5–6 PM",
+    "6–7 PM",
+    "7–8 PM"
+  ],
+  "boxSizes": {
+    "S": 5.5,
+    "M": 6.5,
+    "L": 7.5
+  },
+  "ourWork": {
+    "intro": "Bridal bouquets, boutonnieres, wedding car décor and custom pieces.",
+    "items": [
+      {
+        "name": "Bridal",
+        "description": "Bouquets and wedding décor",
+        "image": null
+      },
+      {
+        "name": "Car Décor",
+        "description": "Fresh flowers for the wedding car",
+        "image": null
+      },
+      {
+        "name": "Boutonnieres",
+        "description": "For the groom and groomsmen",
+        "image": null
+      },
+      {
+        "name": "Customized",
+        "description": "Your colours, your flowers",
+        "image": null
+      }
+    ]
+  },
+  "perfumes": {
+    "show": true,
+    "badge": "Coming soon",
+    "eyebrow": "Something new is blooming",
+    "title": "Perfumes",
+    "text": "Signature fragrances to pair with your flowers. Our perfume collection is launching soon — be the first to know.",
+    "imageLabel": "Launching soon",
+    "image": null,
+    "buttonLabel": "Notify me on WhatsApp",
+    "whatsappMessage": "Hi GLONIA, please let me know when your perfumes launch.",
+    "note": "We'll message you on launch day."
+  },
+  "productInfo": {
+    "details": [
+      "Flower shade may change depending on availability.",
+      "Price subject to vary depending on the market rate."
+    ],
+    "careBox": [
+      "Keep in a cool place, away from direct sun.",
+      "Mist the flowers lightly once a day.",
+      "Do not add water to the box."
+    ],
+    "careBouquet": [
+      "Keep in a cool place, away from direct sun.",
+      "Place unwrapped stems in a clean vase with fresh water.",
+      "Refresh the water daily."
+    ],
+    "delivery": [
+      "Confirm delivery availability and charges with us on WhatsApp."
+    ]
+  },
   "featured": {
     "hero": [
       "single-red-rose",

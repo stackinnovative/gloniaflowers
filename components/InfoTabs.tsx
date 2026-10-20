@@ -17,25 +17,18 @@ export function InfoTabs({ product }: { product: Product }) {
   const [active, setActive] = useState<TabId>("details");
   const prefix = useId();
   const buttons = useRef<Array<HTMLButtonElement | null>>([]);
+  // Shared lines are edited in Sanity (Site settings → Product page info).
+  const { productInfo } = site;
   const content: Record<TabId, string[]> = {
     details: [
       product.description,
       ...(product.sizes ? ["Available in Small, Medium and Large."] : []),
-      "Flower shade may change depending on availability.",
+      ...productInfo.details,
     ],
-    care: product.sizes ? [
-      "Keep in a cool place, away from direct sun.",
-      "Mist the flowers lightly once a day.",
-      "Do not add water to the box.",
-    ] : [
-      "Keep in a cool place, away from direct sun.",
-      "Place unwrapped stems in a clean vase with fresh water.",
-      "Refresh the water daily.",
-    ],
+    care: product.sizes ? productInfo.careBox : productInfo.careBouquet,
     delivery: [
       `Shop hours: ${site.hours.label}.`,
-      `Same-day delivery cut-off: ${site.sameDayCutoff}. Please confirm on WhatsApp.`,
-      "Confirm delivery availability and charges with us on WhatsApp.",
+      ...productInfo.delivery,
     ],
   };
 

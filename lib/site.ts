@@ -3,9 +3,9 @@
 // (Site settings) and synced into data/settings.json at build time.
 //
 // TODO client — still placeholders in Site settings (or data/settings.json):
-// - Same-day delivery cut-off time
 // - Add-on names and prices (empty price is shown as "Price to confirm")
 // - Collection photos for premium, custom, choco, bridal, car, gifts (Collections in the Studio)
+// - Our work photos (Site settings → Home page)
 // - Higher-resolution product photos (current ones are crops from the catalogue)
 import settingsData from "@/data/settings.json";
 
@@ -31,9 +31,44 @@ type Settings = {
   /** Google Place ID (ChIJ…) for the reviews section. */
   googlePlaceId: string;
   showReviews: boolean;
-  sameDayCutoff: string;
   instagram: { handle: string; url: string };
   addOns: AddOn[];
+  /** Line under the logo in the home page hero. */
+  heroText: string;
+  /** Time slots offered on the product page, in order. */
+  deliverySlots: string[];
+  /** Box diameter in inches for each size. */
+  boxSizes: { S: number; M: number; L: number };
+  ourWork: {
+    intro: string;
+    /** `image` is a Sanity CDN URL, or null to show a placeholder. */
+    items: { name: string; description: string; image: string | null }[];
+  };
+  perfumes: {
+    /** False hides the home page section and the Perfumes nav links. */
+    show: boolean;
+    badge: string;
+    eyebrow: string;
+    /** Script word after "GLONIA" in the heading. */
+    title: string;
+    text: string;
+    /** Ribbon under the bottle. */
+    imageLabel: string;
+    /** Sanity CDN URL, or null for the default bottle in public/images. */
+    image: string | null;
+    buttonLabel: string;
+    whatsappMessage: string;
+    note: string;
+  };
+  /** Lines in the product page's Details / Care / Delivery tabs, shared by every product. */
+  productInfo: {
+    details: string[];
+    /** Care tips for products with sizes (flower boxes). */
+    careBox: string[];
+    /** Care tips for products without sizes (bouquets, stems). */
+    careBouquet: string[];
+    delivery: string[];
+  };
   featured: {
     /** Left, centrepiece, right. */
     hero: string[];
@@ -83,8 +118,12 @@ export const site = {
   googleListing: settings.googleListing.trim(),
   googlePlaceId: settings.googlePlaceId,
   showReviews: settings.showReviews,
-  sameDayCutoff: settings.sameDayCutoff,
   instagram: settings.instagram,
+  heroText: settings.heroText,
+  boxSizes: settings.boxSizes,
+  ourWork: settings.ourWork,
+  perfumes: settings.perfumes,
+  productInfo: settings.productInfo,
   featured: settings.featured,
 } as const;
 
@@ -95,17 +134,6 @@ export const addOnChoices: AddOnChoice[] = addOns.flatMap(({ options, ...addOn }
   ? options.map((option) => ({ ...option, id: `${addOn.id}/${option.id}`, group: addOn.id }))
   : [{ ...addOn, group: addOn.id }]);
 
-// One-hour delivery slots, 9 AM – 8 PM.
-export const deliverySlots = [
-  "9–10 AM", "10–11 AM", "11 AM–12 PM", "12–1 PM", "1–2 PM", "2–3 PM",
-  "3–4 PM", "4–5 PM", "5–6 PM", "6–7 PM", "7–8 PM",
-] as const;
-export type DeliverySlot = (typeof deliverySlots)[number];
-
-// Shown in the Our work cards until the collection has a photo.
-export const workPhotoPlaceholders: Record<string, string> = {
-  bridal: "[Bridal photo]",
-  car: "[Car décor photo]",
-  boutonnieres: "[Boutonniere photo]",
-  custom: "[Custom bouquet photo]",
-};
+export const deliverySlots: readonly string[] = settings.deliverySlots;
+/** One of `deliverySlots`; saved carts are checked against the current list. */
+export type DeliverySlot = string;

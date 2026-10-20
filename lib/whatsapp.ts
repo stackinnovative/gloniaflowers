@@ -20,7 +20,8 @@ export type OrderAddOn = { group: string; name: string; priced: boolean; isOptio
 const CHOCOLATES_ID = "choc";
 const CARD_ID = "card";
 
-export type Delivery = { date: string; slot: DeliverySlot };
+/** `slot` is missing only on a saved cart line whose slot was later removed from Site settings. */
+export type Delivery = { date: string; slot?: DeliverySlot };
 
 export function formatPrice(amount: number): string {
   return `₹${amount.toLocaleString("en-IN")}`;
@@ -86,6 +87,5 @@ export function buildOrderMessage(lines: OrderLine[]): string {
   return out.join("\n\n");
 }
 
-export const perfumeNotifyMessage = "Hi GLONIA, please let me know when your perfumes launch.";
 export const customOrderMessage =
   "Hi GLONIA, I'd like a custom bouquet.\nColours: \nBudget: \nDelivery date: ";

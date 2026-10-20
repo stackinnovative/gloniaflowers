@@ -144,7 +144,6 @@ A product appears in its `collection` and every id in `alsoIn`.
 
 ## 8. Placeholders (listed in `lib/site.ts` with `// TODO client`; values live in Sanity Site settings / `data/settings.json`)
 - Shop address and city
-- Same-day delivery cut-off time
 - Instagram handle
 - Add-on names and prices
 - Photos for: premium, custom, choco, bridal, car, gifts collections

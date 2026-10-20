@@ -42,10 +42,7 @@ export function Hero() {
           <LeafIcon className="size-3.5 md:size-[18px]" />
           <span className="h-px w-11 bg-gold-500 md:w-[70px]" />
         </div>
-        <p className="m-0 max-w-[540px] text-[15px] text-muted md:text-[18px]">
-          <span className="md:hidden">Korean bouquets, flower boxes and bridal décor, hand-made and delivered fresh.</span>
-          <span className="hidden md:inline">Korean bouquets, flower boxes and bridal décor — hand-made in our studio and delivered fresh to your door.</span>
-        </p>
+        <p className="m-0 max-w-[540px] text-[15px] text-muted md:text-[18px]">{site.heroText}</p>
         <div className="flex w-full flex-col justify-center gap-2.5 pt-1.5 font-caps text-[12px] font-semibold uppercase tracking-[0.16em] md:w-auto md:flex-row md:flex-wrap md:gap-3.5 md:text-[13px]">
           <Link href="/catalog" prefetch={false} className="inline-flex min-h-11 items-center justify-center bg-ink p-4 text-white hover:text-gold-200 md:px-[34px] md:py-[17px]">
             Shop the collection

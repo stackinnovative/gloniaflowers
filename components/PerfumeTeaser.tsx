@@ -1,18 +1,21 @@
 import Image from "next/image";
-import { perfumeNotifyMessage, waLink } from "@/lib/whatsapp";
+import { site } from "@/lib/site";
+import { waLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./Icons";
 import "./PerfumeTeaser.css";
 
 const petals = ["one", "two", "three", "four", "five"];
+const { perfumes } = site;
 
 function PerfumeStage() {
   return (
     <div className="gl-perfume-art">
       <div className="gl-perfume-frame">
         <div className="gl-perfume-stage">
+          {/* Without a photo in Site settings, the default bottle is shown. */}
           <Image
-            src="/images/perfume-bottle.webp"
-            alt="GLONIA perfume bottle in pink glass with a rose-gold cap"
+            src={perfumes.image ?? "/images/perfume-bottle.webp"}
+            alt={perfumes.image ? `GLONIA ${perfumes.title}` : "GLONIA perfume bottle in pink glass with a rose-gold cap"}
             width={560}
             height={930}
             sizes="(min-width: 1024px) 171px, 96px"
@@ -30,13 +33,16 @@ function PerfumeStage() {
             </svg>
           ))}
         </div>
-        <span className="gl-perfume-launch-label">Launching soon</span>
+        {perfumes.imageLabel && <span className="gl-perfume-launch-label">{perfumes.imageLabel}</span>}
       </div>
     </div>
   );
 }
 
+/** Home page section; hidden (with its nav links) when Site settings → Perfumes → Show is off. */
 export function PerfumeTeaser() {
+  if (!perfumes.show) return null;
+
   return (
     <section id="perfumes" aria-labelledby="perfume-heading" className="gl-perfume-section">
       {petals.map((petal) => (
@@ -44,32 +50,31 @@ export function PerfumeTeaser() {
       ))}
       <div className="gl-perfume-inner">
         <div className="gl-perfume-intro">
-          <span className="gl-perfume-badge">
-            <span aria-hidden="true" className="gl-perfume-badge-dot" />
-            Coming soon
-          </span>
-          <p className="gl-perfume-eyebrow">Something new is blooming</p>
+          {perfumes.badge && (
+            <span className="gl-perfume-badge">
+              <span aria-hidden="true" className="gl-perfume-badge-dot" />
+              {perfumes.badge}
+            </span>
+          )}
+          {perfumes.eyebrow && <p className="gl-perfume-eyebrow">{perfumes.eyebrow}</p>}
           <h2 id="perfume-heading" className="gl-perfume-heading">
             <span className="gl-perfume-brand">GLONIA</span>
-            <span className="gl-shine gl-perfume-script">Perfumes</span>
+            <span className="gl-shine gl-perfume-script">{perfumes.title}</span>
           </h2>
-          <p className="gl-perfume-description">
-            <span className="gl-perfume-copy-mobile">Signature fragrances to pair with your flowers. Launching soon — be the first to know.</span>
-            <span className="gl-perfume-copy-desktop">Signature fragrances to pair with your flowers. Our perfume collection is launching soon — be the first to know.</span>
-          </p>
+          <p className="gl-perfume-description">{perfumes.text}</p>
         </div>
         <PerfumeStage />
         <div className="gl-perfume-actions">
           <a
-            href={waLink(perfumeNotifyMessage)}
+            href={waLink(perfumes.whatsappMessage)}
             target="_blank"
             rel="noopener noreferrer"
             className="gl-perfume-notify"
           >
             <WhatsAppIcon size={16} stroke="#E6CF93" className="gl-perfume-action-icon" />
-            Notify me on WhatsApp
+            {perfumes.buttonLabel}
           </a>
-          <p className="gl-perfume-note">We&apos;ll message you on launch day.</p>
+          {perfumes.note && <p className="gl-perfume-note">{perfumes.note}</p>}
         </div>
       </div>
     </section>

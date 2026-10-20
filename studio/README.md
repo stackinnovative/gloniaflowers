@@ -40,12 +40,14 @@ A private dataset also works. Create a *Viewer* token under *API → Tokens* and
 One document, at the bottom of the Studio menu:
 
 - **Contact:** tagline, shop description, WhatsApp number (every order goes here), phone, email, address, Instagram.
-- **Hours & delivery:** opening hours, which drive the "Open now / Closed now" strip, and the same-day cut-off. The delivery time slots (one hour each, 9 AM – 8 PM) are fixed in code.
+- **Hours & delivery:** opening hours, which drive the "Open now / Closed now" strip; the delivery time slots in the product page dropdown (if a slot is removed, carts that used it keep the item and date without a time); and the box sizes in inches for Small / Medium / Large.
 - **Add-ons:** name, id and price. Leave the price empty for "Price to confirm"; 0 shows no price. To offer several kinds (e.g. different chocolates or gifts), add them under **Choices**, each with its own name and price; customers pick one from a dropdown, and the add-on's own price is then not used. Keep the ids `card` (message card) and `choc` (chocolates), because the WhatsApp message uses them. Don't change any add-on or choice id after launch, because carts already saved in customers' browsers use it.
-- **Home page photos:** the three hero arches (the middle one is the centrepiece), the WhatsApp example, the size-reference box, the custom-order card photos and the gallery.
+- **Product page info:** the lines in the Details, Care and Delivery tabs, shared by every product: Details notes (after each product's own description), care tips for flower boxes and for bouquets, and delivery notes (after the shop hours, which come from Hours & delivery). One line per item.
+- **Home page:** the hero text under the logo; the three hero arches (the middle one is the centrepiece), the WhatsApp example, the size-reference box, the custom-order card photos and the gallery; and **Our work** (intro line, plus items with a name, short line and photo; an item without a photo shows a placeholder).
+- **Perfumes:** the home page perfume section (badge, heading word, text, photo, button, WhatsApp message, note). Turn off **Show on the website** to hide the section and the Perfumes menu links.
 
 Products picked here can't be deleted while they're in use; Sanity asks you to swap them out first. Collection tile photos are on each **Collection**.
 
 ## Still in code
 
-The site address (`site.url` in `lib/site.ts`, currently gloniaflowers.vercel.app), delivery time slots, page wording, and the "Our work" placeholder labels shown until the Bridal / Car Décor / Customized collections get a photo.
+The site address (`site.url` in `lib/site.ts`, currently gloniaflowers.vercel.app) and the rest of the page wording (headings, menus, How to order steps, top bar messages, page titles for search).

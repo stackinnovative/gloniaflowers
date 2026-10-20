@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { site } from "@/lib/site";
 import { waLink } from "@/lib/whatsapp";
 import { useCart } from "./CartProvider";
 import { CartIcon, WhatsAppIcon } from "./Icons";
@@ -17,8 +18,9 @@ const NAV_LEFT: NavItem[] = [
   { label: "Bridal", href: "/#work" },
 ];
 
+// The Perfumes link goes with the home page section (Site settings → Perfumes → Show).
 const NAV_RIGHT: NavItem[] = [
-  { label: "Perfumes", href: "/#perfumes" },
+  ...(site.perfumes.show ? [{ label: "Perfumes", href: "/#perfumes" }] : []),
   { label: "Contact", href: "#contact" },
 ];
 

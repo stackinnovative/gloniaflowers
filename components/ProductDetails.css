@@ -6,12 +6,12 @@
 .gl-detail-photo-frame { position: relative; z-index: 1; }
 .gl-detail-photo-frame::before { position: absolute; inset: 12px -12px -12px 12px; border: 1.5px solid var(--gl-gold-400); border-radius: 20px; content: ""; }
 .gl-detail-photo { position: relative; overflow: hidden; aspect-ratio: 1 / 1.08; border-radius: 20px; box-shadow: 0 20px 40px rgb(120 70 50 / 18%); }
-.gl-detail-fresh { position: absolute; top: 12px; left: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 999px; background: var(--gl-white); font-size: 11px; font-weight: 700; box-shadow: 0 6px 14px rgb(26 26 26 / 10%); }
+.gl-detail-fresh { position: absolute; right: 10px; bottom: 10px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: var(--gl-white); font-size: 10px; font-weight: 700; box-shadow: 0 6px 14px rgb(26 26 26 / 10%); }
 .gl-detail-fresh > span { width: 7px; height: 7px; flex: none; border-radius: 50%; background: #4f8a3a; }
 .gl-detail-sizes-badge { position: absolute; top: 12px; right: 12px; display: flex; width: 54px; height: 54px; align-items: center; justify-content: center; flex-direction: column; border-radius: 50%; background: var(--gl-ink); color: var(--gl-gold-200); text-align: center; }
 .gl-detail-sizes-badge > span { font-family: var(--font-cinzel), serif; font-size: 11px; font-weight: 600; line-height: 1; }
 .gl-detail-sizes-badge small { padding-top: 2px; color: var(--gl-white); font-size: 7px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-.gl-detail-size-card { position: absolute; bottom: 18px; left: -10px; display: flex; align-items: center; gap: 9px; padding: 9px 14px 9px 9px; border-radius: 14px; background: var(--gl-white); box-shadow: 0 12px 26px rgb(26 26 26 / 14%); }
+.gl-detail-size-card { position: absolute; bottom: -24px; left: -10px; display: flex; align-items: center; gap: 9px; padding: 9px 14px 9px 9px; border-radius: 14px; background: var(--gl-white); box-shadow: 0 12px 26px rgb(26 26 26 / 14%); }
 .gl-detail-ruler { display: flex; width: 32px; height: 32px; align-items: center; justify-content: center; border-radius: 50%; background: var(--gl-blush); color: var(--gl-gold-text); }
 .gl-detail-size-card > span:last-child { display: flex; flex-direction: column; line-height: 1.2; }
 .gl-detail-size-card small { color: var(--gl-muted); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
@@ -59,9 +59,9 @@
   .gl-detail-stage::after { position: absolute; bottom: -70px; left: -70px; width: 200px; height: 200px; border: 1px solid #e3cbbe; border-radius: 50%; content: ""; pointer-events: none; }
   .gl-detail-photo-frame::before { inset: 18px -18px -18px 18px; border-radius: 24px; }
   .gl-detail-photo { aspect-ratio: 1 / 1.05; border-radius: 24px; box-shadow: 0 30px 60px rgb(120 70 50 / 18%); }
-  .gl-detail-fresh { top: 18px; left: 18px; }
+  .gl-detail-fresh { right: 18px; bottom: 18px; font-size: 11px; }
   .gl-detail-sizes-badge { top: 18px; right: 18px; }
-  .gl-detail-size-card { bottom: 30px; left: -16px; gap: 12px; padding: 12px 18px 12px 12px; border-radius: 16px; }
+  .gl-detail-size-card { bottom: -28px; left: -16px; gap: 12px; padding: 12px 18px 12px 12px; border-radius: 16px; }
   .gl-detail-ruler { width: 40px; height: 40px; }
   .gl-detail-size-card small { font-size: 11px; }
   .gl-detail-size-card strong { font-size: 20px; }

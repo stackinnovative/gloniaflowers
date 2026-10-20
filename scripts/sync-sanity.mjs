@@ -33,7 +33,11 @@ const query = `{
   },
   "settings": *[_id == "siteSettings"][0] {
     tagline, description, phoneDisplay, whatsappNumber, email,
-    hours { open, close }, address { street, city }, mapQuery, googleListing, googlePlaceId, showReviews, sameDayCutoff, instagram { handle, url },
+    hours { open, close }, address { street, city }, mapQuery, googleListing, googlePlaceId, showReviews, instagram { handle, url },
+    productInfo { details, careBox, careBouquet, delivery },
+    heroText, deliverySlots, boxSizes { S, M, L },
+    ourWork { intro, items[] { name, description, "image": image.asset->url } },
+    perfumes { show, badge, eyebrow, title, text, imageLabel, "image": image.asset->url, buttonLabel, whatsappMessage, note },
     "addOns": addOns[] { "id": id.current, name, "price": coalesce(price, null), "options": options[] { "id": id.current, name, "price": coalesce(price, null) } },
     "featured": {
       "hero": hero[]->slug.current,
@@ -92,12 +96,15 @@ const products = result.products.map((p) => {
 
 if (!products.length) problems.push("no published products");
 
+// Settings fields never filled in Sanity (added after launch) keep the committed values.
+const committed = JSON.parse(await readFile(path.resolve("data", "settings.json"), "utf8"));
+
 // Missing settings document (e.g. before the seed): keep the committed settings.json.
 const settings = result.settings && readSettings(result.settings);
 
 function readSettings(raw) {
   const label = "Site settings";
-  for (const key of ["tagline", "description", "phoneDisplay", "email", "sameDayCutoff"]) {
+  for (const key of ["tagline", "description", "phoneDisplay", "email"]) {
     if (!isText(raw[key])) problems.push(`${label}: missing ${key}`);
   }
   if (!/^[1-9]\d{9,14}$/.test(raw.whatsappNumber ?? "")) problems.push(`${label}: WhatsApp number must be digits with country code`);
@@ -127,6 +134,60 @@ function readSettings(raw) {
     return options.length ? { ...addOn, options } : addOn;
   });
   uniqueIds(addOns, "two add-ons share an id");
+  const infoLines = (key) => {
+    const lines = raw.productInfo?.[key];
+    if (lines == null) return committed.productInfo[key];
+    if (!Array.isArray(lines) || !lines.every(isText)) problems.push(`${label}: Product page info → ${key} has an empty line`);
+    return Array.isArray(lines) ? lines.map((line) => (typeof line === "string" ? line.trim() : line)) : [];
+  };
+  const productInfo = {
+    details: infoLines("details"),
+    careBox: infoLines("careBox"),
+    careBouquet: infoLines("careBouquet"),
+    delivery: infoLines("delivery"),
+  };
+
+  const text = (value) => (typeof value === "string" ? value.trim() : "");
+  const heroText = raw.heroText == null ? committed.heroText : text(raw.heroText);
+  if (!heroText) problems.push(`${label}: missing hero text`);
+
+  const deliverySlots = raw.deliverySlots == null ? committed.deliverySlots : raw.deliverySlots.map(text);
+  if (!deliverySlots.length || !deliverySlots.every(Boolean)) problems.push(`${label}: delivery time slots need at least one slot and no empty lines`);
+  if (new Set(deliverySlots).size !== deliverySlots.length) problems.push(`${label}: a delivery time slot is listed twice`);
+
+  const boxSizes = raw.boxSizes == null ? committed.boxSizes : { S: raw.boxSizes.S, M: raw.boxSizes.M, L: raw.boxSizes.L };
+  const isSize = (value) => typeof value === "number" && value > 0;
+  if (!(isSize(boxSizes.S) && isSize(boxSizes.M) && isSize(boxSizes.L) && boxSizes.S < boxSizes.M && boxSizes.M < boxSizes.L)) {
+    problems.push(`${label}: box sizes must be numbers, Small < Medium < Large`);
+  }
+
+  const ourWork = raw.ourWork == null ? committed.ourWork : {
+    intro: text(raw.ourWork.intro),
+    items: (raw.ourWork.items ?? []).map((item) => ({
+      name: text(item.name),
+      description: text(item.description),
+      image: typeof item.image === "string" ? cdnImage(item.image) : null,
+    })),
+  };
+  if (!ourWork.items.every((item) => item.name)) problems.push(`${label}: every Our work item needs a name`);
+  if (new Set(ourWork.items.map((item) => item.name)).size !== ourWork.items.length) problems.push(`${label}: two Our work items share a name`);
+
+  const p = raw.perfumes;
+  const perfumes = p == null ? committed.perfumes : {
+    show: p.show !== false,
+    badge: text(p.badge),
+    eyebrow: text(p.eyebrow),
+    title: text(p.title),
+    text: text(p.text),
+    imageLabel: text(p.imageLabel),
+    image: typeof p.image === "string" ? cdnImage(p.image) : null,
+    buttonLabel: text(p.buttonLabel),
+    whatsappMessage: text(p.whatsappMessage),
+    note: text(p.note),
+  };
+  for (const key of ["title", "text", "buttonLabel", "whatsappMessage"]) {
+    if (perfumes.show && !perfumes[key]) problems.push(`${label}: Perfumes section is shown but missing ${key}`);
+  }
 
   // Featured products must be published; unpublished picks are dropped with a warning.
   const known = (slug, where) => {
@@ -152,9 +213,14 @@ function readSettings(raw) {
     googleListing: typeof raw.googleListing === "string" ? raw.googleListing.trim() : "",
     googlePlaceId,
     showReviews: raw.showReviews !== false,
-    sameDayCutoff: raw.sameDayCutoff,
     instagram: { handle: raw.instagram?.handle, url: raw.instagram?.url },
     addOns,
+    heroText,
+    deliverySlots,
+    boxSizes,
+    ourWork,
+    perfumes,
+    productInfo,
     featured: {
       hero: list("hero"),
       orderExample: single("orderExample"),

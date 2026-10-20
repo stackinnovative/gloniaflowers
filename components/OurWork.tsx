@@ -1,33 +1,13 @@
 import Image from "next/image";
-import { getCollection } from "@/lib/products";
-import { workPhotoPlaceholders } from "@/lib/site";
+import type { CSSProperties } from "react";
+import { site } from "@/lib/site";
 import { FloralCorner } from "./FloralCorner";
 import "./OurWork.css";
 
-const work = [
-  {
-    id: "bridal",
-    name: "Bridal",
-    description: "Bouquets and wedding décor",
-  },
-  {
-    id: "car",
-    name: "Car Décor",
-    description: "Fresh flowers for the wedding car",
-  },
-  {
-    id: "boutonnieres",
-    name: "Boutonnieres",
-    description: "For the groom and groomsmen",
-  },
-  {
-    id: "custom",
-    name: "Customized",
-    description: "Your colours, your flowers",
-  },
-];
-
 export function OurWork() {
+  const { intro, items } = site.ourWork;
+  if (!items.length) return null;
+
   return (
     <section id="work" aria-labelledby="our-work-heading" className="gl-work-section">
       <FloralCorner corner="tr" src="br" mirror="y" className="gl-work-floral" />
@@ -35,37 +15,36 @@ export function OurWork() {
         <div className="gl-work-heading">
           <p className="gl-work-accent">Our work</p>
           <h2 id="our-work-heading">Made for your <span>big moments</span></h2>
-          <p className="gl-work-intro">Bridal bouquets, boutonnieres, wedding car décor and custom pieces.</p>
+          {intro && <p className="gl-work-intro">{intro}</p>}
         </div>
-        <ul className="gl-work-gallery" role="list" aria-label="Our floral work" tabIndex={0}>
-          {work.map((item) => {
-            const image = getCollection(item.id)?.image;
-            return (
-              <li key={item.id} className="gl-work-card">
-                <figure className="gl-work-figure">
-                  <div className="gl-work-frame">
-                    <div className="gl-work-photo">
-                      {image ? (
-                        <Image
-                          src={image}
-                          alt={`${item.name} floral work by GLONIA`}
-                          fill
-                          sizes="(min-width: 1320px) 386px, (min-width: 861px) calc((100vw - 162px) / 3), 206px"
-                          className="gl-work-image"
-                        />
-                      ) : (
-                        <span className="gl-work-placeholder">{workPhotoPlaceholders[item.id]}</span>
-                      )}
-                    </div>
+        {/* Up to four per row on desktop. */}
+        <ul className="gl-work-gallery" role="list" aria-label="Our floral work" tabIndex={0} style={{ "--gl-work-columns": Math.min(items.length, 4) } as CSSProperties}>
+          {items.map((item) => (
+            <li key={item.name} className="gl-work-card">
+              <figure className="gl-work-figure">
+                <div className="gl-work-frame">
+                  <div className="gl-work-photo">
+                    {item.image ? (
+                      <Image
+                        src={item.image}
+                        alt={`${item.name} floral work by GLONIA`}
+                        fill
+                        sizes="(min-width: 1320px) 386px, (min-width: 861px) calc((100vw - 162px) / 3), 206px"
+                        className="gl-work-image"
+                      />
+                    ) : (
+                      // Until a photo is added in Site settings → Home page → Our work.
+                      <span className="gl-work-placeholder">[{item.name} photo]</span>
+                    )}
                   </div>
-                  <figcaption className="gl-work-caption">
-                    <h3>{item.name}</h3>
-                    <p className="gl-work-description">{item.description}</p>
-                  </figcaption>
-                </figure>
-              </li>
-            );
-          })}
+                </div>
+                <figcaption className="gl-work-caption">
+                  <h3>{item.name}</h3>
+                  {item.description && <p className="gl-work-description">{item.description}</p>}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
         </ul>
       </div>
     </section>
