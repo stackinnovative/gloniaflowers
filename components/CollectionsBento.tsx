@@ -1,28 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getCollection, getCollections, getProductsIn } from "@/lib/products";
+import { getCollection, getCollections, getProduct, getProductsIn } from "@/lib/products";
+import { site } from "@/lib/site";
 import { formatPrice, waLink } from "@/lib/whatsapp";
 import { LeafIcon } from "./Icons";
 import "./CollectionsBento.css";
 
-const TILE_IDS = ["bloom", "korean", "classic", "red"] as const;
+// The fourth tile shows on phones only; on wider screens it is a chip below the grid.
+const TILE_IDS = ["bloom", "korean", "classic", "custom"] as const;
+const MOBILE_TILE: TileId = "custom";
 type TileId = (typeof TILE_IDS)[number];
 
 function CollectionTile({ id }: { id: TileId }) {
   const collection = getCollection(id);
-  const image = collection?.image;
+  // Custom work has no products yet: until the collection has a tile photo (Studio → Collections), borrow the
+  // second custom-order card photo, and show "Made to order" instead of a price.
+  const image = collection?.image ?? (id === "custom" ? getProduct(site.featured.customOrder[1])?.image : undefined);
   if (!collection || !image) return null;
 
   const products = getProductsIn(id);
   const prices = products.flatMap((product) => (product.sizes ? Object.values(product.sizes) : [product.price]));
   const price = prices.length ? formatPrice(Math.min(...prices)) : null;
+  const noPrice = id === "custom" ? "Made to order" : "Coming soon";
   const imageProduct = products.find((product) => product.image === image);
   const featured = id === "bloom";
 
   return (
     <Link
       href={`/catalog?c=${id}`}
-      className={`gl-zoom gl-collections-tile ${featured ? "gl-collections-featured" : ""} ${id === "red" ? "gl-collections-mobile-only" : ""}`}
+      className={`gl-zoom gl-collections-tile ${featured ? "gl-collections-featured" : ""} ${id === MOBILE_TILE ? "gl-collections-mobile-only" : ""}`}
     >
       <Image
         src={image}
@@ -36,9 +42,9 @@ function CollectionTile({ id }: { id: TileId }) {
           <h3 className="gl-collections-tile-title">{collection.name}</h3>
           <p className="gl-collections-tile-price">
             {featured && <span className="gl-collections-featured-description">Full, lush arrangements · </span>}
-            {price ? `from ${price}` : "Coming soon"}
+            {price ? `from ${price}` : noPrice}
           </p>
-          {!featured && <span className="gl-collections-compact-price">{price ? ` · ${price}+` : " · Coming soon"}</span>}
+          {!featured && <span className="gl-collections-compact-price">{price ? ` · ${price}+` : ` · ${noPrice}`}</span>}
         </div>
         {featured && <span className="gl-collections-shop-label font-caps">Shop →</span>}
       </div>
@@ -125,7 +131,7 @@ export function CollectionsBento() {
           <Link
             key={collection.id}
             href={`/catalog?c=${collection.id}`}
-            className={`gl-collections-chip ${collection.id === "red" ? "gl-collections-desktop-only" : ""}`}
+            className={`gl-collections-chip ${collection.id === MOBILE_TILE ? "gl-collections-desktop-only" : ""}`}
           >
             <LeafIcon size={12} />
             {collection.name}
