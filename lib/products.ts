@@ -3,8 +3,9 @@ import productsData from "@/data/products.json";
 import { site } from "./site";
 import { formatPrice } from "./whatsapp";
 
-export type SizeKey = "S" | "M" | "L";
-export type Sizes = Record<SizeKey, number>;
+export type SizeKey = "S" | "M" | "L" | "XL";
+/** XL is optional: a box offers it only once it has an XL price. */
+export type Sizes = { S: number; M: number; L: number; XL?: number };
 
 /** image: tile photo, or null until the client supplies one. */
 export type Collection = { id: string; name: string; order: number; image: string | null };
@@ -20,14 +21,31 @@ export type Product = {
   description: string;
 };
 
-export const SIZE_KEYS: SizeKey[] = ["S", "M", "L"];
-export const SIZE_NAMES: Record<SizeKey, string> = { S: "Small", M: "Medium", L: "Large" };
+export const SIZE_KEYS: SizeKey[] = ["S", "M", "L", "XL"];
+export const SIZE_NAMES: Record<SizeKey, string> = { S: "Small", M: "Medium", L: "Large", XL: "Extra Large" };
 /** '5.5"' etc., from Site settings → Hours & delivery → Box sizes. */
 export const SIZE_INCHES: Record<SizeKey, string> = {
   S: `${site.boxSizes.S}"`,
   M: `${site.boxSizes.M}"`,
   L: `${site.boxSizes.L}"`,
+  XL: `${site.boxSizes.XL}"`,
 };
+
+/** The sizes a product is sold in, smallest first. */
+export function sizeKeys(sizes: Sizes): SizeKey[] {
+  return SIZE_KEYS.filter((key) => sizes[key] !== undefined);
+}
+
+/** Price of a size; one the product doesn't offer falls back to Small. */
+export function sizePrice(sizes: Sizes, size: SizeKey): number {
+  return sizes[size] ?? sizes.S;
+}
+
+/** "Small, Medium and Large" */
+export function sizeNamesList(keys: SizeKey[]): string {
+  const names = keys.map((key) => SIZE_NAMES[key]);
+  return names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : names.join("");
+}
 
 const products: Product[] = productsData;
 const collections: Collection[] = [...collectionsData].sort((a, b) => a.order - b.order);

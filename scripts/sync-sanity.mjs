@@ -27,7 +27,7 @@ const query = `{
     "slug": slug.current, name,
     "collection": collection->id.current,
     "alsoIn": alsoIn[]->id.current,
-    hasSizes, price, sizes { S, M, L },
+    hasSizes, price, sizes { S, M, L, XL },
     "image": image.asset->url,
     description
   },
@@ -35,7 +35,7 @@ const query = `{
     tagline, description, phoneDisplay, whatsappNumber, email,
     hours { open, close }, address { street, city }, mapQuery, googleListing, googlePlaceId, showReviews, instagram { handle, url },
     productInfo { details, careBox, careBouquet, delivery },
-    heroText, deliverySlots, boxSizes { S, M, L },
+    heroText, deliverySlots, boxSizes { S, M, L, XL },
     ourWork { intro, items[] { name, description, "image": image.asset->url } },
     perfumes { show, badge, eyebrow, title, text, imageLabel, "image": image.asset->url, buttonLabel, whatsappMessage, note },
     "addOns": addOns[] { "id": id.current, name, "price": coalesce(price, null), "options": options[] { "id": id.current, name, "price": coalesce(price, null) } },
@@ -80,6 +80,7 @@ const products = result.products.map((p) => {
   if (typeof p.name !== "string" || !p.name) problems.push(`${label}: missing name`);
   if (!collectionIds.has(p.collection)) problems.push(`${label}: main collection is missing or unpublished`);
   if (sizes ? !(isPrice(sizes.S) && isPrice(sizes.M) && isPrice(sizes.L)) : !isPrice(p.price)) problems.push(`${label}: missing or invalid price`);
+  if (sizes && sizes.XL != null && !(isPrice(sizes.XL) && sizes.XL >= sizes.L)) problems.push(`${label}: Extra large price must be a whole number, at least the Large price`);
   if (typeof p.image !== "string") problems.push(`${label}: missing photo`);
   if (typeof p.description !== "string" || !p.description) problems.push(`${label}: missing description`);
   return {
@@ -88,7 +89,8 @@ const products = result.products.map((p) => {
     collection: p.collection,
     alsoIn: [...new Set((p.alsoIn ?? []).filter((id) => collectionIds.has(id) && id !== p.collection))],
     price: sizes ? sizes.S : p.price,
-    sizes: sizes ? { S: sizes.S, M: sizes.M, L: sizes.L } : null,
+    // XL is optional: left out until it has a price.
+    sizes: sizes ? { S: sizes.S, M: sizes.M, L: sizes.L, ...(sizes.XL != null ? { XL: sizes.XL } : {}) } : null,
     image: typeof p.image === "string" ? cdnImage(p.image) : p.image,
     description: p.description,
   };
@@ -155,10 +157,10 @@ function readSettings(raw) {
   if (!deliverySlots.length || !deliverySlots.every(Boolean)) problems.push(`${label}: delivery time slots need at least one slot and no empty lines`);
   if (new Set(deliverySlots).size !== deliverySlots.length) problems.push(`${label}: a delivery time slot is listed twice`);
 
-  const boxSizes = raw.boxSizes == null ? committed.boxSizes : { S: raw.boxSizes.S, M: raw.boxSizes.M, L: raw.boxSizes.L };
+  const boxSizes = raw.boxSizes == null ? committed.boxSizes : { S: raw.boxSizes.S, M: raw.boxSizes.M, L: raw.boxSizes.L, XL: raw.boxSizes.XL ?? committed.boxSizes.XL };
   const isSize = (value) => typeof value === "number" && value > 0;
-  if (!(isSize(boxSizes.S) && isSize(boxSizes.M) && isSize(boxSizes.L) && boxSizes.S < boxSizes.M && boxSizes.M < boxSizes.L)) {
-    problems.push(`${label}: box sizes must be numbers, Small < Medium < Large`);
+  if (!(isSize(boxSizes.S) && isSize(boxSizes.M) && isSize(boxSizes.L) && isSize(boxSizes.XL) && boxSizes.S < boxSizes.M && boxSizes.M < boxSizes.L && boxSizes.L < boxSizes.XL)) {
+    problems.push(`${label}: box sizes must be numbers, Small < Medium < Large < Extra large`);
   }
 
   const ourWork = raw.ourWork == null ? committed.ourWork : {

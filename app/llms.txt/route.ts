@@ -36,7 +36,7 @@ export function GET() {
 
 ## How to order
 
-1. Pick flowers at ${site.url}/catalog. Flower boxes come in Small (${SIZE_INCHES.S}), Medium (${SIZE_INCHES.M}) and Large (${SIZE_INCHES.L}).
+1. Pick flowers at ${site.url}/catalog. Flower boxes come in Small (${SIZE_INCHES.S}), Medium (${SIZE_INCHES.M}), Large (${SIZE_INCHES.L}) and, for some designs, Extra Large (${SIZE_INCHES.XL}).
 2. Choose a delivery date and a time slot (${deliverySlots.join(", ")}).
 3. Send the order on WhatsApp (https://wa.me/${site.whatsappNumber}); the shop confirms availability and delivery.
 4. Custom bouquets for any colour, budget or date can be requested on WhatsApp.

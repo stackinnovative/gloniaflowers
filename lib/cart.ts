@@ -1,6 +1,6 @@
-import { getProduct, type SizeKey } from "./products";
+import { getProduct, sizeKeys, sizePrice, type SizeKey } from "./products";
 import { isValidDeliveryDate } from "./delivery";
-import { addOnChoices, deliverySlots, type AddOnChoice } from "./site";
+import { addOnChoices, deliverySlots, site, type AddOnChoice } from "./site";
 import type { Delivery, OrderLine } from "./whatsapp";
 
 export type CartItem = {
@@ -41,9 +41,14 @@ function readItem(value: unknown): CartItem | null {
   let size: SizeKey | null = null;
   if (product.sizes) {
     // Earlier carts can omit the selection by storing null; catalogue orders use Small.
+    // A size no longer offered (e.g. XL price removed) drops the line.
+    const offered = sizeKeys(product.sizes);
     if (candidate.size === null) size = "S";
-    else if (candidate.size === "S" || candidate.size === "M" || candidate.size === "L") size = candidate.size;
-    else return null;
+    else {
+      const match = offered.find((key) => key === candidate.size);
+      if (!match) return null;
+      size = match;
+    }
   } else if (candidate.size !== null) return null;
 
   const delivery = candidate.delivery === undefined ? undefined : readDelivery(candidate.delivery);
@@ -70,7 +75,7 @@ export function cartLineKey(item: CartSelection): string {
 function unitPrice(item: CartSelection): number {
   const product = getProduct(item.slug);
   if (!product) return 0;
-  const basePrice = product.sizes && item.size ? product.sizes[item.size] : product.price;
+  const basePrice = product.sizes && item.size ? sizePrice(product.sizes, item.size) : product.price;
   return basePrice + addOnChoices.filter((addOn) => item.addOns.includes(addOn.id) && hasConfirmedPrice(addOn))
     .reduce((sum, addOn) => sum + (addOn.price ?? 0), 0);
 }
@@ -136,6 +141,7 @@ export function cartOrderLines(items: CartItem[]): OrderLine[] {
     const hasUnpricedAddOns = selectedAddOns.some((addOn) => !hasConfirmedPrice(addOn));
     return [{
       name: product.name,
+      link: `${site.url}/product/${product.slug}${item.size ? `?size=${item.size}` : ""}`,
       size: item.size,
       qty: item.qty,
       unitPrice: unitPrice(item),

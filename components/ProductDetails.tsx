@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Suspense, useState, useSyncExternalStore, type FormEvent } from "react";
 import { cartOrderLines, type CartSelection } from "@/lib/cart";
 import { isValidDeliveryDate, subscribeIndiaDate, todayInIndia } from "@/lib/delivery";
-import { getCollection, SIZE_NAMES, type Product, type SizeKey } from "@/lib/products";
+import { getCollection, SIZE_NAMES, sizePrice, type Product, type SizeKey } from "@/lib/products";
 import { addOns, deliverySlots, site, type DeliverySlot } from "@/lib/site";
 import { buildOrderMessage, formatPrice, waLink } from "@/lib/whatsapp";
 import { AddOns } from "./AddOns";
@@ -41,7 +41,7 @@ export function ProductDetails({ product }: { product: Product }) {
   const orderLines = cartOrderLines([{ ...selection, qty }]);
   const total = orderLines.reduce((sum, line) => sum + line.unitPrice * line.qty, 0);
   const hasUnpricedAddOns = orderLines.some((line) => line.hasUnpricedAddOns);
-  const basePrice = product.sizes ? product.sizes[size] : product.price;
+  const basePrice = product.sizes ? sizePrice(product.sizes, size) : product.price;
   const titleWords = product.name.split(" ");
 
   function submitOrder(event: FormEvent<HTMLFormElement>) {
@@ -69,7 +69,7 @@ export function ProductDetails({ product }: { product: Product }) {
         <Link href={`/catalog?c=${product.collection}`}>{collection?.name ?? "Shop"}</Link><span aria-hidden="true"> / </span>
         <span aria-current="page">{product.name}</span>
       </nav>
-      {product.sizes && <Suspense fallback={null}><SizeFromUrl onSize={setSize} /></Suspense>}
+      {product.sizes && <Suspense fallback={null}><SizeFromUrl sizes={product.sizes} onSize={setSize} /></Suspense>}
       <section className="gl-detail-main" aria-labelledby="product-heading">
         <ProductPhoto product={product} size={product.sizes ? size : null} />
         <div className="gl-detail-panel">

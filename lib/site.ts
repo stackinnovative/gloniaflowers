@@ -38,7 +38,7 @@ type Settings = {
   /** Time slots offered on the product page, in order. */
   deliverySlots: string[];
   /** Box diameter in inches for each size. */
-  boxSizes: { S: number; M: number; L: number };
+  boxSizes: { S: number; M: number; L: number; XL: number };
   ourWork: {
     intro: string;
     /** `image` is a Sanity CDN URL, or null to show a placeholder. */
@@ -93,7 +93,7 @@ export const site = {
   shortName: "GLONIA",
   tagline: settings.tagline,
   description: settings.description,
-  url: "https://gloniaflowers.vercel.app", // TODO client: switch to the custom domain when there is one
+  url: "https://gloniaflowers.vercel.app", // TODO client: switch to https://gloniaflowers.in once that domain is connected; order links, sitemap and SEO use it
 
   phoneDisplay: settings.phoneDisplay,
   phoneTel: `+${settings.whatsappNumber}`,

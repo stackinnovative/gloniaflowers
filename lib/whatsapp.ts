@@ -3,6 +3,8 @@ import { isValidDeliveryDate } from "./delivery";
 
 export type OrderLine = {
   name: string;
+  /** Full product page URL, with the chosen size. */
+  link: string;
   size: string | null;
   qty: number;
   /** Price of one item including add-ons with confirmed prices. */
@@ -63,6 +65,7 @@ function formatLine(line: OrderLine, showUnpricedNote: boolean): string {
   const chocolateLabels = chocolates.map((addOn) => addOnLabel(addOn.isOption ? addOn : { ...addOn, name: "Yes" }));
   return [
     `* ${line.qty > 1 ? `${line.name} × ${line.qty}` : line.name}`,
+    `* Link: ${line.link}`,
     line.size ? `* Size ${line.size} — ${price}` : `* Price: ${price}`,
     `* Add-ons: ${others.length ? others.map(addOnLabel).join(", ") : "Nil"}`,
     `* Chocolates: ${chocolateLabels.length ? chocolateLabels.join(", ") : "Nil"}`,

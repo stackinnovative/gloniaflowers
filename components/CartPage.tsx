@@ -10,7 +10,7 @@ import { addOnLabel, formatDeliveryDate, formatPrice, waLink } from "@/lib/whats
 import { CartCheckout } from "./CartCheckout";
 import { useCart } from "./CartProvider";
 import { CatalogDecoration } from "./Catalog";
-import { CloseIcon, WhatsAppIcon } from "./Icons";
+import { CloseIcon, GiftIcon, WhatsAppIcon } from "./Icons";
 import "./CartPage.css";
 
 const noop = () => () => {};
@@ -94,6 +94,9 @@ function Summary() {
       >
         <WhatsAppIcon size={16} stroke="#D9BE84" />Checkout on WhatsApp
       </CartCheckout>
+      <Link href="/catalog?c=gifts" prefetch={false} className="gl-cartp-button gl-cartp-button-light gl-cartp-gift">
+        <GiftIcon size={16} />Add a gift
+      </Link>
       <p className="gl-cartp-note">We confirm availability, delivery and your address on WhatsApp. Quick replies · {site.hours.label}.</p>
       <div className="gl-cartp-summary-links">
         <Link href="/catalog" prefetch={false}>Continue shopping</Link>

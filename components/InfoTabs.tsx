@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useRef, useState } from "react";
-import type { Product } from "@/lib/products";
+import { sizeKeys, sizeNamesList, type Product } from "@/lib/products";
 import { site } from "@/lib/site";
 import "./InfoTabs.css";
 
@@ -22,7 +22,7 @@ export function InfoTabs({ product }: { product: Product }) {
   const content: Record<TabId, string[]> = {
     details: [
       product.description,
-      ...(product.sizes ? ["Available in Small, Medium and Large."] : []),
+      ...(product.sizes ? [`Available in ${sizeNamesList(sizeKeys(product.sizes))}.`] : []),
       ...productInfo.details,
     ],
     care: product.sizes ? productInfo.careBox : productInfo.careBouquet,

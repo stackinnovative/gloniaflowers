@@ -1,15 +1,15 @@
 import { defineField, defineType } from "sanity";
 
-type Sizes = { S?: number; M?: number; L?: number };
+type Sizes = { S?: number; M?: number; L?: number; XL?: number };
 type ProductDoc = { hasSizes?: boolean; sizes?: Sizes; collection?: { _ref: string } };
 
-const rupees = (title: string, description?: string) =>
+const rupees = (name: string, title: string, description: string, required = true) =>
   defineField({
-    name: title.charAt(0),
+    name,
     title,
     description,
     type: "number",
-    validation: (rule) => rule.required().integer().positive(),
+    validation: (rule) => (required ? rule.required() : rule).integer().positive(),
   });
 
 export const product = defineType({
@@ -47,9 +47,9 @@ export const product = defineType({
     }),
     defineField({
       name: "hasSizes",
-      title: "Comes in S / M / L",
+      title: "Comes in S / M / L / XL",
       type: "boolean",
-      description: "Turn on for boxes sold in Small 5.5″, Medium 6.5″ and Large 7.5″.",
+      description: "Turn on for boxes sold in Small 5.5″, Medium 6.5″, Large 7.5″ and Extra large 9″.",
       initialValue: false,
     }),
     defineField({
@@ -69,13 +69,18 @@ export const product = defineType({
       title: "Size prices (₹)",
       type: "object",
       hidden: ({ document }) => !(document as ProductDoc | undefined)?.hasSizes,
-      options: { columns: 3 },
-      fields: [rupees("Small", "5.5″ — shown as the “from” price"), rupees("Medium", "6.5″"), rupees("Large", "7.5″")],
+      options: { columns: 4 },
+      fields: [
+        rupees("S", "Small", "5.5″ — shown as the “from” price"),
+        rupees("M", "Medium", "6.5″"),
+        rupees("L", "Large", "7.5″"),
+        rupees("XL", "Extra large", "9″ — optional; leave empty if this box isn’t made in XL", false),
+      ],
       validation: (rule) =>
         rule.custom((sizes: Sizes | undefined, context) => {
           if (!(context.document as ProductDoc | undefined)?.hasSizes) return true;
           if (!sizes?.S || !sizes.M || !sizes.L) return "Enter all three size prices.";
-          return sizes.S <= sizes.M && sizes.M <= sizes.L ? true : "Prices should go up from Small to Large.";
+          return sizes.S <= sizes.M && sizes.M <= sizes.L && (sizes.XL === undefined || sizes.L <= sizes.XL) ? true : "Prices should go up from Small to Extra large.";
         }),
     }),
     defineField({

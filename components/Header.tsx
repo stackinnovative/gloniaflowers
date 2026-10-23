@@ -15,6 +15,7 @@ type NavItem = { label: string; href: string };
 const NAV_LEFT: NavItem[] = [
   { label: "Shop now", href: "/catalog" },
   { label: "Collections", href: "/#collections" },
+  { label: "Gifts", href: "/catalog?c=gifts" },
   { label: "Bridal", href: "/#work" },
 ];
 

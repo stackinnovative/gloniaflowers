@@ -80,7 +80,7 @@ design-reference/       approved design markup (read-only, do not ship)
 
 **TopBar (ticker)** — thin scrolling strip on every page. Shows shop hours **8:30 AM – 7:30 PM** (from Site settings) and a live status: "Open now — we reply in minutes" or "Closed now — message us, we reply first thing in the morning". Uses `lib/hours.ts` with India time (Asia/Kolkata).
 
-**Header** — nav left (Shop now, Collections, etc. — see reference), **logo centred** (`/images/logo.png`), "Order on WhatsApp" button right, cart icon with count. Mobile: hamburger + logo + cart.
+**Header** — nav left (Shop now, Collections, Gifts, etc. — see reference), **logo centred** (`/images/logo.png`), "Order on WhatsApp" button right, cart icon with count. Mobile: hamburger + logo + cart.
 
 **Footer** — light champagne background (NOT dark). Logo, short line, three cards: Contact (phone, email, WhatsApp), Visit (address placeholder), Shop (links). Small copyright row.
 
@@ -90,7 +90,7 @@ design-reference/       approved design markup (read-only, do not ship)
 1. **Hero** — double gold frame with diamond corners, 4 floral corners (one image `floral-corner-tl.jpg` mirrored with `scaleX(-1)` / `scaleY(-1)`, soft gradient mask, `mix-blend-mode: multiply`), sparkles. Centre: **only the logo** (`width: clamp(240px, 26vw, 360px)`; mobile 230px), gold leaf divider, short description, two buttons, three arched photos. No flower graphic behind the logo.
 2. **Collections bento** — grid of collection tiles + sage "Weddings & events" invitation-style card.
 3. **Favourite picks** — row of collection titles that auto-slides, **3 titles visible, middle one active**. Every ~3s it moves one step (loop forever, pause on hover/focus, arrows to move by hand). When the active title changes, the **4 product cards below change** to that collection. If a collection has no products yet, show a "Coming soon — ask us on WhatsApp" card. Order = `collections.json` order. Mobile: same 3-title slider, product cards in a swipe row.
-4. **Size reference** — one box photo with measure lines: Small 5.5", Medium 6.5", Large 7.5". No prices.
+4. **Size reference** — one box photo with measure lines: Small 5.5", Medium 6.5", Large 7.5", Extra Large 9". No prices.
 5. **Our work** — photo grid.
 6. **How to order** — 4 steps: 1 Pick your flowers · 2 Choose date & time ("Pick your delivery date and time.") · 3 Order on WhatsApp · 4 We deliver fresh, on time. No "Enquire for an event" button.
 7. **Perfumes coming soon** — blush background, `perfume-bottle.webp`, "Notify me on WhatsApp" button (prefilled message).
@@ -98,17 +98,18 @@ design-reference/       approved design markup (read-only, do not ship)
 
 ### Catalog (`catalog-desktop.html`, `catalog-mobile.html`)
 - Collection bubbles (filter), price filter chips, sort (featured / price low–high / high–low).
-- Product cards: image, name, price, and the **S · M · L badge on the photo is the size selector** (when sizes exist; price follows the selected size, default S) and **Buy now**. No add-to-cart on cards.
+- Product cards: image, name, price, and the **S · M · L (· XL) badge on the photo is the size selector** (when sizes exist; price follows the selected size, default S) and **Buy now**. No add-to-cart on cards.
   - Buy now → product details page with the selected size (same as photo / name), so date, slot and add-ons are always chosen before WhatsApp.
   - Photo / name → product details page with the selected size (`/product/<slug>?size=L`); items are added to the cart there, after choosing date, slot and add-ons. The sticky **cart bar** (count + total + "Checkout on WhatsApp") shows whenever the cart has items.
 - "Made just for you" custom-order card (light, not dark) → WhatsApp.
+- Cart page has an "Add a gift" button → `/catalog?c=gifts`.
 - Start with an **empty** cart (the design shows one item only for preview).
 
 ### Product details (`product-desktop.html`, `product-mobile.html`)
-- Blush photo stage with an offset gold outline, **one image only** (no thumbnails), badges: "Fresh on delivery day", "S · M · L", size card "{size} · {inches}".
+- Blush photo stage with an offset gold outline, **one image only** (no thumbnails), badges: "Fresh on delivery day", "S · M · L" ("S – XL" when XL is offered), size card "{size} · {inches}".
 - Name, price (updates with size), short description, trust tiles.
-- **Size picker S / M / L** (only when `sizes` is not null) — shows inches 5.5 / 6.5 / 7.5.
-- **Add-ons** (checkboxes; prices are placeholders).
+- **Size picker S / M / L / XL** (only when `sizes` is not null; XL only when the product has an XL price) — shows inches 5.5 / 6.5 / 7.5 / 9.
+- **Add-ons** (checkboxes; prices are placeholders). No gift add-on: gifts are a product collection.
 - **Delivery date** (date input, no past dates) + **time slot** select: one-hour slots from 9–10 AM to 7–8 PM (11 slots). No pincode field.
 - Buttons: Add to cart, Order on WhatsApp.
 - Info tabs (Details, Care, Delivery), size guide circles, related products (same collection).
@@ -121,6 +122,7 @@ Message format (plain text, keep it short):
 ```
 Hi GLONIA, I'd like to order:
 * Peach & White Blooming Box
+* Link: https://<site>/product/peach-white-blooming-box?size=M
 * Size M — ₹4,300
 * Add-ons: Nil
 * Chocolates: Nil
@@ -138,7 +140,7 @@ Cart checkout repeats the item block (with its own customization and delivery da
 
 ## 7. Data model
 
-`data/products.json` — `slug, name, collection, alsoIn[], price, sizes ({S,M,L} | null), image, description`.
+`data/products.json` — `slug, name, collection, alsoIn[], price, sizes ({S,M,L,XL?} | null), image, description`. XL is optional per product.
 A product appears in its `collection` and every id in `alsoIn`.
 `data/collections.json` — `id, name, order`. Only korean, red, classic, bloom have products right now.
 

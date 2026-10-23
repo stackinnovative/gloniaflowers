@@ -1,6 +1,6 @@
 "use client";
 
-import { SIZE_INCHES, SIZE_KEYS, SIZE_NAMES, type SizeKey, type Sizes } from "@/lib/products";
+import { SIZE_INCHES, SIZE_NAMES, sizeKeys, sizePrice, type SizeKey, type Sizes } from "@/lib/products";
 import { formatPrice } from "@/lib/whatsapp";
 import "./ProductControls.css";
 
@@ -10,7 +10,7 @@ type SizePickerProps = {
   onChange: (size: SizeKey) => void;
 };
 
-const circleDiameters: Record<SizeKey, number> = { S: 42, M: 50, L: 60 };
+const circleDiameters: Record<SizeKey, number> = { S: 36, M: 43, L: 50, XL: 60 };
 
 export function SizePicker({ sizes, value, onChange }: SizePickerProps) {
   return (
@@ -21,8 +21,8 @@ export function SizePicker({ sizes, value, onChange }: SizePickerProps) {
           <a href="#sizes">Size guide</a>
         </span>
       </legend>
-      <div className="gl-size-picker-options">
-        {SIZE_KEYS.map((size) => (
+      <div className="gl-size-picker-options" data-count={sizeKeys(sizes).length}>
+        {sizeKeys(sizes).map((size) => (
           <label className="gl-size-picker-option" key={size}>
             <input
               className="gl-detail-controls-choice"
@@ -38,7 +38,7 @@ export function SizePicker({ sizes, value, onChange }: SizePickerProps) {
               </span>
               <span className="gl-size-picker-name">{SIZE_NAMES[size]}</span>
               <span className="gl-size-picker-inches">{size} · {SIZE_INCHES[size]}</span>
-              <span className="gl-size-picker-price">{formatPrice(sizes[size])}</span>
+              <span className="gl-size-picker-price">{formatPrice(sizePrice(sizes, size))}</span>
             </span>
           </label>
         ))}

@@ -133,12 +133,12 @@ export const siteSettings = defineType({
       type: "object",
       group: "shop",
       description: "Box diameter for each size, shown on the product page, catalogue cards and the size reference.",
-      options: { columns: 3 },
-      fields: (["S", "M", "L"] as const).map((key) =>
-        defineField({ name: key, title: { S: "Small", M: "Medium", L: "Large" }[key], type: "number", validation: (rule) => rule.required().positive() })),
+      options: { columns: 4 },
+      fields: (["S", "M", "L", "XL"] as const).map((key) =>
+        defineField({ name: key, title: { S: "Small", M: "Medium", L: "Large", XL: "Extra large" }[key], type: "number", validation: (rule) => rule.required().positive() })),
       validation: (rule) =>
-        rule.custom((sizes: { S?: number; M?: number; L?: number } | undefined) =>
-          sizes?.S && sizes.M && sizes.L && !(sizes.S < sizes.M && sizes.M < sizes.L) ? "Small must be smaller than Medium, and Medium smaller than Large." : true),
+        rule.custom((sizes: { S?: number; M?: number; L?: number; XL?: number } | undefined) =>
+          sizes?.S && sizes.M && sizes.L && sizes.XL && !(sizes.S < sizes.M && sizes.M < sizes.L && sizes.L < sizes.XL) ? "Each size must be bigger than the one before." : true),
     }),
     defineField({
       name: "addOns",
@@ -165,7 +165,7 @@ export const siteSettings = defineType({
               name: "options",
               title: "Choices",
               type: "array",
-              description: "Optional. List different kinds with their own price (e.g. each chocolate or gift); customers pick one from a dropdown. Leave empty for a single tick box.",
+              description: "Optional. List different kinds with their own price (e.g. each chocolate); customers pick one from a dropdown. Leave empty for a single tick box.",
               of: [
                 defineArrayMember({
                   type: "object",

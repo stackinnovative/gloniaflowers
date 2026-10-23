@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { getCollection, priceLabel, SIZE_INCHES, SIZE_KEYS, SIZE_NAMES, type Product, type SizeKey } from "@/lib/products";
+import { getCollection, priceLabel, SIZE_INCHES, SIZE_NAMES, sizeKeys, sizePrice, type Product, type SizeKey } from "@/lib/products";
 import { formatPrice } from "@/lib/whatsapp";
 import "./ProductCard.css";
 
@@ -34,12 +34,12 @@ export function ProductCard({ product, priority = false }: { product: Product; p
           {/* The size badge on the photo is the selector; it sits outside the link so taps don't navigate. */}
           {sizes && (
             <div className="gl-product-card-sizes" role="group" aria-label={`Size for ${product.name}`}>
-              {SIZE_KEYS.map((key) => (
+              {sizeKeys(sizes).map((key) => (
                 <button
                   key={key}
                   type="button"
                   aria-pressed={size === key}
-                  aria-label={`${SIZE_NAMES[key]}, ${SIZE_INCHES[key]}, ${formatPrice(sizes[key])}`}
+                  aria-label={`${SIZE_NAMES[key]}, ${SIZE_INCHES[key]}, ${formatPrice(sizePrice(sizes, key))}`}
                   title={`${SIZE_NAMES[key]} · ${SIZE_INCHES[key]}`}
                   onClick={() => setSize(key)}
                 >
@@ -52,7 +52,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
       </div>
       <Link href={detailsHref} prefetch={false} className="gl-product-card-details">
         <h3 className="gl-product-card-name">{product.name}</h3>
-        <p className="gl-product-card-price" aria-live="polite">{sizes ? `${formatPrice(sizes[size])} · ${SIZE_NAMES[size]}` : priceLabel(product)}</p>
+        <p className="gl-product-card-price" aria-live="polite">{sizes ? `${formatPrice(sizePrice(sizes, size))} · ${SIZE_NAMES[size]}` : priceLabel(product)}</p>
       </Link>
       {/* Ordering happens on the product page, after choosing date, slot and add-ons. */}
       <div className="gl-product-card-order">

@@ -50,6 +50,7 @@
 .gl-cartp-button svg { flex: none; }
 .gl-cartp-checkout { width: 100%; min-height: 54px; font-size: 13px; }
 .gl-cartp-checkout:disabled { opacity: .55; cursor: not-allowed; }
+.gl-cartp-gift { width: 100%; }
 .gl-cartp-warning { margin: -6px 0 0; color: #8a2b1f; font-size: 13px; line-height: 1.5; }
 .gl-cartp-note { margin: 0; color: var(--gl-muted); font-size: 13px; line-height: 1.5; text-align: center; }
 .gl-cartp-summary-links { display: flex; justify-content: space-between; gap: 12px; padding-top: 4px; }

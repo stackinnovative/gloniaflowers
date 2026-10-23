@@ -42,11 +42,6 @@
           "price": 65
         }
       ]
-    },
-    {
-      "id": "gift",
-      "name": "Gift add-on",
-      "price": null
     }
   ],
   "heroText": "Korean bouquets, flower boxes and bridal décor — hand-made in our studio and delivered fresh to your door.",
@@ -66,7 +61,8 @@
   "boxSizes": {
     "S": 5.5,
     "M": 6.5,
-    "L": 7.5
+    "L": 7.5,
+    "XL": 9
   },
   "ourWork": {
     "intro": "Bridal bouquets, boutonnieres, wedding car décor and custom pieces.",

@@ -1,7 +1,10 @@
 import Image from "next/image";
-import { SIZE_INCHES, SIZE_NAMES, type Product, type SizeKey } from "@/lib/products";
+import { SIZE_INCHES, SIZE_NAMES, sizeKeys, type Product, type SizeKey } from "@/lib/products";
 
 export function ProductPhoto({ product, size }: { product: Product; size: SizeKey | null }) {
+  const keys = product.sizes ? sizeKeys(product.sizes) : [];
+  // The round badge is small: four sizes read as a range ("S – XL").
+  const badge = keys.length > 3 ? `${keys[0]} – ${keys[keys.length - 1]}` : keys.join(" · ");
   return (
     <div className="gl-detail-visual">
       <div className="gl-detail-stage">
@@ -12,7 +15,7 @@ export function ProductPhoto({ product, size }: { product: Product; size: SizeKe
           <span className="gl-detail-fresh"><span aria-hidden="true" />Fresh on delivery day</span>
           {size && (
             <>
-              <span className="gl-detail-sizes-badge"><span>S · M · L</span><small>3 sizes</small></span>
+              <span className="gl-detail-sizes-badge"><span>{badge}</span><small>{keys.length} sizes</small></span>
               <div className="gl-detail-size-card">
                 <span className="gl-detail-ruler" aria-hidden="true">
                   <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M2 11.5L11.5 2 14 4.5 4.5 14zM5 9.5l1 1M7 7.5l1.5 1.5M9 5.5l1 1" /></svg>

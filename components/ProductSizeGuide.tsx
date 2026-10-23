@@ -1,9 +1,11 @@
 import Image from "next/image";
-import { SIZE_INCHES, SIZE_KEYS, SIZE_NAMES, type Product } from "@/lib/products";
+import { SIZE_INCHES, SIZE_NAMES, sizeKeys, type Product } from "@/lib/products";
+import { site } from "@/lib/site";
 import "./ProductSizeGuide.css";
 
 export function ProductSizeGuide({ product }: { product: Product }) {
   if (!product.sizes) return null;
+  const keys = sizeKeys(product.sizes);
 
   return (
     <section id="sizes" aria-labelledby="product-size-guide-heading" className="gl-product-size-guide">
@@ -14,8 +16,14 @@ export function ProductSizeGuide({ product }: { product: Product }) {
           <p className="gl-product-size-guide-title">Bigger box, <span>more blooms</span></p>
           <p className="gl-product-size-guide-copy">Same design and colours in every size.</p>
         </div>
-        <ul role="list" aria-label="Box sizes in inches" className="gl-product-size-guide-options">
-          {SIZE_KEYS.map((size) => (
+        {/* Column widths follow the box diameters. */}
+        <ul
+          role="list"
+          aria-label="Box sizes in inches"
+          className="gl-product-size-guide-options"
+          style={{ gridTemplateColumns: keys.map((size) => `${site.boxSizes[size]}fr`).join(" ") }}
+        >
+          {keys.map((size) => (
             <li key={size}>
               <figure className="gl-product-size-guide-option">
                 <div className="gl-product-size-guide-frame">

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Collection, Product } from "@/lib/products";
+import { sizeKeys, type Collection, type Product } from "@/lib/products";
 import { formatPrice, waLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./Icons";
 import "./FavouriteProducts.css";
@@ -19,7 +19,7 @@ function productPrice(product: Product): string {
 }
 
 function productBadge(product: Product, collection: Collection): string {
-  if (product.sizes) return "S · M · L";
+  if (product.sizes) return sizeKeys(product.sizes).join(" · ");
   if (collection.id === "korean") return "KOREAN";
   if (collection.id === "red") return "RED ROSE";
   return collection.name.toUpperCase();
