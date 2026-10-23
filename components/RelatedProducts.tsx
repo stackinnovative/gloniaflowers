@@ -11,18 +11,18 @@ type ProductRowProps = {
   label: string;
   products: Product[];
   more?: { href: string; label: string };
-  /** Keep the swipe row on desktop too, with fixed-width cards. */
-  scroll?: boolean;
+  /** For use inside a page column: smaller heading, and a swipe row with fixed-width cards on every screen. */
+  compact?: boolean;
   /** Extra control under each card, e.g. an add-to-cart button. */
   action?: (product: Product) => ReactNode;
 };
 
-/** Swipe row on mobile, grid on desktop (unless `scroll`). Used for related products and cart suggestions. */
-export function ProductRow({ headingId, accent, title, label, products, more, scroll = false, action }: ProductRowProps) {
+/** Swipe row on mobile, grid on desktop (unless `compact`). Used for related products and cart suggestions. */
+export function ProductRow({ headingId, accent, title, label, products, more, compact = false, action }: ProductRowProps) {
   if (!products.length) return null;
 
   return (
-    <section aria-labelledby={headingId} className={`gl-related-products${scroll ? " gl-related-products-scroll" : ""}`}>
+    <section aria-labelledby={headingId} className={`gl-related-products${compact ? " gl-related-products-compact" : ""}`}>
       <div className="gl-related-products-heading">
         <p>{accent}</p>
         <h2 id={headingId}>{title}</h2>

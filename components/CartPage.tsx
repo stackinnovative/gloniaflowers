@@ -69,7 +69,7 @@ function GiftSuggestions({ items }: { items: CartItem[] }) {
       label="Gifts"
       products={gifts}
       more={{ href: "/catalog?c=gifts", label: "View all gifts" }}
-      scroll
+      compact
       action={(gift) => (
         <button
           type="button"
@@ -165,17 +165,20 @@ export function CartPage() {
           <EmptyCart />
         ) : (
           <div className="gl-cartp-layout">
-            <section aria-labelledby="cart-items-heading" className="gl-cartp-items">
-              <h2 id="cart-items-heading" className="gl-cartp-items-heading">Items</h2>
-              <ul>
-                {items.map((item) => <CartLine key={cartLineKey(item)} item={item} />)}
-              </ul>
-            </section>
+            {/* Gifts sit under the items: beside the summary on desktop, above it on mobile. */}
+            <div className="gl-cartp-main">
+              <section aria-labelledby="cart-items-heading" className="gl-cartp-items">
+                <h2 id="cart-items-heading" className="gl-cartp-items-heading">Items</h2>
+                <ul>
+                  {items.map((item) => <CartLine key={cartLineKey(item)} item={item} />)}
+                </ul>
+              </section>
+              <GiftSuggestions items={items} />
+            </div>
             <Summary />
           </div>
         )}
       </div>
-      {hydrated && items.length > 0 && <GiftSuggestions items={items} />}
     </div>
   );
 }

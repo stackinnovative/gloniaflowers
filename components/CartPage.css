@@ -1,10 +1,8 @@
 .gl-cartp-title { padding-bottom: 40px; }
 .gl-cartp-body { max-width: 1320px; margin: 0 auto; padding: 8px 16px 56px; }
-/* Gift suggestions follow the cart, which already has bottom spacing. */
-.gl-cartp-body + .gl-related-products { padding-top: 0; }
 .gl-cartp-loading { margin: 0; padding: 48px 0; color: var(--gl-muted); text-align: center; }
 .gl-cartp-layout { display: flex; flex-direction: column; gap: 28px; }
-.gl-cartp-items { min-width: 0; }
+.gl-cartp-main, .gl-cartp-items { min-width: 0; }
 .gl-cartp-items-heading { margin: 0; padding-bottom: 12px; border-bottom: 1px solid var(--gl-line); font-family: var(--font-cinzel), serif; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
 .gl-cartp-items ul { margin: 0; padding: 0; list-style: none; }
 

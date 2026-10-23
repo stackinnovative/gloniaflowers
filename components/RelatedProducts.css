@@ -26,15 +26,33 @@
   /* auto-fill keeps empty columns, so one or two products don't stretch to the full width. */
   .gl-related-products-list { display: grid; overflow: visible; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; padding: 0; scroll-snap-type: none; }
   .gl-related-products-list li { width: auto; }
-  .gl-related-products-scroll .gl-related-products-list { display: flex; overflow-x: auto; padding: 4px 0 10px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
-  .gl-related-products-scroll .gl-related-products-list li { width: 240px; }
-  .gl-related-products-scroll .gl-related-products-card h3 { font-size: 19px; }
   .gl-related-products-add { min-height: 46px; font-size: 12px; }
   .gl-related-products-card { gap: 12px; }
   .gl-related-products-frame { padding: 8px; border-radius: 16px; }
   .gl-related-products-photo { border-radius: 10px; }
   .gl-related-products-card h3 { font-size: 22px; }
   .gl-related-products-price { margin-top: -6px; font-size: 15px; }
+}
+
+/* Compact: sits inside a page column (the cart), so no page padding and a smaller heading. */
+.gl-related-products-compact { max-width: none; margin: 0; padding: 28px 0 0; gap: 12px; }
+.gl-related-products-compact .gl-related-products-heading { padding: 0; }
+.gl-related-products-compact .gl-related-products-heading > p { font-size: 20px; }
+.gl-related-products-compact .gl-related-products-heading h2 { margin-top: 2px; font-size: 22px; }
+.gl-related-products-compact .gl-related-products-more { min-height: 36px; }
+.gl-related-products-compact .gl-related-products-list { padding: 4px 0 10px; scroll-padding-inline: 0; }
+.gl-related-products-compact .gl-related-products-list li { width: 150px; }
+
+@media (min-width: 861px) {
+  .gl-related-products-compact { padding: 36px 0 0; gap: 16px; }
+  .gl-related-products-compact .gl-related-products-heading > p { font-size: 24px; }
+  .gl-related-products-compact .gl-related-products-heading h2 { font-size: 30px; line-height: 1.1; }
+  .gl-related-products-compact .gl-related-products-list { display: flex; overflow-x: auto; gap: 16px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .gl-related-products-compact .gl-related-products-list li { width: 190px; }
+  .gl-related-products-compact .gl-related-products-card { gap: 8px; }
+  .gl-related-products-compact .gl-related-products-frame { padding: 6px; border-radius: 12px; }
+  .gl-related-products-compact .gl-related-products-card h3 { font-size: 17px; }
+  .gl-related-products-compact .gl-related-products-price { margin-top: 0; font-size: 14px; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
