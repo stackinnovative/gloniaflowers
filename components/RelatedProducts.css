@@ -3,6 +3,7 @@
 .gl-related-products-heading > p { margin: 0; color: var(--gl-gold-text); font-family: var(--font-bodoni), serif; font-size: 26px; font-style: italic; line-height: 1; }
 .gl-related-products-heading h2 { margin: 4px 0 0; font-family: var(--font-bodoni), serif; font-size: 28px; font-weight: 400; line-height: 1.15; }
 .gl-related-products-heading h2 span { font-style: italic; }
+.gl-related-products-more { display: inline-flex; min-height: 44px; align-items: center; color: var(--gl-ink); font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .gl-related-products-list { display: flex; overflow-x: auto; gap: 12px; margin: 0; padding: 4px 16px; list-style: none; scroll-snap-type: x mandatory; scroll-padding-inline: 16px; scrollbar-width: none; }
 .gl-related-products-list::-webkit-scrollbar { display: none; }
 .gl-related-products-list li { width: 180px; min-width: 0; flex: none; scroll-snap-align: start; }

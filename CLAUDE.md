@@ -102,7 +102,7 @@ design-reference/       approved design markup (read-only, do not ship)
   - Buy now → product details page with the selected size (same as photo / name), so date, slot and add-ons are always chosen before WhatsApp.
   - Photo / name → product details page with the selected size (`/product/<slug>?size=L`); items are added to the cart there, after choosing date, slot and add-ons. The sticky **cart bar** (count + total + "Checkout on WhatsApp") shows whenever the cart has items.
 - "Made just for you" custom-order card (light, not dark) → WhatsApp.
-- Cart page has an "Add a gift" button → `/catalog?c=gifts`.
+- Cart page shows a "You may also like to add" row of Gifts collection products (hidden while that collection is empty), with a "View all gifts" link.
 - Start with an **empty** cart (the design shows one item only for preview).
 
 ### Product details (`product-desktop.html`, `product-mobile.html`)

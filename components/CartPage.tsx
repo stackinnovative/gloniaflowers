@@ -4,13 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { cartLineKey, cartOrderLines, type CartItem } from "@/lib/cart";
-import { getCollection, getProduct, SIZE_INCHES, SIZE_NAMES } from "@/lib/products";
+import { getCollection, getProduct, getProductsIn, SIZE_INCHES, SIZE_NAMES } from "@/lib/products";
 import { site } from "@/lib/site";
 import { addOnLabel, formatDeliveryDate, formatPrice, waLink } from "@/lib/whatsapp";
 import { CartCheckout } from "./CartCheckout";
 import { useCart } from "./CartProvider";
 import { CatalogDecoration } from "./Catalog";
-import { CloseIcon, GiftIcon, WhatsAppIcon } from "./Icons";
+import { CloseIcon, WhatsAppIcon } from "./Icons";
+import { ProductRow } from "./RelatedProducts";
 import "./CartPage.css";
 
 const noop = () => () => {};
@@ -54,6 +55,21 @@ function CartLine({ item }: { item: CartItem }) {
   );
 }
 
+/** Gifts to add alongside the flowers, skipping ones already in the cart. Hidden until the Gifts collection has products. */
+function GiftSuggestions({ items }: { items: CartItem[] }) {
+  const gifts = getProductsIn("gifts").filter((gift) => !items.some((item) => item.slug === gift.slug)).slice(0, 4);
+  return (
+    <ProductRow
+      headingId="cart-gifts-heading"
+      accent="Make it a gift"
+      title={<>You may also like to <span>add</span></>}
+      label="Gifts"
+      products={gifts}
+      more={{ href: "/catalog?c=gifts", label: "View all gifts" }}
+    />
+  );
+}
+
 function EmptyCart() {
   return (
     <div className="gl-cartp-empty">
@@ -94,9 +110,6 @@ function Summary() {
       >
         <WhatsAppIcon size={16} stroke="#D9BE84" />Checkout on WhatsApp
       </CartCheckout>
-      <Link href="/catalog?c=gifts" prefetch={false} className="gl-cartp-button gl-cartp-button-light gl-cartp-gift">
-        <GiftIcon size={16} />Add a gift
-      </Link>
       <p className="gl-cartp-note">We confirm availability, delivery and your address on WhatsApp. Quick replies · {site.hours.label}.</p>
       <div className="gl-cartp-summary-links">
         <Link href="/catalog" prefetch={false}>Continue shopping</Link>
@@ -148,6 +161,7 @@ export function CartPage() {
           </div>
         )}
       </div>
+      {hydrated && items.length > 0 && <GiftSuggestions items={items} />}
     </div>
   );
 }

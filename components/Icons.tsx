@@ -35,14 +35,6 @@ export function CartIcon(props: IconProps) {
   );
 }
 
-export function GiftIcon(props: IconProps) {
-  return (
-    <Svg {...props}>
-      <path d="M2.5 5.5h11v2.5h-11zM3.5 8v5.5h9V8M8 5.5v8M8 5.5C6.5 5.5 5 4.8 5 3.6S6.8 2.4 8 5.5c1.2-3.1 3-3.1 3-1.9S9.5 5.5 8 5.5z" />
-    </Svg>
-  );
-}
-
 export function PhoneIcon(props: IconProps) {
   return (
     <Svg {...props}>
