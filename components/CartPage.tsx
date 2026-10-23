@@ -10,7 +10,7 @@ import { addOnLabel, formatDeliveryDate, formatPrice, waLink } from "@/lib/whats
 import { CartCheckout } from "./CartCheckout";
 import { useCart } from "./CartProvider";
 import { CatalogDecoration } from "./Catalog";
-import { CloseIcon, WhatsAppIcon } from "./Icons";
+import { CartIcon, CloseIcon, WhatsAppIcon } from "./Icons";
 import { ProductRow } from "./RelatedProducts";
 import "./CartPage.css";
 
@@ -57,7 +57,10 @@ function CartLine({ item }: { item: CartItem }) {
 
 /** Gifts to add alongside the flowers, skipping ones already in the cart. Hidden until the Gifts collection has products. */
 function GiftSuggestions({ items }: { items: CartItem[] }) {
-  const gifts = getProductsIn("gifts").filter((gift) => !items.some((item) => item.slug === gift.slug)).slice(0, 4);
+  const { add } = useCart();
+  const gifts = getProductsIn("gifts").filter((gift) => !items.some((item) => item.slug === gift.slug)).slice(0, 12);
+  // A gift goes out with the first item in the cart: same delivery date and time.
+  const delivery = items[0]?.delivery;
   return (
     <ProductRow
       headingId="cart-gifts-heading"
@@ -66,6 +69,17 @@ function GiftSuggestions({ items }: { items: CartItem[] }) {
       label="Gifts"
       products={gifts}
       more={{ href: "/catalog?c=gifts", label: "View all gifts" }}
+      scroll
+      action={(gift) => (
+        <button
+          type="button"
+          className="gl-related-products-add"
+          aria-label={`Add ${gift.name} to cart`}
+          onClick={() => add({ slug: gift.slug, size: gift.sizes ? "S" : null, addOns: [], ...(delivery ? { delivery } : {}) })}
+        >
+          <CartIcon size={15} />Add to cart
+        </button>
+      )}
     />
   );
 }
