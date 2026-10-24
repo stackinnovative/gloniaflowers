@@ -62,14 +62,14 @@ export function Hero() {
           return (
             <div key={slug} className={`${centerpiece ? "" : "hidden md:block"} rounded-t-[999px] rounded-b-[4px] border border-gold-400 bg-white p-[7px] md:p-2`}>
               <div className={`gl-zoom relative overflow-hidden rounded-t-[999px] rounded-b-[2px] ${centerpiece ? "aspect-[4/5] md:aspect-[3/4.4]" : "aspect-[3/4]"}`}>
-                <Image src={product.image} alt={product.name} fill sizes="(min-width: 1080px) 305px, (min-width: 768px) 30vw, 75vw" className="object-cover" />
+                <Image src={product.image} alt={product.name} fill sizes="(min-width: 1080px) 305px, (min-width: 768px) 30vw, 75vw" style={{ objectPosition: product.imageFocus }} className="object-cover" />
               </div>
             </div>
           );
         })}
         {bouquet && (
           <div className="absolute bottom-3 left-5 flex items-center gap-2.5 border border-gold-400 bg-white px-3.5 py-2.5 md:hidden">
-            <Image src={bouquet.image} alt="" width={40} height={40} className="size-10 object-cover" />
+            <Image src={bouquet.image} alt="" width={40} height={40} style={{ objectPosition: bouquet.imageFocus }} className="size-10 object-cover" />
             <div>
               <p className="m-0 font-caps text-[10px] font-semibold uppercase tracking-[0.12em] text-muted">Bouquets</p>
               <p className="m-0 font-display text-[17px] leading-[1.1]">from {formatPrice(bouquet.price)}</p>

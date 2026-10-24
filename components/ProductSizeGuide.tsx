@@ -30,6 +30,7 @@ export function ProductSizeGuide({ product }: { product: Product }) {
                   <div className="gl-product-size-guide-photo">
                     <Image
                       src={product.image}
+                      style={{ objectPosition: product.imageFocus }}
                       alt={`${product.name}, ${SIZE_NAMES[size]} box size reference`}
                       fill
                       sizes="(min-width: 861px) 186px, 106px"

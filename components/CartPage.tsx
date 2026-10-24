@@ -27,7 +27,7 @@ function CartLine({ item }: { item: CartItem }) {
   return (
     <li className="gl-cartp-line">
       <Link href={href} prefetch={false} className="gl-cartp-photo" tabIndex={-1} aria-hidden="true">
-        <Image src={product.image} alt="" fill sizes="(min-width: 861px) 140px, 96px" />
+        <Image src={product.image} alt="" fill sizes="(min-width: 861px) 140px, 96px" style={{ objectPosition: product.imageFocus }} />
       </Link>
       <div className="gl-cartp-info">
         <p className="gl-cartp-collection">{getCollection(product.collection)?.name}</p>

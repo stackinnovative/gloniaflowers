@@ -10,7 +10,7 @@ export function ProductPhoto({ product, size }: { product: Product; size: SizeKe
       <div className="gl-detail-stage">
         <div className="gl-detail-photo-frame">
           <div className="gl-detail-photo gl-zoom">
-            <Image src={product.image} alt={product.name} fill priority fetchPriority="high" sizes="(min-width: 1320px) 533px, (min-width: 1024px) 42vw, (min-width: 600px) 548px, 80vw" className="object-cover" />
+            <Image src={product.image} alt={product.name} fill priority fetchPriority="high" style={{ objectPosition: product.imageFocus }} sizes="(min-width: 1320px) 533px, (min-width: 1024px) 42vw, (min-width: 600px) 548px, 80vw" className="object-cover" />
           </div>
           <span className="gl-detail-fresh"><span aria-hidden="true" />Fresh on delivery day</span>
           {size && (

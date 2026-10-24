@@ -24,7 +24,8 @@ export const collection = defineType({
       name: "image",
       title: "Tile photo",
       type: "image",
-      description: "Shown on the home page tiles, the catalogue bubbles and the Our work cards. Leave empty to show a leaf icon or placeholder.",
+      description: "Shown on the home page tiles, the catalogue bubbles and the Our work cards. Use the crop button to trim it and set the focus point. Leave empty to show a leaf icon or placeholder.",
+      options: { hotspot: true },
     }),
     defineField({
       name: "order",

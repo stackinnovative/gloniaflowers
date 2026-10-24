@@ -19,16 +19,18 @@ if (!projectId) {
 }
 
 const published = '!(_id in path("drafts.**"))';
+// An image with the editor's crop and focus point (hotspot), plus the original size to turn the crop into pixels.
+const photo = '{ crop, hotspot, "url": asset->url, "dimensions": asset->metadata.dimensions }';
 const query = `{
   "collections": *[_type == "collection" && ${published} && defined(id.current)] | order(order asc) {
-    "id": id.current, name, order, "image": image.asset->url
+    "id": id.current, name, order, "image": image${photo}
   },
   "products": *[_type == "product" && ${published} && defined(slug.current)] | order(order asc, name asc) {
     "slug": slug.current, name,
     "collection": collection->id.current,
     "alsoIn": alsoIn[]->id.current,
     hasSizes, price, sizes { S, M, L, XL },
-    "image": image.asset->url,
+    "image": image${photo},
     description
   },
   "settings": *[_id == "siteSettings"][0] {
@@ -36,8 +38,8 @@ const query = `{
     hours { open, close }, address { street, city }, mapQuery, googleListing, googlePlaceId, showReviews, instagram { handle, url },
     productInfo { details, careBox, careBouquet, delivery },
     heroText, deliverySlots, boxSizes { S, M, L, XL },
-    ourWork { intro, items[] { name, description, "image": image.asset->url } },
-    perfumes { show, badge, eyebrow, title, text, imageLabel, "image": image.asset->url, buttonLabel, whatsappMessage, note },
+    ourWork { intro, items[] { name, description, "image": image${photo} } },
+    perfumes { show, badge, eyebrow, title, text, imageLabel, "image": image${photo}, buttonLabel, whatsappMessage, note },
     "addOns": addOns[] { "id": id.current, name, "price": coalesce(price, null), "options": options[] { "id": id.current, name, "price": coalesce(price, null) } },
     "featured": {
       "hero": hero[]->slug.current,
@@ -60,9 +62,39 @@ const problems = [];
 const isPrice = (value) => Number.isSafeInteger(value) && value > 0;
 const isId = (value) => typeof value === "string" && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
 const isText = (value) => typeof value === "string" && value.trim() !== "";
-const cdnImage = (url) => `${url}?w=1200&fit=max&auto=format`;
+const clamp = (value) => Math.min(1, Math.max(0, value));
 
-const collections = result.collections.map((c, index) => ({ id: c.id, name: c.name, order: c.order ?? index + 1, image: c.image ? cdnImage(c.image) : null }));
+/**
+ * CDN URL for a Sanity image with the editor's crop applied, and its focus point as a CSS
+ * object-position ("50% 30%") for frames that trim the photo. No focus when it's the centre.
+ */
+function cdnPhoto(image) {
+  if (typeof image?.url !== "string") return null;
+  const { width, height } = image.dimensions ?? {};
+  const crop = image.crop;
+  let box = { left: 0, top: 0, width: 1, height: 1 };
+  let rect = "";
+  if (crop && width && height && (crop.left || crop.right || crop.top || crop.bottom)) {
+    const left = clamp(crop.left), top = clamp(crop.top);
+    box = { left, top, width: clamp(1 - left - clamp(crop.right)), height: clamp(1 - top - clamp(crop.bottom)) };
+    rect = `rect=${[box.left * width, box.top * height, box.width * width, box.height * height].map(Math.round).join(",")}&`;
+  }
+  const url = `${image.url}?${rect}w=1200&fit=max&auto=format`;
+  const spot = image.hotspot;
+  if (!spot || !box.width || !box.height) return { url };
+  // The hotspot is relative to the whole image; make it relative to the cropped part.
+  const x = Math.round(clamp((spot.x - box.left) / box.width) * 100);
+  const y = Math.round(clamp((spot.y - box.top) / box.height) * 100);
+  return x === 50 && y === 50 ? { url } : { url, focus: `${x}% ${y}%` };
+}
+
+/** { image, imageFocus? } for an optional photo: image is null when there is none. */
+function photoFields(image) {
+  const result = cdnPhoto(image);
+  return { image: result?.url ?? null, ...(result?.focus ? { imageFocus: result.focus } : {}) };
+}
+
+const collections = result.collections.map((c, index) => ({ id: c.id, name: c.name, order: c.order ?? index + 1, ...photoFields(c.image) }));
 const collectionIds = new Set();
 for (const c of collections) {
   if (!isId(c.id) || typeof c.name !== "string" || !c.name) problems.push(`collection "${c.name ?? c.id}": missing name or invalid link id`);
@@ -81,7 +113,7 @@ const products = result.products.map((p) => {
   if (!collectionIds.has(p.collection)) problems.push(`${label}: main collection is missing or unpublished`);
   if (sizes ? !(isPrice(sizes.S) && isPrice(sizes.M) && isPrice(sizes.L)) : !isPrice(p.price)) problems.push(`${label}: missing or invalid price`);
   if (sizes && sizes.XL != null && !(isPrice(sizes.XL) && sizes.XL >= sizes.L)) problems.push(`${label}: Extra large price must be a whole number, at least the Large price`);
-  if (typeof p.image !== "string") problems.push(`${label}: missing photo`);
+  if (typeof p.image?.url !== "string") problems.push(`${label}: missing photo`);
   if (typeof p.description !== "string" || !p.description) problems.push(`${label}: missing description`);
   return {
     slug: p.slug,
@@ -91,7 +123,7 @@ const products = result.products.map((p) => {
     price: sizes ? sizes.S : p.price,
     // XL is optional: left out until it has a price.
     sizes: sizes ? { S: sizes.S, M: sizes.M, L: sizes.L, ...(sizes.XL != null ? { XL: sizes.XL } : {}) } : null,
-    image: typeof p.image === "string" ? cdnImage(p.image) : p.image,
+    ...photoFields(p.image),
     description: p.description,
   };
 });
@@ -168,7 +200,7 @@ function readSettings(raw) {
     items: (raw.ourWork.items ?? []).map((item) => ({
       name: text(item.name),
       description: text(item.description),
-      image: typeof item.image === "string" ? cdnImage(item.image) : null,
+      ...photoFields(item.image),
     })),
   };
   if (!ourWork.items.every((item) => item.name)) problems.push(`${label}: every Our work item needs a name`);
@@ -182,7 +214,7 @@ function readSettings(raw) {
     title: text(p.title),
     text: text(p.text),
     imageLabel: text(p.imageLabel),
-    image: typeof p.image === "string" ? cdnImage(p.image) : null,
+    image: cdnPhoto(p.image)?.url ?? null,
     buttonLabel: text(p.buttonLabel),
     whatsappMessage: text(p.whatsappMessage),
     note: text(p.note),

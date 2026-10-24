@@ -30,6 +30,7 @@ A private dataset also works. Create a *Viewer* token under *API → Tokens* and
 ## Editing rules (for the shop owner)
 
 - **Publish** to send a change to the site. Drafts never appear.
+- **Crop photos:** on a product, collection, Our work or perfume photo, click the crop button. Drag the frame to trim, and drag the circle onto the flowers — the site keeps that spot in view in every shape (cards, circles, arches). Publish to apply.
 - **Publish all** (tab at the top, next to Structure) publishes every product and collection draft at once — handy after adding many products. Drafts with missing details (name, link, collection, photo, description, price) stay as drafts and are listed so you can fix them.
 - **Link** and **Link id** become the page addresses. Don't change them after launch, because shared links would stop working.
 - **Comes in S / M / L / XL** switches between one price and size prices. The Small price is shown as "from ₹…". Extra large is optional: leave it empty and the box is sold in S / M / L only.

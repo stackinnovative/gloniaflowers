@@ -22,6 +22,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
           <Link href={detailsHref} prefetch={false} tabIndex={-1} aria-hidden="true" className="gl-product-card-photo-link">
             <Image
               src={product.image}
+              style={{ objectPosition: product.imageFocus }}
               alt={product.name}
               fill
               priority={priority}

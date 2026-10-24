@@ -7,8 +7,8 @@ export type SizeKey = "S" | "M" | "L" | "XL";
 /** XL is optional: a box offers it only once it has an XL price. */
 export type Sizes = { S: number; M: number; L: number; XL?: number };
 
-/** image: tile photo, or null until the client supplies one. */
-export type Collection = { id: string; name: string; order: number; image: string | null };
+/** image: tile photo, or null until the client supplies one. imageFocus: see Product. */
+export type Collection = { id: string; name: string; order: number; image: string | null; imageFocus?: string };
 
 export type Product = {
   slug: string;
@@ -18,6 +18,8 @@ export type Product = {
   price: number;
   sizes: Sizes | null;
   image: string;
+  /** The editor's focus point as a CSS object-position ("50% 30%"), kept in view when a frame trims the photo. */
+  imageFocus?: string;
   description: string;
 };
 

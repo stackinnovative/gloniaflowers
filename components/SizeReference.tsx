@@ -33,7 +33,7 @@ export function SizeReference() {
             <li key={size} className="flex flex-col items-center gap-2 min-[861px]:gap-3.5">
               <div className={`${CIRCLES[size].className} aspect-square rounded-full border border-gold-400 bg-white p-1 min-[861px]:p-1.5`}>
                 <div className="relative size-full overflow-hidden rounded-full">
-                  <Image src={product.image} alt={`${SIZE_NAMES[size]} box`} fill sizes={CIRCLES[size].sizes} className="object-cover" />
+                  <Image src={product.image} alt={`${SIZE_NAMES[size]} box`} fill sizes={CIRCLES[size].sizes} style={{ objectPosition: product.imageFocus }} className="object-cover" />
                 </div>
               </div>
               <div className={`${CIRCLES[size].className} flex items-center gap-[3px] text-gold-text min-[861px]:gap-1.5`}>

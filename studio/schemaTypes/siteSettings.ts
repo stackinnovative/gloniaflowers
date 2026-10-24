@@ -267,7 +267,7 @@ export const siteSettings = defineType({
         defineField({ name: "eyebrow", title: "Line above the heading", type: "string", description: "Leave empty to hide.", validation: (rule) => rule.max(60) }),
         defineField({ name: "title", title: "Heading word", type: "string", description: "Shown in script after “GLONIA”.", validation: (rule) => rule.required().max(20) }),
         defineField({ name: "text", title: "Text", type: "text", rows: 3, validation: (rule) => rule.required().max(240) }),
-        defineField({ name: "image", title: "Photo", type: "image", description: "Shown in the round frame. Leave empty for the default pink bottle." }),
+        defineField({ name: "image", title: "Photo", type: "image", description: "Shown in the round frame. Use the crop button to trim it. Leave empty for the default pink bottle.", options: { hotspot: true } }),
         defineField({ name: "imageLabel", title: "Label under the photo", type: "string", description: "e.g. Launching soon. Leave empty to hide.", validation: (rule) => rule.max(30) }),
         defineField({ name: "buttonLabel", title: "Button text", type: "string", validation: (rule) => rule.required().max(40) }),
         defineField({ name: "whatsappMessage", title: "WhatsApp message", type: "text", rows: 2, description: "Typed for the customer when they tap the button.", validation: (rule) => rule.required().max(300) }),

@@ -94,11 +94,11 @@ export function CatalogContent({ year, collectionId = "all", priceId = "any", so
         </div>
         <div ref={collectionRow} className="gl-catalog-collections gl-row" role="group" aria-label="Filter by collection">
           {collections.map((collection) => {
-            const { image } = collection;
+            const { image, imageFocus } = collection;
             return (
               <button key={collection.id} type="button" className="gl-catalog-collection" aria-pressed={active.id === collection.id} aria-controls="catalog-results" onClick={() => updateFilter("c", collection.id)}>
                 <span className="gl-catalog-bubble">
-                  {image ? <Image src={image} width={80} height={80} sizes="(min-width: 861px) 78px, 58px" alt="" /> : <span className="gl-catalog-bubble-placeholder"><LeafIcon size={24} /></span>}
+                  {image ? <Image src={image} width={80} height={80} sizes="(min-width: 861px) 78px, 58px" style={{ objectPosition: imageFocus }} alt="" /> : <span className="gl-catalog-bubble-placeholder"><LeafIcon size={24} /></span>}
                 </span>
                 <span>{collection.name}</span>
               </button>

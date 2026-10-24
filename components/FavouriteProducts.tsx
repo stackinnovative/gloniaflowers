@@ -57,6 +57,7 @@ export function FavouriteProducts({ collection, products }: FavouriteProductsPro
               <div className="gl-picks-card-photo">
                 <Image
                   src={product.image}
+                  style={{ objectPosition: product.imageFocus }}
                   alt={product.name}
                   fill
                   sizes="(min-width: 1320px) 279px, (min-width: 861px) calc((100vw - 206px) / 4), 216px"

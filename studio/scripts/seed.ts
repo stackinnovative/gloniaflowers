@@ -37,7 +37,7 @@ type SeedSettings = {
   boxSizes: { S: number; M: number; L: number; XL: number };
   // Photos are CDN URLs once synced from Sanity, so the seed leaves them out.
   ourWork: { intro: string; items: { name: string; description: string; image: string | null }[] };
-  perfumes: { show: boolean; image: string | null } & Record<"badge" | "eyebrow" | "title" | "text" | "imageLabel" | "buttonLabel" | "whatsappMessage" | "note", string>;
+  perfumes: { show: boolean; image: string | null; imageFocus?: string } & Record<"badge" | "eyebrow" | "title" | "text" | "imageLabel" | "buttonLabel" | "whatsappMessage" | "note", string>;
   featured: { hero: string[]; orderExample: string; sizeReference: string; customOrder: string[]; gallery: string[] };
 };
 
@@ -102,7 +102,7 @@ function addOnFields({ id, name, price }: AddOnOption, type: string) {
   return { _key: id, _type: type, id: { _type: "slug", current: id }, name, ...(price === null ? {} : { price }) };
 }
 
-const { featured, addOns, ourWork, perfumes: { image: _perfumeImage, ...perfumes }, ...details } = settings;
+const { featured, addOns, ourWork, perfumes: { image: _perfumeImage, imageFocus: _perfumeFocus, ...perfumes }, ...details } = settings;
 tx.createOrReplace({
   _id: "siteSettings",
   _type: "siteSettings",

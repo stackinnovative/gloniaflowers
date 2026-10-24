@@ -35,6 +35,7 @@ export function ProductRow({ headingId, accent, title, label, products, more, co
                 <div className="gl-related-products-photo">
                   <Image
                     src={item.image}
+                    style={{ objectPosition: item.imageFocus }}
                     alt={item.name}
                     fill
                     sizes="(min-width: 1320px) 387px, (min-width: 861px) 31vw, 168px"

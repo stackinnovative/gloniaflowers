@@ -87,7 +87,8 @@ export const product = defineType({
       name: "image",
       title: "Photo",
       type: "image",
-      description: "Portrait or square, at least 1200px wide. The product name is used as the alt text.",
+      description: "Portrait or square, at least 1200px wide. Use the crop button to trim the photo and drag the circle onto the flowers — the site keeps that spot in view in every frame. The product name is used as the alt text.",
+      options: { hotspot: true },
       validation: (rule) => rule.required(),
     }),
     defineField({

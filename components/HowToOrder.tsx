@@ -48,6 +48,7 @@ function OrderExample() {
       <div className="flex max-w-[80%] flex-col gap-1.5 self-end rounded-[16px_16px_4px_16px] bg-[#D9FDD3] p-2">
         <Image
           src={product.image}
+          style={{ objectPosition: product.imageFocus }}
           alt={product.name}
           width={400}
           height={300}

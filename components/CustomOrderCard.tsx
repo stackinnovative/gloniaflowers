@@ -16,7 +16,7 @@ export function CustomOrderCard() {
         {site.featured.customOrder.map((slug, index) => {
           const product = getProduct(slug);
           return product ? (
-            <Image key={slug} src={product.image} alt="" width={80} height={80} className={`gl-custom-order-photo gl-custom-order-photo-${index + 1}`} />
+            <Image key={slug} src={product.image} alt="" width={80} height={80} style={{ objectPosition: product.imageFocus }} className={`gl-custom-order-photo gl-custom-order-photo-${index + 1}`} />
           ) : null;
         })}
         <span className="gl-custom-order-plus">

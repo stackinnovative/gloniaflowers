@@ -17,7 +17,7 @@ export function Gallery() {
           if (!product) return null;
           return (
             <li key={slug} className="gl-zoom relative aspect-square overflow-hidden rounded-[6px] min-[861px]:rounded-[12px]">
-              <Image src={product.image} alt={product.name} fill sizes="(min-width: 1200px) 17vw, (min-width: 861px) 25vw, 33vw" className="object-cover" />
+              <Image src={product.image} alt={product.name} fill sizes="(min-width: 1200px) 17vw, (min-width: 861px) 25vw, 33vw" style={{ objectPosition: product.imageFocus }} className="object-cover" />
             </li>
           );
         })}

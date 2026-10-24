@@ -42,7 +42,7 @@ type Settings = {
   ourWork: {
     intro: string;
     /** `image` is a Sanity CDN URL, or null to show a placeholder. */
-    items: { name: string; description: string; image: string | null }[];
+    items: { name: string; description: string; image: string | null; imageFocus?: string }[];
   };
   perfumes: {
     /** False hides the home page section and the Perfumes nav links. */

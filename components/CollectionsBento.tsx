@@ -15,7 +15,8 @@ function CollectionTile({ id }: { id: TileId }) {
   const collection = getCollection(id);
   // Custom work has no products yet: until the collection has a tile photo (Studio → Collections), borrow the
   // second custom-order card photo, and show "Made to order" instead of a price.
-  const image = collection?.image ?? (id === "custom" ? getProduct(site.featured.customOrder[1])?.image : undefined);
+  const source = collection?.image ? collection : id === "custom" ? getProduct(site.featured.customOrder[1]) : undefined;
+  const image = source?.image;
   if (!collection || !image) return null;
 
   const products = getProductsIn(id);
@@ -32,6 +33,7 @@ function CollectionTile({ id }: { id: TileId }) {
     >
       <Image
         src={image}
+        style={{ objectPosition: source.imageFocus }}
         alt={imageProduct?.name ?? collection.name}
         fill
         sizes={featured ? "(min-width: 1320px) 622px, 50vw" : "(min-width: 1320px) 301px, (min-width: 861px) 25vw, 50vw"}

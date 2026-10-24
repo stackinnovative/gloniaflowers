@@ -27,6 +27,7 @@ export function OurWork() {
                     {item.image ? (
                       <Image
                         src={item.image}
+                        style={{ objectPosition: item.imageFocus }}
                         alt={`${item.name} floral work by GLONIA`}
                         fill
                         sizes="(min-width: 1320px) 386px, (min-width: 861px) calc((100vw - 162px) / 3), 206px"
