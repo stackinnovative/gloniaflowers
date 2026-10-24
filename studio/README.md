@@ -30,6 +30,7 @@ A private dataset also works. Create a *Viewer* token under *API → Tokens* and
 ## Editing rules (for the shop owner)
 
 - **Publish** to send a change to the site. Drafts never appear.
+- **Publish all** (tab at the top, next to Structure) publishes every product and collection draft at once — handy after adding many products. Drafts with missing details (name, link, collection, photo, description, price) stay as drafts and are listed so you can fix them.
 - **Link** and **Link id** become the page addresses. Don't change them after launch, because shared links would stop working.
 - **Comes in S / M / L / XL** switches between one price and size prices. The Small price is shown as "from ₹…". Extra large is optional: leave it empty and the box is sold in S / M / L only.
 - **Order:** lower numbers show first. Products use steps of 10, so a new product can go in between (e.g. 15).

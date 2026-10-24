@@ -2,6 +2,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schemaTypes, singletonTypes } from "./schemaTypes";
 import { dataset, projectId } from "./env";
+import { publishAllTool } from "./tools/publishAll";
 
 export default defineConfig({
   name: "glonia",
@@ -24,6 +25,8 @@ export default defineConfig({
           ]),
     }),
   ],
+  // Extra tab next to Structure for publishing many drafts at once.
+  tools: (prev) => [...prev, publishAllTool()],
   schema: {
     types: schemaTypes,
     // Site settings can't be created from "+ New".
