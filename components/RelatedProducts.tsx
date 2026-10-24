@@ -26,7 +26,6 @@ export function ProductRow({ headingId, accent, title, label, products, more, co
       <div className="gl-related-products-heading">
         <p>{accent}</p>
         <h2 id={headingId}>{title}</h2>
-        {more && <Link href={more.href} prefetch={false} className="gl-related-products-more">{more.label}</Link>}
       </div>
       <ul role="list" aria-label={label} className="gl-related-products-list">
         {products.map((item) => (
@@ -50,6 +49,7 @@ export function ProductRow({ headingId, accent, title, label, products, more, co
           </li>
         ))}
       </ul>
+      {more && <Link href={more.href} prefetch={false} className="gl-related-products-more">{more.label}</Link>}
     </section>
   );
 }

@@ -64,8 +64,8 @@ function GiftSuggestions({ items }: { items: CartItem[] }) {
   return (
     <ProductRow
       headingId="cart-gifts-heading"
-      accent="Make it a gift"
-      title={<>You may also like to <span>add</span></>}
+      accent="Make their day extra special"
+      title={<>Add a little something to go with your <span>flowers</span></>}
       label="Gifts"
       products={gifts}
       more={{ href: "/catalog?c=gifts", label: "View all gifts" }}
@@ -77,7 +77,7 @@ function GiftSuggestions({ items }: { items: CartItem[] }) {
           aria-label={`Add ${gift.name} to cart`}
           onClick={() => add({ slug: gift.slug, size: gift.sizes ? "S" : null, addOns: [], ...(delivery ? { delivery } : {}) })}
         >
-          <CartIcon size={15} />Add to cart
+          <CartIcon size={13} />Add to cart
         </button>
       )}
     />
