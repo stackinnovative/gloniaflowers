@@ -15,12 +15,11 @@ export const metadata: Metadata = {
 };
 
 export default function CatalogPage() {
-  const year = new Date().getFullYear();
   return (
     <>
       <JsonLd data={catalogJsonLd(getProducts())} />
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Shop", path: "/catalog" }])} />
-      <Suspense fallback={<CatalogContent year={year} />}><Catalog year={year} /></Suspense>
+      <Suspense fallback={<CatalogContent />}><Catalog /></Suspense>
     </>
   );
 }

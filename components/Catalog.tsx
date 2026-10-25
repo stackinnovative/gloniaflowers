@@ -13,9 +13,9 @@ import { LeafIcon, WhatsAppIcon } from "./Icons";
 import { ProductCard } from "./ProductCard";
 import "./Catalog.css";
 
-const collections: Collection[] = [{ id: "all", name: "All flowers", order: 0, image: "/images/products/blush-rose-blooming-box.jpg" }, ...getCollections()];
+const collections: Collection[] = [{ id: "all", name: "All products", order: 0, image: "/images/products/blush-rose-blooming-box.jpg" }, ...getCollections()];
 const titles: Record<string, [string, string]> = {
-  all: ["All", "flowers"], korean: ["Korean", "bouquets"], premium: ["Premium", "bouquets"],
+  all: ["All", "products"], korean: ["Korean", "bouquets"], premium: ["Premium", "bouquets"],
   custom: ["Customized", "bouquets"], choco: ["Chocolate", "bouquets"], red: ["Red", "roses"],
   classic: ["Classic", "boxes"], bloom: ["Blooming", "boxes"], bridal: ["Bridal", "collection"],
   car: ["Car", "décor"], gifts: ["Thoughtful", "gifts"],
@@ -53,10 +53,9 @@ function splitTitle(name: string): [string, string] {
   return [first, rest.join(" ")];
 }
 
-// `year` is set when the page is built (the site rebuilds on every content change).
-type CatalogContentProps = { year: number; collectionId?: string; priceId?: string; sortId?: string };
+type CatalogContentProps = { collectionId?: string; priceId?: string; sortId?: string };
 
-export function CatalogContent({ year, collectionId = "all", priceId = "any", sortId = "featured" }: CatalogContentProps) {
+export function CatalogContent({ collectionId = "all", priceId = "any", sortId = "featured" }: CatalogContentProps) {
   const active = collections.find((collection) => collection.id === collectionId) ?? collections[0];
   const price: PriceFilter = priceFilters.find((filter) => filter.id === priceId)?.id ?? "any";
   const sort: CatalogSort = sortId === "low" || sortId === "high" ? sortId : "featured";
@@ -87,7 +86,6 @@ export function CatalogContent({ year, collectionId = "all", priceId = "any", so
               <Link href="/catalog">Shop</Link><span aria-hidden="true"> / </span>
               <span aria-current="page">{active.name}</span>
             </nav>
-            <p className="gl-catalog-accent">Catalogue {year}</p>
             <h1 id="catalog-heading">{title} <em>{italicTitle}</em></h1>
             <p className="gl-catalog-shade">We use fresh flowers in all our floral arrangements</p>
           </div>
@@ -149,7 +147,7 @@ export function CatalogContent({ year, collectionId = "all", priceId = "any", so
   );
 }
 
-export function Catalog({ year }: { year: number }) {
+export function Catalog() {
   const searchParams = useSearchParams();
-  return <CatalogContent year={year} collectionId={searchParams.get("c") ?? "all"} priceId={searchParams.get("price") ?? "any"} sortId={searchParams.get("sort") ?? "featured"} />;
+  return <CatalogContent collectionId={searchParams.get("c") ?? "all"} priceId={searchParams.get("price") ?? "any"} sortId={searchParams.get("sort") ?? "featured"} />;
 }
