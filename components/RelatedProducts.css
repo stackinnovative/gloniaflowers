@@ -1,8 +1,8 @@
 .gl-related-products { display: flex; max-width: 1320px; margin: 0 auto; padding: 44px 0 48px; flex-direction: column; gap: 14px; }
 .gl-related-products-heading { padding: 0 16px; text-align: center; }
-.gl-related-products-heading > p { margin: 0; color: var(--gl-gold-text); font-family: var(--font-bodoni), serif; font-size: 26px; font-style: italic; line-height: 1; }
-.gl-related-products-heading h2 { margin: 4px 0 0; font-family: var(--font-bodoni), serif; font-size: 28px; font-weight: 400; line-height: 1.15; }
-.gl-related-products-heading h2 span { font-style: italic; }
+.gl-related-products-accent { margin: 0; color: var(--gl-gold-text); font-family: var(--font-bodoni), serif; font-size: 26px; font-style: italic; font-weight: 400; line-height: 1; }
+.gl-related-products-title { margin: 4px 0 0; font-family: var(--font-bodoni), serif; font-size: 28px; font-weight: 400; line-height: 1.15; }
+.gl-related-products-title span { font-style: italic; }
 .gl-related-products-more { display: inline-flex; min-height: 44px; align-self: center; align-items: center; color: var(--gl-ink); font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .gl-related-products-list { display: flex; overflow-x: auto; gap: 12px; margin: 0; padding: 4px 16px; list-style: none; scroll-snap-type: x mandatory; scroll-padding-inline: 16px; scrollbar-width: none; }
 .gl-related-products-list::-webkit-scrollbar { display: none; }
@@ -15,14 +15,14 @@
 .gl-related-products-image { object-fit: cover; }
 .gl-related-products-card h3 { margin: 0; font-family: var(--font-bodoni), serif; font-size: 16px; font-weight: 400; line-height: 1.2; }
 .gl-related-products-price { margin: 0; color: var(--gl-gold-text); font-size: 13px; font-weight: 700; }
-.gl-related-products-add { display: inline-flex; min-height: 34px; margin-top: auto; padding: 6px 4px; align-items: center; justify-content: center; gap: 5px; border: 1px solid var(--gl-ink); background: var(--gl-ink); color: var(--gl-white); font-family: var(--font-cinzel), serif; font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+.gl-related-products-add { display: inline-flex; min-height: 30px; margin-top: auto; padding: 4px 12px; align-self: center; align-items: center; justify-content: center; gap: 5px; border: 1px solid var(--gl-ink); background: var(--gl-ink); color: var(--gl-white); font-family: var(--font-cinzel), serif; font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
 .gl-related-products-add:hover { color: var(--gl-gold-200); }
 
 @media (min-width: 861px) {
   .gl-related-products { padding: 110px 28px; gap: 36px; }
   .gl-related-products-heading { padding: 0; }
-  .gl-related-products-heading > p { font-size: 34px; }
-  .gl-related-products-heading h2 { margin-top: 6px; font-size: clamp(36px, 4.4vw, 54px); line-height: 1.05; }
+  .gl-related-products-accent { font-size: 34px; }
+  .gl-related-products-title { margin-top: 6px; font-size: clamp(36px, 4.4vw, 54px); line-height: 1.05; }
   /* auto-fill keeps empty columns, so one or two products don't stretch to the full width. */
   .gl-related-products-list { display: grid; overflow: visible; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; padding: 0; scroll-snap-type: none; }
   .gl-related-products-list li { width: auto; }
@@ -36,16 +36,16 @@
 /* Compact: sits inside a page column (the cart), so no page padding and a smaller heading. */
 .gl-related-products-compact { max-width: none; margin: 0; padding: 28px 0 0; gap: 12px; }
 .gl-related-products-compact .gl-related-products-heading { padding: 0; }
-.gl-related-products-compact .gl-related-products-heading > p { font-size: 20px; }
-.gl-related-products-compact .gl-related-products-heading h2 { margin-top: 2px; font-size: 22px; }
+.gl-related-products-compact .gl-related-products-accent { font-size: 20px; }
+.gl-related-products-compact .gl-related-products-title { margin-top: 2px; font-size: 22px; }
 .gl-related-products-compact .gl-related-products-more { min-height: 36px; }
 .gl-related-products-compact .gl-related-products-list { padding: 4px 0 10px; scroll-padding-inline: 0; }
 .gl-related-products-compact .gl-related-products-list li { width: 150px; }
 
 @media (min-width: 861px) {
   .gl-related-products-compact { padding: 36px 0 0; gap: 16px; }
-  .gl-related-products-compact .gl-related-products-heading > p { font-size: 24px; }
-  .gl-related-products-compact .gl-related-products-heading h2 { font-size: 30px; line-height: 1.1; }
+  .gl-related-products-compact .gl-related-products-accent { font-size: 24px; }
+  .gl-related-products-compact .gl-related-products-title { font-size: 30px; line-height: 1.1; }
   .gl-related-products-compact .gl-related-products-list { display: flex; overflow-x: auto; gap: 16px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
   .gl-related-products-compact .gl-related-products-list li { width: 190px; }
   .gl-related-products-compact .gl-related-products-card { gap: 8px; }

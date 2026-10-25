@@ -7,7 +7,8 @@ import "./RelatedProducts.css";
 type ProductRowProps = {
   headingId: string;
   accent: string;
-  title: ReactNode;
+  /** Main heading; without it the accent line is the heading. */
+  title?: ReactNode;
   label: string;
   products: Product[];
   more?: { href: string; label: string };
@@ -24,8 +25,14 @@ export function ProductRow({ headingId, accent, title, label, products, more, co
   return (
     <section aria-labelledby={headingId} className={`gl-related-products${compact ? " gl-related-products-compact" : ""}`}>
       <div className="gl-related-products-heading">
-        <p>{accent}</p>
-        <h2 id={headingId}>{title}</h2>
+        {title ? (
+          <>
+            <p className="gl-related-products-accent">{accent}</p>
+            <h2 id={headingId} className="gl-related-products-title">{title}</h2>
+          </>
+        ) : (
+          <h2 id={headingId} className="gl-related-products-accent">{accent}</h2>
+        )}
       </div>
       <ul role="list" aria-label={label} className="gl-related-products-list">
         {products.map((item) => (
