@@ -1,3 +1,4 @@
+import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 import { defineField, defineType } from "sanity";
 
 type Sizes = { S?: number; M?: number; L?: number; XL?: number };
@@ -98,15 +99,10 @@ export const product = defineType({
       rows: 3,
       validation: (rule) => rule.required().max(300),
     }),
-    defineField({
-      name: "order",
-      title: "Order",
-      type: "number",
-      description: "Lower numbers show first (the catalogue’s “Featured” sort).",
-      validation: (rule) => rule.required().integer().min(0),
-    }),
+    // Hidden position from dragging in the Products list (the catalogue’s “Featured” sort).
+    orderRankField({ type: "product" }),
   ],
-  orderings: [{ title: "Order", name: "orderAsc", by: [{ field: "order", direction: "asc" }] }],
+  orderings: [orderRankOrdering],
   preview: {
     select: { title: "name", subtitle: "collection.name", media: "image" },
   },

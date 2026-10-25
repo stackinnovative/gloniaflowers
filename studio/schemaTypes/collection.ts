@@ -1,3 +1,4 @@
+import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 import { defineField, defineType } from "sanity";
 
 export const collection = defineType({
@@ -27,14 +28,9 @@ export const collection = defineType({
       description: "Shown on the home page tiles, the catalogue bubbles and the Our work cards. Use the crop button to trim it and set the focus point. Leave empty to show a leaf icon or placeholder.",
       options: { hotspot: true },
     }),
-    defineField({
-      name: "order",
-      title: "Order",
-      type: "number",
-      description: "Lower numbers show first in menus and the Favourite picks slider.",
-      validation: (rule) => rule.required().integer().min(0),
-    }),
+    // Hidden position from dragging in the Collections list (menus and the Favourite picks slider).
+    orderRankField({ type: "collection" }),
   ],
-  orderings: [{ title: "Order", name: "orderAsc", by: [{ field: "order", direction: "asc" }] }],
+  orderings: [orderRankOrdering],
   preview: { select: { title: "name", subtitle: "id.current" } },
 });

@@ -9,7 +9,6 @@ type Draft = SanityDocument & {
   name?: string;
   slug?: { current?: string };
   id?: { current?: string };
-  order?: number;
   collection?: Ref;
   alsoIn?: Ref[];
   hasSizes?: boolean;
@@ -26,7 +25,6 @@ const publishedId = (id: string) => id.replace(/^drafts\./, "");
 function missingFields(doc: Draft): string[] {
   const missing: string[] = [];
   if (!doc.name?.trim()) missing.push("name");
-  if (typeof doc.order !== "number") missing.push("order");
   if (doc._type === "collection") {
     if (!doc.id?.current) missing.push("link id");
     return missing;

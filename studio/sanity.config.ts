@@ -1,3 +1,4 @@
+import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schemaTypes, singletonTypes } from "./schemaTypes";
@@ -11,12 +12,13 @@ export default defineConfig({
   dataset,
   plugins: [
     structureTool({
-      structure: (S) =>
+      // Products and collections are sorted by dragging; the site shows them in that order.
+      structure: (S, context) =>
         S.list()
           .title("Shop")
           .items([
-            S.documentTypeListItem("product").title("Products"),
-            S.documentTypeListItem("collection").title("Collections"),
+            orderableDocumentListDeskItem({ type: "product", title: "Products", S, context }),
+            orderableDocumentListDeskItem({ type: "collection", title: "Collections", S, context }),
             S.divider(),
             S.listItem()
               .title("Site settings")

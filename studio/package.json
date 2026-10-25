@@ -8,10 +8,13 @@
     "build": "sanity build",
     "deploy": "sanity deploy",
     "seed": "sanity exec scripts/seed.ts --with-user-token",
+    "migrate-order": "sanity exec scripts/migrate-order.ts --with-user-token",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@sanity/orderable-document-list": "^2.0.28",
     "@sanity/ui": "^4.4.10",
+    "lexorank": "^1.0.5",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "sanity": "^6.19.0",

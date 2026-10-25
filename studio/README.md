@@ -34,7 +34,7 @@ A private dataset also works. Create a *Viewer* token under *API → Tokens* and
 - **Publish all** (tab at the top, next to Structure) publishes every product and collection draft at once — handy after adding many products. Drafts with missing details (name, link, collection, photo, description, price) stay as drafts and are listed so you can fix them.
 - **Link** and **Link id** become the page addresses. Don't change them after launch, because shared links would stop working.
 - **Comes in S / M / L / XL** switches between one price and size prices. The Small price is shown as "from ₹…". Extra large is optional: leave it empty and the box is sold in S / M / L only.
-- **Order:** lower numbers show first. Products use steps of 10, so a new product can go in between (e.g. 15).
+- **Order:** drag products and collections up or down in their list (grab the handle on the left). The site shows them in that order — products in the catalogue’s “Featured” sort, collections in menus and the Favourite picks slider. New items go to the end.
 - If something required is missing, the website build stops and keeps the last good version live. The deploy log lists what to fix.
 
 ## Site settings

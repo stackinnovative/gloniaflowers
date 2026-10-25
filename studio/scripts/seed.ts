@@ -4,6 +4,7 @@ import { createReadStream } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { getCliClient } from "sanity/cli";
+import { orderRanks } from "./orderRanks";
 
 type SeedCollection = { id: string; name: string; order: number; image: string | null };
 type SeedProduct = {
@@ -70,17 +71,19 @@ const products = await readJson<SeedProduct[]>("products.json");
 const settings = await readJson<SeedSettings>("settings.json");
 const tx = client.transaction();
 
-for (const collection of collections) {
+const collectionRanks = orderRanks(collections.length);
+for (const [index, collection] of collections.entries()) {
   tx.createOrReplace({
     _id: `collection-${collection.id}`,
     _type: "collection",
     name: collection.name,
     id: { _type: "slug", current: collection.id },
-    order: collection.order,
+    orderRank: collectionRanks[index],
     ...(collection.image ? { image: await imageField(collection.image) } : {}),
   });
 }
 
+const productRanks = orderRanks(products.length);
 for (const [index, product] of products.entries()) {
   const pricing: { sizes?: SeedProduct["sizes"]; price?: number } = product.sizes ? { sizes: product.sizes } : { price: product.price };
   tx.createOrReplace({
@@ -94,7 +97,7 @@ for (const [index, product] of products.entries()) {
     ...pricing,
     image: await imageField(product.image),
     description: product.description,
-    order: (index + 1) * 10,
+    orderRank: productRanks[index],
   });
 }
 

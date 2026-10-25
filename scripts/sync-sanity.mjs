@@ -18,14 +18,15 @@ if (!projectId) {
   process.exit(0);
 }
 
+// Products and collections come in the order the client drags them to in the Studio (orderRank).
 const published = '!(_id in path("drafts.**"))';
 // An image with the editor's crop and focus point (hotspot), plus the original size to turn the crop into pixels.
 const photo = '{ crop, hotspot, "url": asset->url, "dimensions": asset->metadata.dimensions }';
 const query = `{
-  "collections": *[_type == "collection" && ${published} && defined(id.current)] | order(order asc) {
-    "id": id.current, name, order, "image": image${photo}
+  "collections": *[_type == "collection" && ${published} && defined(id.current)] | order(orderRank asc, name asc) {
+    "id": id.current, name, "image": image${photo}
   },
-  "products": *[_type == "product" && ${published} && defined(slug.current)] | order(order asc, name asc) {
+  "products": *[_type == "product" && ${published} && defined(slug.current)] | order(orderRank asc, name asc) {
     "slug": slug.current, name,
     "collection": collection->id.current,
     "alsoIn": alsoIn[]->id.current,
@@ -94,7 +95,7 @@ function photoFields(image) {
   return { image: result?.url ?? null, ...(result?.focus ? { imageFocus: result.focus } : {}) };
 }
 
-const collections = result.collections.map((c, index) => ({ id: c.id, name: c.name, order: c.order ?? index + 1, ...photoFields(c.image) }));
+const collections = result.collections.map((c, index) => ({ id: c.id, name: c.name, order: index + 1, ...photoFields(c.image) }));
 const collectionIds = new Set();
 for (const c of collections) {
   if (!isId(c.id) || typeof c.name !== "string" || !c.name) problems.push(`collection "${c.name ?? c.id}": missing name or invalid link id`);
