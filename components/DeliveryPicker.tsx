@@ -1,10 +1,12 @@
 "use client";
 
-import { deliverySlots, type DeliverySlot } from "@/lib/site";
+import type { DeliverySlot } from "@/lib/site";
 import "./ProductControls.css";
 
 type DeliveryPickerProps = {
   date: string;
+  /** Slots still open for the chosen date (today hides those that are too soon). */
+  slots: readonly DeliverySlot[];
   slot: DeliverySlot;
   cardMessage: string;
   cardEnabled: boolean;
@@ -17,6 +19,7 @@ type DeliveryPickerProps = {
 
 export function DeliveryPicker({
   date,
+  slots,
   slot,
   cardMessage,
   cardEnabled,
@@ -48,13 +51,16 @@ export function DeliveryPicker({
           <select
             id="delivery-slot"
             name="delivery-slot"
-            value={slot}
+            value={slots.length ? slot : ""}
+            disabled={!slots.length}
             onChange={(event) => {
-              const nextSlot = deliverySlots.find((option) => option === event.target.value);
+              const nextSlot = slots.find((option) => option === event.target.value);
               if (nextSlot) onSlotChange(nextSlot);
             }}
           >
-            {deliverySlots.map((option) => <option key={option} value={option}>{option}</option>)}
+            {slots.length
+              ? slots.map((option) => <option key={option} value={option}>{option}</option>)
+              : <option value="">No times left on this day</option>}
           </select>
         </label>
       </div>

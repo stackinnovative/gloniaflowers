@@ -14,7 +14,7 @@ function toMinutes(time: string): number {
 }
 
 /** Minutes since midnight in India time. */
-function minutesInShopTime(now: Date): number {
+export function minutesInShopTime(now: Date): number {
   const parts = timeFormat.formatToParts(now);
   const part = (type: "hour" | "minute") => Number(parts.find((p) => p.type === type)?.value ?? 0);
   return part("hour") * 60 + part("minute");

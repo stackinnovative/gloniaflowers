@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useSyncExternalStore } from "react";
 import { addCartItem, cartOrderLines, normalizeCart, setCartItemQty, type CartItem, type CartSelection } from "@/lib/cart";
-import { isValidDeliveryDate, subscribeIndiaDate, todayInIndia } from "@/lib/delivery";
+import { currentMinute, isDeliveryClosed, subscribeIndiaDate } from "@/lib/delivery";
 import type { OrderLine } from "@/lib/whatsapp";
 
 export type { CartItem } from "@/lib/cart";
@@ -82,7 +82,8 @@ const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const items = useSyncExternalStore(subscribe, read, () => EMPTY);
-  const today = useSyncExternalStore(subscribeIndiaDate, todayInIndia, () => null);
+  // Updates every minute: a date passes at midnight, and today’s slots close during the day.
+  const minute = useSyncExternalStore(subscribeIndiaDate, currentMinute, () => null);
   const orderLines = cartOrderLines(items);
 
   const value: CartContextValue = {
@@ -91,7 +92,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     total: orderLines.reduce((sum, line) => sum + line.unitPrice * line.qty, 0),
     orderLines,
     hasUnpricedAddOns: orderLines.some((line) => line.hasUnpricedAddOns === true),
-    hasExpiredDelivery: today !== null && items.some((item) => item.delivery && !isValidDeliveryDate(item.delivery.date, today)),
+    hasExpiredDelivery: minute !== null && items.some((item) => item.delivery && isDeliveryClosed(item.delivery, new Date(minute * 60_000))),
     add: (item, quantity = 1) => {
       const current = read();
       const next = addCartItem(current, item, quantity);

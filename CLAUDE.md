@@ -108,9 +108,10 @@ design-reference/       approved design markup (read-only, do not ship)
 ### Product details (`product-desktop.html`, `product-mobile.html`)
 - Blush photo stage with an offset gold outline, **one image only** (no thumbnails), badges: "Fresh on delivery day", "S · M · L" ("S – XL" when XL is offered), size card "{size} · {inches}".
 - Name, price (updates with size), short description, trust tiles.
-- **Size picker S / M / L / XL** (only when `sizes` is not null; XL only when the product has an XL price) — shows inches 5.5 / 6.5 / 7.5 / 9.
+- **Size picker S / M / L / XL** (only when `sizes` is not null; only the sizes the product has a price for) — shows inches 5.5 / 6.5 / 7.5 / 9.
 - **Add-ons** (checkboxes; prices are placeholders). No gift add-on: gifts are a product collection.
 - **Delivery date** (date input, no past dates) + **time slot** select: one-hour slots from 9–10 AM to 7–8 PM (11 slots). No pincode field.
+  For today, only slots starting after the current hour plus the same-day preparation time show (Site settings, default 1 hour: at 10:15 the first slot is 12–1 PM). When today has none left, the earliest date is tomorrow. The cart blocks checkout for a today slot that has become too soon (India time).
 - Buttons: Add to cart, Order on WhatsApp.
 - Info tabs (Details, Care, Delivery), size guide circles, related products (same collection).
 
@@ -140,7 +141,7 @@ Cart checkout repeats the item block (with its own customization and delivery da
 
 ## 7. Data model
 
-`data/products.json` — `slug, name, collection, alsoIn[], price, sizes ({S,M,L,XL?} | null), image, description`. XL is optional per product.
+`data/products.json` — `slug, name, collection, alsoIn[], price, sizes ({S?,M?,L?,XL?} | null), image, description`. Every size is optional per product (at least one); `price` is the smallest size price.
 A product appears in its `collection` and every id in `alsoIn`.
 `data/collections.json` — `id, name, order`. Only korean, red, classic, bloom have products right now.
 

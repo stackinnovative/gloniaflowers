@@ -38,7 +38,7 @@ const query = `{
     tagline, description, phoneDisplay, whatsappNumber, email,
     hours { open, close }, address { street, city }, mapQuery, googleListing, googlePlaceId, showReviews, instagram { handle, url },
     productInfo { details, careBox, careBouquet, delivery },
-    heroText, deliverySlots, boxSizes { S, M, L, XL },
+    heroText, deliverySlots, sameDayLeadHours, boxSizes { S, M, L, XL },
     ourWork { intro, items[] { name, description, "image": image${photo} } },
     perfumes { show, badge, eyebrow, title, text, imageLabel, "image": image${photo}, buttonLabel, whatsappMessage, note },
     "addOns": addOns[] { "id": id.current, name, "price": coalesce(price, null), "options": options[] { "id": id.current, name, "price": coalesce(price, null) } },
@@ -61,6 +61,7 @@ const { result } = await response.json();
 
 const problems = [];
 const isPrice = (value) => Number.isSafeInteger(value) && value > 0;
+const SIZE_KEYS = ["S", "M", "L", "XL"];
 const isId = (value) => typeof value === "string" && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
 const isText = (value) => typeof value === "string" && value.trim() !== "";
 const clamp = (value) => Math.min(1, Math.max(0, value));
@@ -106,14 +107,16 @@ for (const c of collections) {
 const slugs = new Set();
 const products = result.products.map((p) => {
   const label = `product "${p.name ?? p.slug}"`;
-  const sizes = p.hasSizes ? p.sizes : null;
+  // Every size is optional; a box offers the sizes that have a price.
+  const sizes = p.hasSizes ? Object.fromEntries(SIZE_KEYS.filter((key) => p.sizes?.[key] != null).map((key) => [key, p.sizes[key]])) : null;
+  const sizePrices = sizes ? Object.values(sizes) : [];
   if (!isId(p.slug)) problems.push(`${label}: invalid link "${p.slug}"`);
   if (slugs.has(p.slug)) problems.push(`${label}: link "${p.slug}" used twice`);
   slugs.add(p.slug);
   if (typeof p.name !== "string" || !p.name) problems.push(`${label}: missing name`);
   if (!collectionIds.has(p.collection)) problems.push(`${label}: main collection is missing or unpublished`);
-  if (sizes ? !(isPrice(sizes.S) && isPrice(sizes.M) && isPrice(sizes.L)) : !isPrice(p.price)) problems.push(`${label}: missing or invalid price`);
-  if (sizes && sizes.XL != null && !(isPrice(sizes.XL) && sizes.XL >= sizes.L)) problems.push(`${label}: Extra large price must be a whole number, at least the Large price`);
+  if (sizes ? !(sizePrices.length && sizePrices.every(isPrice)) : !isPrice(p.price)) problems.push(`${label}: missing or invalid price`);
+  if (sizePrices.some((price, index) => index > 0 && price < sizePrices[index - 1])) problems.push(`${label}: size prices should go up from smaller to bigger sizes`);
   if (typeof p.image?.url !== "string") problems.push(`${label}: missing photo`);
   if (typeof p.description !== "string" || !p.description) problems.push(`${label}: missing description`);
   return {
@@ -121,9 +124,8 @@ const products = result.products.map((p) => {
     name: p.name,
     collection: p.collection,
     alsoIn: [...new Set((p.alsoIn ?? []).filter((id) => collectionIds.has(id) && id !== p.collection))],
-    price: sizes ? sizes.S : p.price,
-    // XL is optional: left out until it has a price.
-    sizes: sizes ? { S: sizes.S, M: sizes.M, L: sizes.L, ...(sizes.XL != null ? { XL: sizes.XL } : {}) } : null,
+    price: sizes ? Math.min(...sizePrices) : p.price,
+    sizes,
     ...photoFields(p.image),
     description: p.description,
   };
@@ -189,6 +191,11 @@ function readSettings(raw) {
   const deliverySlots = raw.deliverySlots == null ? committed.deliverySlots : raw.deliverySlots.map(text);
   if (!deliverySlots.length || !deliverySlots.every(Boolean)) problems.push(`${label}: delivery time slots need at least one slot and no empty lines`);
   if (new Set(deliverySlots).size !== deliverySlots.length) problems.push(`${label}: a delivery time slot is listed twice`);
+  // Same pattern as slotStart() in lib/delivery.ts, which reads each slot's start time for same-day orders.
+  const unreadable = deliverySlots.filter((slot) => !/^\d{1,2}(:\d{2})?\s*(AM|PM)?\s*[–-]\s*\d{1,2}(:\d{2})?\s*(AM|PM)$/i.test(slot));
+  if (unreadable.length) problems.push(`${label}: write delivery time slots like "9–10 AM" or "11 AM–12 PM" (check: ${unreadable.join(", ")})`);
+  const sameDayLeadHours = raw.sameDayLeadHours ?? committed.sameDayLeadHours;
+  if (!(Number.isInteger(sameDayLeadHours) && sameDayLeadHours >= 0 && sameDayLeadHours <= 12)) problems.push(`${label}: same-day preparation time must be 0–12 hours`);
 
   const boxSizes = raw.boxSizes == null ? committed.boxSizes : { S: raw.boxSizes.S, M: raw.boxSizes.M, L: raw.boxSizes.L, XL: raw.boxSizes.XL ?? committed.boxSizes.XL };
   const isSize = (value) => typeof value === "number" && value > 0;
@@ -252,6 +259,7 @@ function readSettings(raw) {
     addOns,
     heroText,
     deliverySlots,
+    sameDayLeadHours,
     boxSizes,
     ourWork,
     perfumes,

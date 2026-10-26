@@ -4,14 +4,8 @@ import { defineField, defineType } from "sanity";
 type Sizes = { S?: number; M?: number; L?: number; XL?: number };
 type ProductDoc = { hasSizes?: boolean; sizes?: Sizes; collection?: { _ref: string } };
 
-const rupees = (name: string, title: string, description: string, required = true) =>
-  defineField({
-    name,
-    title,
-    description,
-    type: "number",
-    validation: (rule) => (required ? rule.required() : rule).integer().positive(),
-  });
+const rupees = (name: "S" | "M" | "L" | "XL", title: string, description: string) =>
+  defineField({ name, title, description, type: "number", validation: (rule) => rule.integer().positive() });
 
 export const product = defineType({
   name: "product",
@@ -48,9 +42,9 @@ export const product = defineType({
     }),
     defineField({
       name: "hasSizes",
-      title: "Comes in S / M / L / XL",
+      title: "Comes in sizes",
       type: "boolean",
-      description: "Turn on for boxes sold in Small 5.5″, Medium 6.5″, Large 7.5″ and Extra large 9″.",
+      description: "Turn on for boxes sold in sizes (Small 5.5″, Medium 6.5″, Large 7.5″, Extra large 9″). Fill in only the sizes this box comes in.",
       initialValue: false,
     }),
     defineField({
@@ -72,16 +66,17 @@ export const product = defineType({
       hidden: ({ document }) => !(document as ProductDoc | undefined)?.hasSizes,
       options: { columns: 4 },
       fields: [
-        rupees("S", "Small", "5.5″ — shown as the “from” price"),
-        rupees("M", "Medium", "6.5″"),
-        rupees("L", "Large", "7.5″"),
-        rupees("XL", "Extra large", "9″ — optional; leave empty if this box isn’t made in XL", false),
+        rupees("S", "Small", "5.5″ — leave empty if not offered"),
+        rupees("M", "Medium", "6.5″ — leave empty if not offered"),
+        rupees("L", "Large", "7.5″ — leave empty if not offered"),
+        rupees("XL", "Extra large", "9″ — leave empty if not offered"),
       ],
       validation: (rule) =>
         rule.custom((sizes: Sizes | undefined, context) => {
           if (!(context.document as ProductDoc | undefined)?.hasSizes) return true;
-          if (!sizes?.S || !sizes.M || !sizes.L) return "Enter all three size prices.";
-          return sizes.S <= sizes.M && sizes.M <= sizes.L && (sizes.XL === undefined || sizes.L <= sizes.XL) ? true : "Prices should go up from Small to Extra large.";
+          const prices = (["S", "M", "L", "XL"] as const).flatMap((key) => (sizes?.[key] === undefined ? [] : [sizes[key]]));
+          if (!prices.length) return "Enter a price for at least one size.";
+          return prices.every((price, index) => index === 0 || price >= prices[index - 1]) ? true : "Prices should go up from smaller to bigger sizes.";
         }),
     }),
     defineField({

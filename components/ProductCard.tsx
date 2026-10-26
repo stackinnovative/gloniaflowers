@@ -3,12 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { getCollection, priceLabel, SIZE_INCHES, SIZE_NAMES, sizeKeys, sizePrice, type Product, type SizeKey } from "@/lib/products";
+import { defaultSize, getCollection, priceLabel, SIZE_INCHES, SIZE_NAMES, sizeKeys, sizePrice, type Product, type SizeKey } from "@/lib/products";
 import { formatPrice } from "@/lib/whatsapp";
 import "./ProductCard.css";
 
 export function ProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
-  const [size, setSize] = useState<SizeKey>("S");
+  const [size, setSize] = useState<SizeKey>(() => (product.sizes ? defaultSize(product.sizes, "S") : "S"));
   const sizes = product.sizes;
   // The chosen size travels to the product page, where date, slot and add-ons are picked.
   const detailsHref = `/product/${product.slug}${sizes ? `?size=${size}` : ""}`;

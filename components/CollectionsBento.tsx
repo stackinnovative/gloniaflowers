@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getCollection, getCollections, getProduct, getProductsIn } from "@/lib/products";
+import { getCollection, getCollections, getProduct, getProductsIn, productPrices } from "@/lib/products";
 import { site } from "@/lib/site";
 import { formatPrice, waLink } from "@/lib/whatsapp";
 import { LeafIcon } from "./Icons";
@@ -20,7 +20,7 @@ function CollectionTile({ id }: { id: TileId }) {
   if (!collection || !image) return null;
 
   const products = getProductsIn(id);
-  const prices = products.flatMap((product) => (product.sizes ? Object.values(product.sizes) : [product.price]));
+  const prices = products.flatMap(productPrices);
   const price = prices.length ? formatPrice(Math.min(...prices)) : null;
   const noPrice = id === "custom" ? "Made to order" : "Coming soon";
   const imageProduct = products.find((product) => product.image === image);

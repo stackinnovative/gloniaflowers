@@ -1,5 +1,5 @@
 // Structured data and plain-text facts for search engines and AI assistants.
-import { getCollection, getProducts, type Product } from "./products";
+import { getCollection, getProducts, productPrices, type Product } from "./products";
 import { site } from "./site";
 import { formatPrice } from "./whatsapp";
 
@@ -21,7 +21,7 @@ const instagramUrl = /instagram\.com\/[^/?#]+/.test(site.instagram.url) ? site.i
 const absolute = (path: string) => (path.startsWith("http") ? path : `${site.url}${path}`);
 
 function priceRange(): string {
-  const prices = getProducts().flatMap((p) => (p.sizes ? Object.values(p.sizes) : [p.price]));
+  const prices = getProducts().flatMap(productPrices);
   return `${formatPrice(Math.min(...prices))} – ${formatPrice(Math.max(...prices))}`;
 }
 
@@ -91,7 +91,7 @@ export function breadcrumbJsonLd(crumbs: Crumb[]) {
 
 export function productJsonLd(product: Product) {
   const url = absolute(`/product/${product.slug}`);
-  const prices = product.sizes ? Object.values(product.sizes) : [product.price];
+  const prices = productPrices(product);
   const offerBase = { priceCurrency: "INR", availability: "https://schema.org/InStock", url, seller: { "@id": floristId } };
   return {
     "@context": "https://schema.org",

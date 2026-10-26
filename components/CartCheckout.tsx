@@ -2,7 +2,7 @@
 
 import { useState, type MouseEvent, type ReactNode } from "react";
 import { buildOrderMessage, waLink } from "@/lib/whatsapp";
-import { isValidDeliveryDate, todayInIndia } from "@/lib/delivery";
+import { isDeliveryClosed } from "@/lib/delivery";
 import { useCart } from "./CartProvider";
 
 type Props = {
@@ -13,18 +13,18 @@ type Props = {
   renderWarning: (id: string) => ReactNode;
 };
 
-/** WhatsApp checkout link for the whole cart, disabled while any delivery date has passed. */
+/** WhatsApp checkout link for the whole cart, disabled while any delivery date or same-day time has passed. */
 export function CartCheckout({ className, warningId, children, renderWarning }: Props) {
   const { items, orderLines, hasExpiredDelivery } = useCart();
-  const [checkoutDate, setCheckoutDate] = useState<string | null>(null);
-  const expired = hasExpiredDelivery || (checkoutDate !== null && items.some((item) => item.delivery && !isValidDeliveryDate(item.delivery.date, checkoutDate)));
+  const [checkedAt, setCheckedAt] = useState<number | null>(null);
+  const expired = hasExpiredDelivery || (checkedAt !== null && items.some((item) => item.delivery && isDeliveryClosed(item.delivery, new Date(checkedAt))));
 
   function validate(event: MouseEvent<HTMLAnchorElement>) {
-    // Recheck every activation path if midnight passed between clock updates.
-    const today = todayInIndia();
-    if (items.some((item) => item.delivery && !isValidDeliveryDate(item.delivery.date, today))) {
+    // Recheck every activation path in case a date or slot closed between clock updates.
+    const now = Date.now();
+    if (items.some((item) => item.delivery && isDeliveryClosed(item.delivery, new Date(now)))) {
       event.preventDefault();
-      setCheckoutDate(today);
+      setCheckedAt(now);
     }
   }
 

@@ -37,6 +37,8 @@ type Settings = {
   heroText: string;
   /** Time slots offered on the product page, in order. */
   deliverySlots: string[];
+  /** Same-day orders: hours after the current hour before the first slot (1 = at 10:15, from 12 PM). */
+  sameDayLeadHours: number;
   /** Box diameter in inches for each size. */
   boxSizes: { S: number; M: number; L: number; XL: number };
   ourWork: {
@@ -121,6 +123,7 @@ export const site = {
   instagram: settings.instagram,
   heroText: settings.heroText,
   boxSizes: settings.boxSizes,
+  sameDayLeadHours: settings.sameDayLeadHours,
   ourWork: settings.ourWork,
   perfumes: settings.perfumes,
   productInfo: settings.productInfo,

@@ -58,6 +58,7 @@
     "6–7 PM",
     "7–8 PM"
   ],
+  "sameDayLeadHours": 1,
   "boxSizes": {
     "S": 5.5,
     "M": 6.5,

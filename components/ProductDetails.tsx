@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { Suspense, useState, useSyncExternalStore, type FormEvent } from "react";
 import { cartOrderLines, type CartSelection } from "@/lib/cart";
-import { isValidDeliveryDate, subscribeIndiaDate, todayInIndia } from "@/lib/delivery";
-import { getCollection, SIZE_NAMES, sizePrice, type Product, type SizeKey } from "@/lib/products";
+import { availableSlots, currentMinute, firstDeliveryDate, isValidDeliveryDate, subscribeIndiaDate, todayInIndia } from "@/lib/delivery";
+import { defaultSize, getCollection, SIZE_NAMES, sizePrice, type Product, type SizeKey } from "@/lib/products";
 import { addOns, deliverySlots, site, type DeliverySlot } from "@/lib/site";
 import { buildOrderMessage, formatPrice, waLink } from "@/lib/whatsapp";
 import { AddOns } from "./AddOns";
@@ -17,12 +17,14 @@ import { SizeFromUrl } from "./SizeFromUrl";
 import { SizePicker } from "./SizePicker";
 import "./ProductDetails.css";
 
-const serverDate = () => "";
+const serverMinute = () => null;
 
 export function ProductDetails({ product }: { product: Product }) {
   const { add } = useCart();
-  const today = useSyncExternalStore(subscribeIndiaDate, todayInIndia, serverDate);
-  const [size, setSize] = useState<SizeKey>("M");
+  // Updates every minute, so today's slots close as the clock passes them.
+  const minute = useSyncExternalStore(subscribeIndiaDate, currentMinute, serverMinute);
+  const now = minute === null ? null : new Date(minute * 60_000);
+  const [size, setSize] = useState<SizeKey>(() => (product.sizes ? defaultSize(product.sizes, "M") : "M"));
   const [chosenAddOns, setChosenAddOns] = useState<string[]>(addOns.some((item) => item.id === "card") ? ["card"] : []);
   const [date, setDate] = useState("");
   const [slot, setSlot] = useState<DeliverySlot>(deliverySlots[0]);
@@ -31,11 +33,14 @@ export function ProductDetails({ product }: { product: Product }) {
   const [error, setError] = useState("");
   const [added, setAdded] = useState("");
   const collection = getCollection(product.collection);
+  const slots = now && isValidDeliveryDate(date) ? availableSlots(date, now) : deliverySlots;
+  // A slot that has just closed moves to the next open one.
+  const chosenSlot = slots.includes(slot) ? slot : slots[0];
   const selection: CartSelection = {
     slug: product.slug,
     size: product.sizes ? size : null,
     addOns: chosenAddOns,
-    ...(isValidDeliveryDate(date) ? { delivery: { date, slot } } : {}),
+    ...(isValidDeliveryDate(date) && chosenSlot ? { delivery: { date, slot: chosenSlot } } : {}),
     ...(chosenAddOns.includes("card") && cardMessage.trim() ? { cardMessage: cardMessage.trim() } : {}),
   };
   const orderLines = cartOrderLines([{ ...selection, qty }]);
@@ -47,9 +52,24 @@ export function ProductDetails({ product }: { product: Product }) {
   function submitOrder(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setAdded("");
-    if (!isValidDeliveryDate(date, todayInIndia())) {
+    const form = event.currentTarget;
+    // Recheck against the clock now: the page may have been open for a while.
+    const current = new Date();
+    if (!isValidDeliveryDate(date, todayInIndia(current))) {
       setError(date ? "Choose today or a future delivery date." : "Choose a delivery date.");
-      event.currentTarget.querySelector<HTMLInputElement>('[name="delivery-date"]')?.focus();
+      form.querySelector<HTMLInputElement>('[name="delivery-date"]')?.focus();
+      return;
+    }
+    const open = availableSlots(date, current);
+    if (!open.length) {
+      setError("No delivery times are left on this day. Choose another date.");
+      form.querySelector<HTMLInputElement>('[name="delivery-date"]')?.focus();
+      return;
+    }
+    if (!chosenSlot || !open.includes(chosenSlot)) {
+      setSlot(open[0]);
+      setError(`That time is too soon now. The earliest time today is ${open[0]}; check it and try again.`);
+      form.querySelector<HTMLSelectElement>('[name="delivery-slot"]')?.focus();
       return;
     }
     setError("");
@@ -88,8 +108,8 @@ export function ProductDetails({ product }: { product: Product }) {
             {product.sizes && <SizePicker sizes={product.sizes} value={size} onChange={(next) => { setSize(next); setAdded(""); }} />}
             <AddOns value={chosenAddOns} onChange={(next) => { setChosenAddOns(next); setAdded(""); }} />
             <DeliveryPicker
-              date={date} slot={slot} cardMessage={cardMessage} cardEnabled={chosenAddOns.includes("card")}
-              minDate={today} error={error}
+              date={date} slots={slots} slot={chosenSlot ?? ""} cardMessage={cardMessage} cardEnabled={chosenAddOns.includes("card")}
+              minDate={now ? firstDeliveryDate(now) : ""} error={error}
               onDateChange={(next) => { setDate(next); setError(""); setAdded(""); }}
               onSlotChange={(next) => { setSlot(next); setAdded(""); }}
               onMessageChange={(next) => { setCardMessage(next); setAdded(""); }}

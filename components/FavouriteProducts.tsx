@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { sizeKeys, type Collection, type Product } from "@/lib/products";
+import { productPrices, sizeKeys, type Collection, type Product } from "@/lib/products";
 import { formatPrice, waLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./Icons";
 import "./FavouriteProducts.css";
@@ -11,8 +11,7 @@ type FavouriteProductsProps = {
 };
 
 function productPrice(product: Product): string {
-  if (!product.sizes) return formatPrice(product.price);
-  const prices = Object.values(product.sizes);
+  const prices = productPrices(product);
   const minimum = Math.min(...prices);
   const maximum = Math.max(...prices);
   return minimum === maximum ? formatPrice(minimum) : `${formatPrice(minimum)} – ${formatPrice(maximum)}`;

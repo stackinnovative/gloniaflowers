@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getProduct } from "@/lib/products";
+import { defaultSize, getProduct, SIZE_NAMES, sizePrice } from "@/lib/products";
 import { site } from "@/lib/site";
 import { formatPrice } from "@/lib/whatsapp";
 
@@ -57,7 +57,7 @@ function OrderExample() {
         />
         <p className="m-0 px-1 text-[14px]">
           <span className="sr-only">You: </span>
-          Hi! I&apos;d like the <strong>{product.name}</strong>{product.sizes ? `, size Medium (${formatPrice(product.sizes.M)})` : ` (${formatPrice(product.price)})`}, for tomorrow.
+          Hi! I&apos;d like the <strong>{product.name}</strong>{product.sizes ? `, size ${SIZE_NAMES[defaultSize(product.sizes, "M")]} (${formatPrice(sizePrice(product.sizes, "M"))})` : ` (${formatPrice(product.price)})`}, for tomorrow.
         </p>
       </div>
       <p className="m-0 max-w-[80%] self-start rounded-[16px_16px_16px_4px] bg-white px-3 py-2.5 text-[14px]">

@@ -1,4 +1,4 @@
-import { getProduct, sizeKeys, sizePrice, type SizeKey } from "./products";
+import { defaultSize, getProduct, sizeKeys, sizePrice, type SizeKey } from "./products";
 import { isValidDeliveryDate } from "./delivery";
 import { addOnChoices, deliverySlots, site, type AddOnChoice } from "./site";
 import type { Delivery, OrderLine } from "./whatsapp";
@@ -40,10 +40,10 @@ function readItem(value: unknown): CartItem | null {
 
   let size: SizeKey | null = null;
   if (product.sizes) {
-    // Earlier carts can omit the selection by storing null; catalogue orders use Small.
-    // A size no longer offered (e.g. XL price removed) drops the line.
+    // Earlier carts can omit the selection by storing null; catalogue orders use the smallest size.
+    // A size no longer offered (its price removed) drops the line.
     const offered = sizeKeys(product.sizes);
-    if (candidate.size === null) size = "S";
+    if (candidate.size === null) size = defaultSize(product.sizes, "S");
     else {
       const match = offered.find((key) => key === candidate.size);
       if (!match) return null;

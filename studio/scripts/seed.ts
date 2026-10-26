@@ -13,7 +13,7 @@ type SeedProduct = {
   collection: string;
   alsoIn: string[];
   price: number;
-  sizes: { S: number; M: number; L: number; XL?: number } | null;
+  sizes: { S?: number; M?: number; L?: number; XL?: number } | null;
   image: string;
   description: string;
 };
@@ -35,6 +35,7 @@ type SeedSettings = {
   productInfo: { details: string[]; careBox: string[]; careBouquet: string[]; delivery: string[] };
   heroText: string;
   deliverySlots: string[];
+  sameDayLeadHours: number;
   boxSizes: { S: number; M: number; L: number; XL: number };
   // Photos are CDN URLs once synced from Sanity, so the seed leaves them out.
   ourWork: { intro: string; items: { name: string; description: string; image: string | null }[] };

@@ -123,9 +123,24 @@ export const siteSettings = defineType({
       title: "Delivery time slots",
       type: "array",
       group: "shop",
-      description: "Choices in the Delivery time dropdown on the product page, in order (e.g. 9–10 AM). If a slot is removed, carts that used it keep the item and date without a time.",
-      of: [defineArrayMember({ type: "string", validation: (rule) => rule.required().max(30) })],
+      description: "Choices in the Delivery time dropdown on the product page, in order. Write them like “9–10 AM” or “11 AM–12 PM” — the site reads the start time to hide today’s slots that are too soon. If a slot is removed, carts that used it keep the item and date without a time.",
+      of: [
+        defineArrayMember({
+          type: "string",
+          // Same pattern as slotStart() in lib/delivery.ts.
+          validation: (rule) => rule.required().max(30).regex(/^\d{1,2}(:\d{2})?\s*(AM|PM)?\s*[–-]\s*\d{1,2}(:\d{2})?\s*(AM|PM)$/i, { name: "time range like 9–10 AM" }),
+        }),
+      ],
       validation: (rule) => rule.required().min(1).unique(),
+    }),
+    defineField({
+      name: "sameDayLeadHours",
+      title: "Same-day preparation time (hours)",
+      type: "number",
+      group: "shop",
+      description: "For orders delivered today: how many hours after the current hour the first slot can start. 1 = a customer at 10:15 AM sees slots from 12 PM. Later days show every slot.",
+      initialValue: 1,
+      validation: (rule) => rule.required().integer().min(0).max(12),
     }),
     defineField({
       name: "boxSizes",

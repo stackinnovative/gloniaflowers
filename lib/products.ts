@@ -4,8 +4,8 @@ import { site } from "./site";
 import { formatPrice } from "./whatsapp";
 
 export type SizeKey = "S" | "M" | "L" | "XL";
-/** XL is optional: a box offers it only once it has an XL price. */
-export type Sizes = { S: number; M: number; L: number; XL?: number };
+/** Price per size. Every size is optional: a box offers the sizes that have a price (at least one). */
+export type Sizes = Partial<Record<SizeKey, number>>;
 
 /** image: tile photo, or null until the client supplies one. imageFocus: see Product. */
 export type Collection = { id: string; name: string; order: number; image: string | null; imageFocus?: string };
@@ -38,9 +38,20 @@ export function sizeKeys(sizes: Sizes): SizeKey[] {
   return SIZE_KEYS.filter((key) => sizes[key] !== undefined);
 }
 
-/** Price of a size; one the product doesn't offer falls back to Small. */
+/** The size to start on: `preferred` when the product offers it, otherwise its smallest size. */
+export function defaultSize(sizes: Sizes, preferred: SizeKey): SizeKey {
+  const keys = sizeKeys(sizes);
+  return keys.includes(preferred) ? preferred : keys[0] ?? preferred;
+}
+
+/** Price of a size; one the product doesn't offer falls back to its smallest size. */
 export function sizePrice(sizes: Sizes, size: SizeKey): number {
-  return sizes[size] ?? sizes.S;
+  return sizes[size] ?? sizes[defaultSize(sizes, size)] ?? 0;
+}
+
+/** Every price a product is sold at: one per size, or its single price. */
+export function productPrices(product: Product): number[] {
+  return product.sizes ? sizeKeys(product.sizes).map((key) => sizePrice(product.sizes ?? {}, key)) : [product.price];
 }
 
 /** "Small, Medium and Large" */

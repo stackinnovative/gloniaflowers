@@ -48,7 +48,7 @@ export function CartBar() {
             warningId="cart-delivery-warning"
             renderWarning={(id) => (
               <p id={id} role="status" className="gl-cart-delivery-warning">
-                A delivery date has passed. <Link href="/cart" prefetch={false}>Open your cart</Link> to update it.
+                A delivery date or time has passed. <Link href="/cart" prefetch={false}>Open your cart</Link> to update it.
               </p>
             )}
           >

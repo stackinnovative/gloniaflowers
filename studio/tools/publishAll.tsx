@@ -13,7 +13,7 @@ type Draft = SanityDocument & {
   alsoIn?: Ref[];
   hasSizes?: boolean;
   price?: number;
-  sizes?: { S?: number; M?: number; L?: number };
+  sizes?: { S?: number; M?: number; L?: number; XL?: number };
   image?: { asset?: Ref };
   description?: string;
 };
@@ -33,7 +33,8 @@ function missingFields(doc: Draft): string[] {
   if (!doc.collection?._ref) missing.push("main collection");
   if (!doc.image?.asset?._ref) missing.push("photo");
   if (!doc.description?.trim()) missing.push("description");
-  const priced = doc.hasSizes ? isPrice(doc.sizes?.S) && isPrice(doc.sizes?.M) && isPrice(doc.sizes?.L) : isPrice(doc.price);
+  const sizePrices = Object.values(doc.sizes ?? {}).filter((price) => price !== undefined);
+  const priced = doc.hasSizes ? sizePrices.length > 0 && sizePrices.every(isPrice) : isPrice(doc.price);
   if (!priced) missing.push(doc.hasSizes ? "size prices" : "price");
   return missing;
 }

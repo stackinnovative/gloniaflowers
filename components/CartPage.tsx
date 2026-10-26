@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { cartLineKey, cartOrderLines, type CartItem } from "@/lib/cart";
-import { getCollection, getProduct, getProductsIn, SIZE_INCHES, SIZE_NAMES } from "@/lib/products";
+import { defaultSize, getCollection, getProduct, getProductsIn, SIZE_INCHES, SIZE_NAMES } from "@/lib/products";
 import { site } from "@/lib/site";
 import { addOnLabel, formatDeliveryDate, formatPrice, waLink } from "@/lib/whatsapp";
 import { CartCheckout } from "./CartCheckout";
@@ -74,7 +74,7 @@ function GiftSuggestions({ items }: { items: CartItem[] }) {
           type="button"
           className="gl-related-products-add"
           aria-label={`Add ${gift.name} to cart`}
-          onClick={() => add({ slug: gift.slug, size: gift.sizes ? "S" : null, addOns: [], ...(delivery ? { delivery } : {}) })}
+          onClick={() => add({ slug: gift.slug, size: gift.sizes ? defaultSize(gift.sizes, "S") : null, addOns: [], ...(delivery ? { delivery } : {}) })}
         >
           <CartIcon size={12} />Add to cart
         </button>
@@ -117,7 +117,7 @@ function Summary() {
         warningId="cart-page-delivery-warning"
         renderWarning={(id) => (
           <p id={id} role="status" className="gl-cartp-warning">
-            A delivery date has passed. Remove that item and add it again with a new date.
+            A delivery date or time has passed. Remove that item and add it again with a new date or time.
           </p>
         )}
       >
