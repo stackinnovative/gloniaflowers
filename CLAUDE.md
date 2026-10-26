@@ -84,6 +84,8 @@ design-reference/       approved design markup (read-only, do not ship)
 
 **Footer** — light champagne background (NOT dark). Logo, short line, three cards: Contact (phone, email, WhatsApp), Visit (address placeholder), Shop (links). Small copyright row.
 
+**Pause online orders** (Site settings → Pause shop; optional start/end, checked every minute in the browser) — for peak days. While paused: `/catalog`, `/product/*` and `/cart` show the pause heading, message and a WhatsApp button (`ShopClosed`); the home page stays a showcase with a pause banner on top, How to order hidden, and shop links (hero button, collection tiles and chips, favourite picks, View full catalogue, footer Shop links) opening WhatsApp (`ShopLink`); header/menu shop links, the cart icon, cart bar and floating Shop now button are hidden.
+
 ## 5. Pages
 
 ### Home (`design-reference/home-desktop.html`, `home-mobile.html`)

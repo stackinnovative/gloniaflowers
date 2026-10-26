@@ -6,8 +6,10 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
 import { ShopButton } from "@/components/ShopButton";
+import { ShopPauseProvider } from "@/components/ShopPause";
 import { TopBar } from "@/components/TopBar";
 import { floristJsonLd, websiteJsonLd } from "@/lib/seo";
+import { isShopPaused } from "@/lib/shopPause";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -62,14 +64,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <CartProvider>
-          <TopBar />
-          <Header />
-          <main id="main">{children}</main>
-          <Footer />
-          <ShopButton />
-          <CartBar />
-        </CartProvider>
+        {/* Evaluated at build; pages recheck the schedule in the browser every minute. */}
+        <ShopPauseProvider pausedAtBuild={isShopPaused()}>
+          <CartProvider>
+            <TopBar />
+            <Header />
+            <main id="main">{children}</main>
+            <Footer />
+            <ShopButton />
+            <CartBar />
+          </CartProvider>
+        </ShopPauseProvider>
       </body>
     </html>
   );

@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import { productPrices, sizeKeys, type Collection, type Product } from "@/lib/products";
 import { formatPrice, waLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./Icons";
+import { ShopLink } from "./ShopPause";
 import "./FavouriteProducts.css";
 
 type FavouriteProductsProps = {
@@ -51,7 +51,7 @@ export function FavouriteProducts({ collection, products }: FavouriteProductsPro
     <ul className="gl-picks-products" role="list" aria-label={`${collection.name} products`}>
       {products.map((product) => (
         <li key={product.slug} className="gl-picks-products-item" data-product-slug={product.slug}>
-          <Link href={`/product/${product.slug}`} className="gl-picks-card">
+          <ShopLink href={`/product/${product.slug}`} whatsapp={`Hi GLONIA, I'm interested in ${product.name}.`} className="gl-picks-card">
             <div className="gl-picks-card-frame">
               <div className="gl-picks-card-photo">
                 <Image
@@ -67,7 +67,7 @@ export function FavouriteProducts({ collection, products }: FavouriteProductsPro
             </div>
             <h3 className="gl-picks-card-title">{product.name}</h3>
             <p className="gl-picks-card-price">{productPrice(product)}</p>
-          </Link>
+          </ShopLink>
         </li>
       ))}
     </ul>

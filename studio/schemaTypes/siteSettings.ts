@@ -34,6 +34,7 @@ export const siteSettings = defineType({
     { name: "productInfo", title: "Product page info" },
     { name: "featured", title: "Home page" },
     { name: "perfumes", title: "Perfumes" },
+    { name: "pause", title: "Pause shop" },
   ],
   fields: [
     defineField({ name: "tagline", title: "Tagline", type: "string", group: "contact", validation: (rule) => rule.required().max(60) }),
@@ -287,6 +288,33 @@ export const siteSettings = defineType({
         defineField({ name: "buttonLabel", title: "Button text", type: "string", validation: (rule) => rule.required().max(40) }),
         defineField({ name: "whatsappMessage", title: "WhatsApp message", type: "text", rows: 2, description: "Typed for the customer when they tap the button.", validation: (rule) => rule.required().max(300) }),
         defineField({ name: "note", title: "Note under the button", type: "string", description: "Leave empty to hide.", validation: (rule) => rule.max(80) }),
+      ],
+    }),
+    defineField({
+      name: "shopPause",
+      title: "Pause online orders",
+      type: "object",
+      group: "pause",
+      description:
+        "For busy days like Valentine’s week. While paused, the shop, product and cart pages show this message with a WhatsApp button; the home page stays up as a showcase and its shop links open WhatsApp. With a start and end, the pause begins and ends on its own.",
+      fields: [
+        defineField({ name: "enabled", title: "Pause online orders", type: "boolean", initialValue: false }),
+        defineField({ name: "start", title: "Start (optional)", type: "datetime", description: "Leave empty to pause as soon as this is published." }),
+        defineField({
+          name: "end",
+          title: "End (optional)",
+          type: "datetime",
+          description: "Leave empty to stay paused until you switch it off.",
+          validation: (rule) =>
+            rule.custom((end: string | undefined, context) => {
+              const start = (context.parent as { start?: string } | undefined)?.start;
+              return end && start && end <= start ? "The end must be after the start." : true;
+            }),
+        }),
+        defineField({ name: "title", title: "Heading", type: "string", initialValue: "Online orders are paused", validation: (rule) => rule.required().max(60) }),
+        defineField({ name: "message", title: "Message", type: "text", rows: 3, description: "e.g. We’re fully booked for Valentine’s week. Message us on WhatsApp and we’ll do our best.", validation: (rule) => rule.required().max(300) }),
+        defineField({ name: "buttonLabel", title: "Button text", type: "string", initialValue: "Message us on WhatsApp", validation: (rule) => rule.required().max(40) }),
+        defineField({ name: "whatsappMessage", title: "WhatsApp message", type: "text", rows: 2, description: "Typed for the customer when they tap the button.", validation: (rule) => rule.required().max(300) }),
       ],
     }),
   ],

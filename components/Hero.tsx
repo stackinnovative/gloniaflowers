@@ -1,10 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 import { getProduct, getProductsIn, type Product } from "@/lib/products";
 import { site } from "@/lib/site";
 import { customOrderMessage, formatPrice, waLink } from "@/lib/whatsapp";
 import { FloralCorner } from "./FloralCorner";
 import { LeafIcon } from "./Icons";
+import { ShopLink } from "./ShopPause";
 import { Sparkles } from "./Sparkles";
 
 const cornerClass = "w-[120px] md:w-[clamp(170px,25vw,390px)]";
@@ -44,9 +44,9 @@ export function Hero() {
         </div>
         <p className="m-0 max-w-[540px] text-[15px] text-muted md:text-[18px]">{site.heroText}</p>
         <div className="flex w-full flex-col justify-center gap-2.5 pt-1.5 font-caps text-[12px] font-semibold uppercase tracking-[0.16em] md:w-auto md:flex-row md:flex-wrap md:gap-3.5 md:text-[13px]">
-          <Link href="/catalog" prefetch={false} className="inline-flex min-h-11 items-center justify-center bg-ink p-4 text-white hover:text-gold-200 md:px-[34px] md:py-[17px]">
+          <ShopLink href="/catalog" prefetch={false} pausedLabel={site.shopPause.buttonLabel} className="inline-flex min-h-11 items-center justify-center bg-ink p-4 text-white hover:text-gold-200 md:px-[34px] md:py-[17px]">
             Shop the collection
-          </Link>
+          </ShopLink>
           <a href={waLink(customOrderMessage)} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center justify-center border border-gold-500 bg-white p-[15px] text-ink hover:text-gold-text md:px-[34px] md:py-4">
             Custom order
           </a>

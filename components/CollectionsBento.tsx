@@ -1,9 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
 import { getCollection, getCollections, getProduct, getProductsIn, productPrices } from "@/lib/products";
 import { site } from "@/lib/site";
 import { formatPrice, waLink } from "@/lib/whatsapp";
 import { LeafIcon } from "./Icons";
+import { ShopLink } from "./ShopPause";
 import "./CollectionsBento.css";
 
 // The fourth tile shows on phones only; on wider screens it is a chip below the grid.
@@ -27,8 +27,9 @@ function CollectionTile({ id }: { id: TileId }) {
   const featured = id === "bloom";
 
   return (
-    <Link
+    <ShopLink
       href={`/catalog?c=${id}`}
+      whatsapp={`Hi GLONIA, I'm interested in ${collection.name}.`}
       className={`gl-zoom gl-collections-tile ${featured ? "gl-collections-featured" : ""} ${id === MOBILE_TILE ? "gl-collections-mobile-only" : ""}`}
     >
       <Image
@@ -50,7 +51,7 @@ function CollectionTile({ id }: { id: TileId }) {
         </div>
         {featured && <span className="gl-collections-shop-label font-caps">Shop →</span>}
       </div>
-    </Link>
+    </ShopLink>
   );
 }
 
@@ -130,14 +131,15 @@ export function CollectionsBento() {
       </div>
       <nav aria-label="More flower collections" className="gl-row gl-collections-chips">
         {moreCollections.map((collection) => (
-          <Link
+          <ShopLink
             key={collection.id}
             href={`/catalog?c=${collection.id}`}
+            whatsapp={`Hi GLONIA, I'm interested in ${collection.name}.`}
             className={`gl-collections-chip ${collection.id === MOBILE_TILE ? "gl-collections-desktop-only" : ""}`}
           >
             <LeafIcon size={12} />
             {collection.name}
-          </Link>
+          </ShopLink>
         ))}
       </nav>
     </section>

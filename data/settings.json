@@ -142,5 +142,14 @@
       "white-garden-gold-box",
       "yellow-white-rose-box"
     ]
+  },
+  "shopPause": {
+    "enabled": false,
+    "start": null,
+    "end": null,
+    "title": "Online orders are paused",
+    "message": "We are fully booked right now. Message us on WhatsApp and we will do our best to help.",
+    "buttonLabel": "Message us on WhatsApp",
+    "whatsappMessage": "Hi GLONIA, I would like to ask about an order."
   }
 }

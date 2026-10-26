@@ -7,6 +7,7 @@ import { formatPrice } from "@/lib/whatsapp";
 import { CartCheckout } from "./CartCheckout";
 import { useCart } from "./CartProvider";
 import { CartIcon, WhatsAppIcon } from "./Icons";
+import { useShopPaused } from "./ShopPause";
 import "./CartBar.css";
 
 export function CartBar() {
@@ -14,8 +15,9 @@ export function CartBar() {
   const pathname = usePathname();
   const bar = useRef<HTMLElement>(null);
   const [height, setHeight] = useState<number | null>(null);
-  // The cart page has its own summary and checkout.
-  const visible = count > 0 && pathname !== "/cart";
+  const paused = useShopPaused();
+  // The cart page has its own summary and checkout; the cart is closed while the shop is paused.
+  const visible = !paused && count > 0 && pathname !== "/cart";
 
   useEffect(() => {
     const element = bar.current;

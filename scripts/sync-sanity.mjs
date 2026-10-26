@@ -41,6 +41,7 @@ const query = `{
     heroText, deliverySlots, sameDayLeadHours, boxSizes { S, M, L, XL },
     ourWork { intro, items[] { name, description, "image": image${photo} } },
     perfumes { show, badge, eyebrow, title, text, imageLabel, "image": image${photo}, buttonLabel, whatsappMessage, note },
+    shopPause { enabled, start, end, title, message, buttonLabel, whatsappMessage },
     "addOns": addOns[] { "id": id.current, name, "price": coalesce(price, null), "options": options[] { "id": id.current, name, "price": coalesce(price, null) } },
     "featured": {
       "hero": hero[]->slug.current,
@@ -231,6 +232,21 @@ function readSettings(raw) {
     if (perfumes.show && !perfumes[key]) problems.push(`${label}: Perfumes section is shown but missing ${key}`);
   }
 
+  // Pause online orders: empty texts fall back to the committed wording; start/end are optional ISO times.
+  const sp = raw.shopPause;
+  const time = (value) => (typeof value === "string" && Number.isFinite(Date.parse(value)) ? value : null);
+  const shopPause = sp == null ? committed.shopPause : {
+    enabled: sp.enabled === true,
+    start: time(sp.start),
+    end: time(sp.end),
+    title: text(sp.title) || committed.shopPause.title,
+    message: text(sp.message),
+    buttonLabel: text(sp.buttonLabel) || committed.shopPause.buttonLabel,
+    whatsappMessage: text(sp.whatsappMessage) || committed.shopPause.whatsappMessage,
+  };
+  if (shopPause.enabled && !shopPause.message) problems.push(`${label}: Pause shop is on but has no message`);
+  if (shopPause.start && shopPause.end && Date.parse(shopPause.end) <= Date.parse(shopPause.start)) problems.push(`${label}: Pause shop ends before it starts`);
+
   // Featured products must be published; unpublished picks are dropped with a warning.
   const known = (slug, where) => {
     if (slugs.has(slug)) return true;
@@ -263,6 +279,7 @@ function readSettings(raw) {
     boxSizes,
     ourWork,
     perfumes,
+    shopPause,
     productInfo,
     featured: {
       hero: list("hero"),

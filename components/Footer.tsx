@@ -5,6 +5,7 @@ import { waLink } from "@/lib/whatsapp";
 import { FloralCorner } from "./FloralCorner";
 import { FooterMap } from "./FooterMap";
 import { CartIcon, DirectionsIcon, InstagramIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "./Icons";
+import { ShopLink } from "./ShopPause";
 
 const cardClass =
   "flex min-w-0 flex-col gap-1.5 border border-line border-t-[3px] border-t-gold-400 bg-white p-[18px] text-left text-[15px] text-[#4A443D] [overflow-wrap:anywhere] sm:gap-2 sm:p-[26px]";
@@ -87,9 +88,9 @@ export function Footer() {
         </div>
         <div className={cardClass}>
           <CardTitle icon={<CartIcon size={17} stroke="#8A6A26" />}>SHOP</CardTitle>
-          <Link href="/catalog?c=korean">Korean Bouquets</Link>
-          <Link href="/catalog?c=classic">Classic Boxes</Link>
-          <Link href="/catalog?c=bloom">Blooming Boxes</Link>
+          <ShopLink href="/catalog?c=korean">Korean Bouquets</ShopLink>
+          <ShopLink href="/catalog?c=classic">Classic Boxes</ShopLink>
+          <ShopLink href="/catalog?c=bloom">Blooming Boxes</ShopLink>
           <Link href="/#work">Bridal &amp; Car Décor</Link>
         </div>
         {site.mapQuery && (

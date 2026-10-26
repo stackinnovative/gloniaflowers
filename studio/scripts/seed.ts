@@ -40,6 +40,7 @@ type SeedSettings = {
   // Photos are CDN URLs once synced from Sanity, so the seed leaves them out.
   ourWork: { intro: string; items: { name: string; description: string; image: string | null }[] };
   perfumes: { show: boolean; image: string | null; imageFocus?: string } & Record<"badge" | "eyebrow" | "title" | "text" | "imageLabel" | "buttonLabel" | "whatsappMessage" | "note", string>;
+  shopPause: { enabled: boolean; start: string | null; end: string | null; title: string; message: string; buttonLabel: string; whatsappMessage: string };
   featured: { hero: string[]; orderExample: string; sizeReference: string; customOrder: string[]; gallery: string[] };
 };
 

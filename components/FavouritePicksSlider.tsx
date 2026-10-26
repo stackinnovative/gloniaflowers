@@ -1,9 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useReducer, useRef, useState, useSyncExternalStore } from "react";
 import type { Collection, Product } from "@/lib/products";
+import { site } from "@/lib/site";
 import { FavouriteProducts } from "./FavouriteProducts";
+import { ShopLink } from "./ShopPause";
 import "./FavouritePicks.css";
 
 type CollectionPicks = Collection & { products: Product[] };
@@ -167,7 +168,7 @@ export function FavouritePicksSlider({ collections }: { collections: CollectionP
         <FavouriteProducts key={active.id} collection={active} products={active.products} />
       </div>
       <div className="gl-picks-catalogue">
-        <Link href="/catalog">View full catalogue</Link>
+        <ShopLink href="/catalog" pausedLabel={site.shopPause.buttonLabel}>View full catalogue</ShopLink>
       </div>
     </section>
   );

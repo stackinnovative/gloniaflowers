@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { site } from "@/lib/site";
 import { FloralCorner } from "./FloralCorner";
 import { CloseIcon, MenuIcon } from "./Icons";
+import { useShopPaused } from "./ShopPause";
 
 const MENU = [
   { label: "Home", href: "/" },
@@ -25,6 +26,8 @@ export function MobileMenu() {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
+  // Shop links are hidden while the shop is paused.
+  const paused = useShopPaused();
   const close = () => dialog.current?.close();
 
   useEffect(() => {
@@ -99,7 +102,7 @@ export function MobileMenu() {
             </button>
           </div>
           <nav aria-label="Mobile" className="relative flex flex-col">
-            {MENU.map((item) => (
+            {(paused ? MENU.filter((item) => !item.href.startsWith("/catalog")) : MENU).map((item) => (
               <Link
                 key={item.label}
                 href={item.href}

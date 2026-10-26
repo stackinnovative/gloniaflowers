@@ -9,6 +9,7 @@ import { waLink } from "@/lib/whatsapp";
 import { useCart } from "./CartProvider";
 import { CartIcon, WhatsAppIcon } from "./Icons";
 import { MobileMenu } from "./MobileMenu";
+import { useShopPaused } from "./ShopPause";
 
 type NavItem = { label: string; href: string };
 
@@ -107,6 +108,9 @@ export function Header() {
   const onHome = pathname === "/";
   const heroLogoScrolledPast = useHeroLogoScrolledPast(onHome);
   const logoHidden = onHome && !heroLogoScrolledPast;
+  // While the shop is paused, links into the shop and the cart are hidden.
+  const paused = useShopPaused();
+  const navLeft = paused ? NAV_LEFT.filter((item) => !item.href.startsWith("/catalog")) : NAV_LEFT;
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white">
@@ -116,14 +120,14 @@ export function Header() {
         <div className="flex justify-center">
           <Logo hidden={logoHidden} className="size-12" />
         </div>
-        <CartLink active={pathname === "/cart"} />
+        {paused ? <span aria-hidden="true" /> : <CartLink active={pathname === "/cart"} />}
       </div>
 
       {/* Desktop */}
       {/* Wider than the page content so the nav sits close to the screen edges. */}
       <div className="mx-auto hidden max-w-[1600px] items-center justify-between gap-4 px-5 py-3.5 lg:flex xl:px-6">
         <nav aria-label="Main" className="flex flex-1 flex-wrap gap-[18px] xl:gap-[26px]">
-          {NAV_LEFT.map((item) => (
+          {navLeft.map((item) => (
             <NavLink key={item.href} item={item} active={item.href === "/catalog" && shopActive} />
           ))}
         </nav>
@@ -134,7 +138,7 @@ export function Header() {
               <NavLink key={item.href} item={item} active={false} />
             ))}
           </nav>
-          <CartLink active={pathname === "/cart"} />
+          {!paused && <CartLink active={pathname === "/cart"} />}
           <a
             href={waLink()}
             target="_blank"

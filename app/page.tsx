@@ -7,6 +7,7 @@ import { Hero } from "@/components/Hero";
 import { HowToOrder } from "@/components/HowToOrder";
 import { OurWork } from "@/components/OurWork";
 import { PerfumeTeaser } from "@/components/PerfumeTeaser";
+import { ShopGate, ShopPauseBanner } from "@/components/ShopPause";
 import { SizeReference } from "@/components/SizeReference";
 
 export const metadata: Metadata = {
@@ -19,12 +20,13 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      <ShopPauseBanner />
       <Hero />
       <CollectionsBento />
       <FavouritePicks />
       <SizeReference />
       <OurWork />
-      <HowToOrder />
+      <ShopGate><HowToOrder /></ShopGate>
       <PerfumeTeaser />
       <GoogleReviews />
       <Gallery />

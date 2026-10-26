@@ -62,6 +62,19 @@ type Settings = {
     whatsappMessage: string;
     note: string;
   };
+  /**
+   * Pauses online ordering (e.g. Valentine's week): the catalogue, product and cart pages show `message`
+   * with a WhatsApp button, and the home page stays as a showcase. `start` / `end` are optional ISO times.
+   */
+  shopPause: {
+    enabled: boolean;
+    start: string | null;
+    end: string | null;
+    title: string;
+    message: string;
+    buttonLabel: string;
+    whatsappMessage: string;
+  };
   /** Lines in the product page's Details / Care / Delivery tabs, shared by every product. */
   productInfo: {
     details: string[];
@@ -124,6 +137,7 @@ export const site = {
   heroText: settings.heroText,
   boxSizes: settings.boxSizes,
   sameDayLeadHours: settings.sameDayLeadHours,
+  shopPause: settings.shopPause,
   ourWork: settings.ourWork,
   perfumes: settings.perfumes,
   productInfo: settings.productInfo,

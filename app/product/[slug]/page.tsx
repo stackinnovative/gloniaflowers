@@ -4,6 +4,7 @@ import { ProductDetails } from "@/components/ProductDetails";
 import { ProductSizeGuide } from "@/components/ProductSizeGuide";
 import { RelatedProducts } from "@/components/RelatedProducts";
 import { JsonLd } from "@/components/JsonLd";
+import { ShopClosed, ShopGate } from "@/components/ShopPause";
 import { getCollection, getProduct, getProducts, priceLabel } from "@/lib/products";
 import { breadcrumbJsonLd, productJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
@@ -52,9 +53,12 @@ export default async function ProductPage({ params }: Props) {
           { name: product.name, path: `/product/${product.slug}` },
         ])}
       />
-      <ProductDetails key={product.slug} product={product} />
-      <ProductSizeGuide product={product} />
-      <RelatedProducts product={product} />
+      {/* While the shop is paused, old product links show the pause message instead. */}
+      <ShopGate paused={<ShopClosed />}>
+        <ProductDetails key={product.slug} product={product} />
+        <ProductSizeGuide product={product} />
+        <RelatedProducts product={product} />
+      </ShopGate>
     </>
   );
 }

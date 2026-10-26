@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Catalog, CatalogContent } from "@/components/Catalog";
 import { JsonLd } from "@/components/JsonLd";
+import { ShopClosed, ShopGate } from "@/components/ShopPause";
 import { getProducts } from "@/lib/products";
 import { breadcrumbJsonLd, catalogJsonLd } from "@/lib/seo";
 
@@ -19,7 +20,9 @@ export default function CatalogPage() {
     <>
       <JsonLd data={catalogJsonLd(getProducts())} />
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Shop", path: "/catalog" }])} />
-      <Suspense fallback={<CatalogContent />}><Catalog /></Suspense>
+      <ShopGate paused={<ShopClosed />}>
+        <Suspense fallback={<CatalogContent />}><Catalog /></Suspense>
+      </ShopGate>
     </>
   );
 }

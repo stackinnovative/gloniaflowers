@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CartPage } from "@/components/CartPage";
+import { ShopClosed, ShopGate } from "@/components/ShopPause";
 
 export const metadata: Metadata = {
   title: "Your cart",
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Cart() {
-  return <CartPage />;
+  return <ShopGate paused={<ShopClosed />}><CartPage /></ShopGate>;
 }
