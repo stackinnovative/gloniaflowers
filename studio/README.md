@@ -23,6 +23,7 @@ If Sanity is not configured, the build uses the JSON already in `data/`, so the 
 6. **Auto-deploy on publish.**
    - Vercel → *Project → Settings → Git → Deploy Hooks* → create a hook (branch `main`) and copy the URL.
    - Sanity → *Manage → API → Webhooks* → *Create*: paste the URL, dataset `production`, trigger on create/update/delete, filter `_type in ["product", "collection", "siteSettings"]`, HTTP method `POST`.
+   - Vercel's Hobby plan only deploys commits authored by the account linked to the Vercel project. Commit as `stackinnovativee@gmail.com`, or hooks answer "PENDING" and nothing deploys.
 7. **CORS** (only for local Studio on another port): *Manage → API → CORS origins* → add `http://localhost:3333`.
 
 A private dataset also works. Create a *Viewer* token under *API → Tokens* and set `SANITY_API_TOKEN` on the website side.
