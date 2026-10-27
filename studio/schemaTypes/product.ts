@@ -4,6 +4,10 @@ import { defineField, defineType } from "sanity";
 type Sizes = { S?: number; M?: number; L?: number; XL?: number };
 type ProductDoc = { hasSizes?: boolean; sizes?: Sizes; collection?: { _ref: string } };
 
+// Same defaults as lib/products.ts.
+const DEFAULT_FRESH_NOTE = "Fresh flowers daily";
+const DEFAULT_DELIVERY_NOTE = "Same-day delivery";
+
 const rupees = (name: "S" | "M" | "L" | "XL", title: string, description: string) =>
   defineField({ name, title, description, type: "number", validation: (rule) => rule.integer().positive() });
 
@@ -93,6 +97,22 @@ export const product = defineType({
       type: "text",
       rows: 3,
       validation: (rule) => rule.required().max(300),
+    }),
+    defineField({
+      name: "freshNote",
+      title: "Under the photo — flowers",
+      type: "string",
+      description: `Next to the flower icon on the product page. Leave empty for “${DEFAULT_FRESH_NOTE}”.`,
+      placeholder: DEFAULT_FRESH_NOTE,
+      validation: (rule) => rule.max(40),
+    }),
+    defineField({
+      name: "deliveryNote",
+      title: "Under the photo — delivery",
+      type: "string",
+      description: `Next to the van icon on the product page. Leave empty for “${DEFAULT_DELIVERY_NOTE}”.`,
+      placeholder: DEFAULT_DELIVERY_NOTE,
+      validation: (rule) => rule.max(40),
     }),
     // Hidden position from dragging in the Products list (the catalogue’s “Featured” sort).
     orderRankField({ type: "product" }),

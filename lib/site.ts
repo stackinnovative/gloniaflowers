@@ -4,8 +4,7 @@
 //
 // TODO client — still placeholders in Site settings (or data/settings.json):
 // - Add-on names and prices (empty price is shown as "Price to confirm")
-// - Collection photos for premium, custom, choco, bridal, car, gifts (Collections in the Studio)
-// - Our work photos (Site settings → Home page)
+// - Collection photos for car, gifts (Collections in the Studio)
 // - Higher-resolution product photos (current ones are crops from the catalogue)
 import settingsData from "@/data/settings.json";
 
@@ -39,6 +38,8 @@ type Settings = {
   deliverySlots: string[];
   /** Same-day orders: hours after the current hour before the first slot (1 = at 10:15, from 12 PM). */
   sameDayLeadHours: number;
+  /** Extra lines in the top strip, between the shop hours and the phone number. */
+  tickerMessages: string[];
   /** Box diameter in inches for each size. */
   boxSizes: { S: number; M: number; L: number; XL: number };
   ourWork: {
@@ -137,6 +138,7 @@ export const site = {
   heroText: settings.heroText,
   boxSizes: settings.boxSizes,
   sameDayLeadHours: settings.sameDayLeadHours,
+  tickerMessages: settings.tickerMessages,
   shopPause: settings.shopPause,
   ourWork: settings.ourWork,
   perfumes: settings.perfumes,

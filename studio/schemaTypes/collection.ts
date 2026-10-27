@@ -17,7 +17,7 @@ export const collection = defineType({
       name: "id",
       title: "Link id",
       type: "slug",
-      description: "Used in links like /catalog?c=korean. Don’t change it after launch — old links stop working.",
+      description: "Used in links like /catalog?c=korean-bouquets. Don’t change it after launch — old links stop working, and some home page tiles and menu links look collections up by this id.",
       options: { source: "name", maxLength: 30 },
       validation: (rule) => rule.required(),
     }),

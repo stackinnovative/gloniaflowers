@@ -11,8 +11,8 @@ import { useShopPaused } from "./ShopPause";
 const MENU = [
   { label: "Home", href: "/" },
   { label: "Shop all", href: "/catalog" },
-  { label: "Korean Bouquets", href: "/catalog?c=korean" },
-  { label: "Flower Boxes", href: "/catalog?c=bloom" },
+  { label: "Korean Bouquets", href: "/catalog?c=korean-bouquets" },
+  { label: "Flower Boxes", href: "/catalog?c=blooming-boxes" },
   { label: "Gifts", href: "/catalog?c=gifts" },
   { label: "Bridal & Car Décor", href: "/#work" },
   // Goes with the home page section (Site settings → Perfumes → Show).

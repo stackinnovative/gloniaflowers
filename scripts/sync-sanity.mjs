@@ -32,13 +32,13 @@ const query = `{
     "alsoIn": alsoIn[]->id.current,
     hasSizes, price, sizes { S, M, L, XL },
     "image": image${photo},
-    description
+    description, freshNote, deliveryNote
   },
   "settings": *[_id == "siteSettings"][0] {
     tagline, description, phoneDisplay, whatsappNumber, email,
     hours { open, close }, address { street, city }, mapQuery, googleListing, googlePlaceId, showReviews, instagram { handle, url },
     productInfo { details, careBox, careBouquet, delivery },
-    heroText, deliverySlots, sameDayLeadHours, boxSizes { S, M, L, XL },
+    heroText, deliverySlots, sameDayLeadHours, tickerMessages, boxSizes { S, M, L, XL },
     ourWork { intro, items[] { name, description, "image": image${photo} } },
     perfumes { show, badge, eyebrow, title, text, imageLabel, "image": image${photo}, buttonLabel, whatsappMessage, note },
     shopPause { enabled, start, end, title, message, buttonLabel, whatsappMessage },
@@ -129,6 +129,9 @@ const products = result.products.map((p) => {
     sizes,
     ...photoFields(p.image),
     description: p.description,
+    // Notes under the product photo, only when they differ from the site's defaults (lib/products.ts).
+    ...(isText(p.freshNote) ? { freshNote: p.freshNote.trim() } : {}),
+    ...(isText(p.deliveryNote) ? { deliveryNote: p.deliveryNote.trim() } : {}),
   };
 });
 
@@ -178,6 +181,7 @@ function readSettings(raw) {
     if (!Array.isArray(lines) || !lines.every(isText)) problems.push(`${label}: Product page info → ${key} has an empty line`);
     return Array.isArray(lines) ? lines.map((line) => (typeof line === "string" ? line.trim() : line)) : [];
   };
+  const text = (value) => (typeof value === "string" ? value.trim() : "");
   const productInfo = {
     details: infoLines("details"),
     careBox: infoLines("careBox"),
@@ -185,7 +189,9 @@ function readSettings(raw) {
     delivery: infoLines("delivery"),
   };
 
-  const text = (value) => (typeof value === "string" ? value.trim() : "");
+  const tickerMessages = raw.tickerMessages == null ? committed.tickerMessages : raw.tickerMessages.map(text);
+  if (!tickerMessages.every(Boolean)) problems.push(`${label}: Top strip messages has an empty line`);
+  if (new Set(tickerMessages).size !== tickerMessages.length) problems.push(`${label}: a top strip message is listed twice`);
   const heroText = raw.heroText == null ? committed.heroText : text(raw.heroText);
   if (!heroText) problems.push(`${label}: missing hero text`);
 
@@ -276,6 +282,7 @@ function readSettings(raw) {
     heroText,
     deliverySlots,
     sameDayLeadHours,
+    tickerMessages,
     boxSizes,
     ourWork,
     perfumes,

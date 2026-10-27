@@ -38,8 +38,7 @@ function tickerMessages(open: boolean | null): string[] {
   return [
     ...status,
     `Shop hours: ${site.hours.label}, every day`,
-    "Ordering late at night? Send it on WhatsApp — we'll get back to you first thing in the morning",
-    "Same-day delivery",
+    ...site.tickerMessages,
     `WhatsApp / Call ${site.phoneDisplay}`,
   ];
 }

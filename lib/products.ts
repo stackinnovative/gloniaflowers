@@ -21,7 +21,19 @@ export type Product = {
   /** The editor's focus point as a CSS object-position ("50% 30%"), kept in view when a frame trims the photo. */
   imageFocus?: string;
   description: string;
+  /** Notes under the product page photo; missing means the defaults below. */
+  freshNote?: string;
+  deliveryNote?: string;
 };
+
+// Same defaults as the Studio's product fields (studio/schemaTypes/product.ts).
+const DEFAULT_FRESH_NOTE = "Fresh flowers daily";
+const DEFAULT_DELIVERY_NOTE = "Same-day delivery";
+
+/** The flower and delivery notes under a product's photo. */
+export function photoNotes(product: Product): { fresh: string; delivery: string } {
+  return { fresh: product.freshNote ?? DEFAULT_FRESH_NOTE, delivery: product.deliveryNote ?? DEFAULT_DELIVERY_NOTE };
+}
 
 export const SIZE_KEYS: SizeKey[] = ["S", "M", "L", "XL"];
 export const SIZE_NAMES: Record<SizeKey, string> = { S: "Small", M: "Medium", L: "Large", XL: "Extra Large" };

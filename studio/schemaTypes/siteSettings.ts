@@ -144,6 +144,15 @@ export const siteSettings = defineType({
       validation: (rule) => rule.required().integer().min(0).max(12),
     }),
     defineField({
+      name: "tickerMessages",
+      title: "Top strip messages",
+      type: "array",
+      group: "shop",
+      description: "Extra lines in the scrolling black strip at the top of every page, in order. The Open now / Closed now status, shop hours and phone number are added automatically.",
+      of: [defineArrayMember({ type: "string", validation: (rule) => rule.required().max(120) })],
+      validation: (rule) => rule.unique(),
+    }),
+    defineField({
       name: "boxSizes",
       title: "Box sizes (inches)",
       type: "object",

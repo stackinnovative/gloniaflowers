@@ -145,7 +145,7 @@ Cart checkout repeats the item block (with its own customization and delivery da
 
 `data/products.json` — `slug, name, collection, alsoIn[], price, sizes ({S?,M?,L?,XL?} | null), image, description`. Every size is optional per product (at least one); `price` is the smallest size price.
 A product appears in its `collection` and every id in `alsoIn`.
-`data/collections.json` — `id, name, order`. Only korean, red, classic, bloom have products right now.
+`data/collections.json` — `id, name, order`. Ids are the Sanity link ids (`korean-bouquets`, `premium-bouquets`, `customized-bouquets`, `chocolate-bouquets`, `red-roses`, `classic-boxes`, `blooming-boxes`, `bridal-collections`, `car`, `gifts`); some components refer to them directly.
 
 ## 8. Placeholders (listed in `lib/site.ts` with `// TODO client`; values live in Sanity Site settings / `data/settings.json`)
 - Shop address and city

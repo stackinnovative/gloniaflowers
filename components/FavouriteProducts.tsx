@@ -19,8 +19,8 @@ function productPrice(product: Product): string {
 
 function productBadge(product: Product, collection: Collection): string {
   if (product.sizes) return sizeKeys(product.sizes).join(" · ");
-  if (collection.id === "korean") return "KOREAN";
-  if (collection.id === "red") return "RED ROSE";
+  if (collection.id === "korean-bouquets") return "KOREAN";
+  if (collection.id === "red-roses") return "RED ROSE";
   return collection.name.toUpperCase();
 }
 

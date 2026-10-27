@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { SIZE_INCHES, SIZE_NAMES, sizeKeys, type Product, type SizeKey } from "@/lib/products";
+import { photoNotes, SIZE_INCHES, SIZE_NAMES, sizeKeys, type Product, type SizeKey } from "@/lib/products";
 
 export function ProductPhoto({ product, size }: { product: Product; size: SizeKey | null }) {
   const keys = product.sizes ? sizeKeys(product.sizes) : [];
   // The round badge is small: four sizes read as a range ("S – XL").
   const badge = keys.length > 3 ? `${keys[0]} – ${keys[keys.length - 1]}` : keys.join(" · ");
+  const notes = photoNotes(product);
   return (
     <div className="gl-detail-visual">
       <div className="gl-detail-stage">
@@ -28,8 +29,9 @@ export function ProductPhoto({ product, size }: { product: Product; size: SizeKe
       </div>
       <p className="gl-detail-shade">Flower shade may change depending on availability</p>
       <ul className="gl-detail-trust" aria-label="Flower and delivery details" role="list">
-        <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M8 14V7M8 7C8 4 6 2 3 2c0 3 2 5 5 5zM8 9c0-3 2-5 5-5 0 3-2 5-5 5z" /></svg>Fresh flowers daily</li>
-        <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M1.5 4h8v7h-8zM9.5 6.5h3l2 2.5v2h-5" /><circle cx="4.5" cy="12" r="1.3" /><circle cx="12" cy="12" r="1.3" /></svg>Same-day delivery</li>      </ul>
+        <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M8 14V7M8 7C8 4 6 2 3 2c0 3 2 5 5 5zM8 9c0-3 2-5 5-5 0 3-2 5-5 5z" /></svg>{notes.fresh}</li>
+        <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M1.5 4h8v7h-8zM9.5 6.5h3l2 2.5v2h-5" /><circle cx="4.5" cy="12" r="1.3" /><circle cx="12" cy="12" r="1.3" /></svg>{notes.delivery}</li>
+      </ul>
     </div>
   );
 }

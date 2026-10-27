@@ -16,6 +16,8 @@ type SeedProduct = {
   sizes: { S?: number; M?: number; L?: number; XL?: number } | null;
   image: string;
   description: string;
+  freshNote?: string;
+  deliveryNote?: string;
 };
 type AddOnOption = { id: string; name: string; price: number | null };
 type SeedSettings = {
@@ -36,6 +38,7 @@ type SeedSettings = {
   heroText: string;
   deliverySlots: string[];
   sameDayLeadHours: number;
+  tickerMessages: string[];
   boxSizes: { S: number; M: number; L: number; XL: number };
   // Photos are CDN URLs once synced from Sanity, so the seed leaves them out.
   ourWork: { intro: string; items: { name: string; description: string; image: string | null }[] };
@@ -99,6 +102,8 @@ for (const [index, product] of products.entries()) {
     ...pricing,
     image: await imageField(product.image),
     description: product.description,
+    ...(product.freshNote ? { freshNote: product.freshNote } : {}),
+    ...(product.deliveryNote ? { deliveryNote: product.deliveryNote } : {}),
     orderRank: productRanks[index],
   });
 }

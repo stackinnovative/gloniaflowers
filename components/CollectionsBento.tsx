@@ -7,24 +7,25 @@ import { ShopLink } from "./ShopPause";
 import "./CollectionsBento.css";
 
 // The fourth tile shows on phones only; on wider screens it is a chip below the grid.
-const TILE_IDS = ["bloom", "korean", "classic", "custom"] as const;
-const MOBILE_TILE: TileId = "custom";
+const TILE_IDS = ["blooming-boxes", "korean-bouquets", "classic-boxes", "customized-bouquets"] as const;
+const FEATURED_TILE: TileId = "blooming-boxes";
+const MOBILE_TILE: TileId = "customized-bouquets";
 type TileId = (typeof TILE_IDS)[number];
 
 function CollectionTile({ id }: { id: TileId }) {
   const collection = getCollection(id);
   // Custom work has no products yet: until the collection has a tile photo (Studio → Collections), borrow the
   // second custom-order card photo, and show "Made to order" instead of a price.
-  const source = collection?.image ? collection : id === "custom" ? getProduct(site.featured.customOrder[1]) : undefined;
+  const source = collection?.image ? collection : id === MOBILE_TILE ? getProduct(site.featured.customOrder[1]) : undefined;
   const image = source?.image;
   if (!collection || !image) return null;
 
   const products = getProductsIn(id);
   const prices = products.flatMap(productPrices);
   const price = prices.length ? formatPrice(Math.min(...prices)) : null;
-  const noPrice = id === "custom" ? "Made to order" : "Coming soon";
+  const noPrice = id === MOBILE_TILE ? "Made to order" : "Coming soon";
   const imageProduct = products.find((product) => product.image === image);
-  const featured = id === "bloom";
+  const featured = id === FEATURED_TILE;
 
   return (
     <ShopLink
@@ -115,7 +116,8 @@ function WeddingInvitation() {
 }
 
 export function CollectionsBento() {
-  const moreCollections = getCollections().filter((collection) => !["bloom", "korean", "classic"].includes(collection.id));
+  // Every collection without a tile on wider screens.
+  const moreCollections = getCollections().filter((collection) => collection.id === MOBILE_TILE || !(TILE_IDS as readonly string[]).includes(collection.id));
 
   return (
     <section id="collections" aria-labelledby="collections-title" className="gl-collections-section">

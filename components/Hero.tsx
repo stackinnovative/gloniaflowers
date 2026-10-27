@@ -11,7 +11,7 @@ const cornerClass = "w-[120px] md:w-[clamp(170px,25vw,390px)]";
 
 export function Hero() {
   // Cheapest bouquet for the mobile price badge.
-  const bouquet = getProductsIn("korean").reduce<Product | null>((min, product) => (!min || product.price < min.price ? product : min), null);
+  const bouquet = getProductsIn("korean-bouquets").reduce<Product | null>((min, product) => (!min || product.price < min.price ? product : min), null);
 
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden bg-white">

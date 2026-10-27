@@ -1,6 +1,6 @@
 {
-  "tagline": "Flowers that say it for you",
-  "description": "Korean bouquets, flower boxes and bridal décor — hand-made in our studio and delivered fresh to your door. Order on WhatsApp.",
+  "tagline": "A little love, beautifully arranged",
+  "description": "Make someone feel special with Glonia Flowers, Calicut. Discover fresh bouquets, floral arrangements and gifts for celebration and everyday surprises.",
   "phoneDisplay": "+91 62388 23455",
   "whatsappNumber": "916238823455",
   "email": "Gloniadesigns@gmail.com",
@@ -40,6 +40,11 @@
           "id": "galaxy",
           "name": "Galaxy",
           "price": 65
+        },
+        {
+          "id": "snickers-large",
+          "name": "Snickers Large",
+          "price": 70
         }
       ]
     }
@@ -59,6 +64,10 @@
     "7–8 PM"
   ],
   "sameDayLeadHours": 1,
+  "tickerMessages": [
+    "Ordering late at night? Send it on WhatsApp — we'll get back to you first thing in the morning",
+    "Same-day delivery"
+  ],
   "boxSizes": {
     "S": 5.5,
     "M": 6.5,
@@ -71,22 +80,22 @@
       {
         "name": "Bridal",
         "description": "Bouquets and wedding décor",
-        "image": null
+        "image": "https://cdn.sanity.io/images/2hemi78c/production/9892eb7d85bce0e10bb2faf81e45c2574bae3fac-1122x1402.png?w=1200&fit=max&auto=format"
       },
       {
         "name": "Car Décor",
         "description": "Fresh flowers for the wedding car",
-        "image": null
+        "image": "https://cdn.sanity.io/images/2hemi78c/production/ea6940bed10ac64a0214011905a530aa3a83efa0-1122x1402.png?rect=0,327,1122,976&w=1200&fit=max&auto=format"
       },
       {
         "name": "Boutonnieres",
         "description": "For the groom and groomsmen",
-        "image": null
+        "image": "https://cdn.sanity.io/images/2hemi78c/production/d95a7fbf5b4948c36aaffe2563605300e6f10ff9-1122x1402.png?w=1200&fit=max&auto=format"
       },
       {
         "name": "Customized",
         "description": "Your colours, your flowers",
-        "image": null
+        "image": "https://cdn.sanity.io/images/2hemi78c/production/e4b0fae8d0b5b9ca064fae1ae3546fdecbbd784f-1122x1402.png?w=1200&fit=max&auto=format"
       }
     ]
   },
@@ -101,6 +110,15 @@
     "buttonLabel": "Notify me on WhatsApp",
     "whatsappMessage": "Hi GLONIA, please let me know when your perfumes launch.",
     "note": "We'll message you on launch day."
+  },
+  "shopPause": {
+    "enabled": false,
+    "start": null,
+    "end": null,
+    "title": "Shop Closed",
+    "message": "❤️ A Little Valentine’s Update The love has been overwhelming! 🌹\nWe’ve reached our current order capacity and are temporarily pausing new orders.",
+    "buttonLabel": "Connect on whatsapp",
+    "whatsappMessage": "Hi,\nI would like to know what products are available now for delivery"
   },
   "productInfo": {
     "details": [
@@ -123,33 +141,24 @@
   },
   "featured": {
     "hero": [
-      "single-red-rose",
-      "peach-white-blooming-box",
-      "white-hydrangea-box"
+      "peach-blush",
+      "blush-in-gold",
+      "scarlet-promise"
     ],
-    "orderExample": "blush-rose-blooming-box",
-    "sizeReference": "peach-white-blooming-box",
+    "orderExample": "sunflower-smile",
+    "sizeReference": "blush-in-gold",
     "customOrder": [
-      "single-red-rose",
-      "blush-rose-blooming-box",
-      "sunshine-yellow-rose"
+      "peach-blush",
+      "sunflower-smile",
+      "moonlight-duo"
     ],
     "gallery": [
-      "single-red-rose",
-      "pastel-garden-blooming-box",
-      "white-hydrangea-box",
-      "white-rose-mini",
-      "white-garden-gold-box",
-      "yellow-white-rose-box"
+      "peach-blush",
+      "ivory-meadow",
+      "scarlet-promise",
+      "little-sunshine",
+      "pastel-embrace",
+      "pink-keepsake"
     ]
-  },
-  "shopPause": {
-    "enabled": false,
-    "start": null,
-    "end": null,
-    "title": "Online orders are paused",
-    "message": "We are fully booked right now. Message us on WhatsApp and we will do our best to help.",
-    "buttonLabel": "Message us on WhatsApp",
-    "whatsappMessage": "Hi GLONIA, I would like to ask about an order."
   }
 }

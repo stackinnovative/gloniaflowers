@@ -15,9 +15,9 @@ import "./Catalog.css";
 
 const collections: Collection[] = [{ id: "all", name: "All products", order: 0, image: "/images/products/blush-rose-blooming-box.jpg" }, ...getCollections()];
 const titles: Record<string, [string, string]> = {
-  all: ["All", "products"], korean: ["Korean", "bouquets"], premium: ["Premium", "bouquets"],
-  custom: ["Customized", "bouquets"], choco: ["Chocolate", "bouquets"], red: ["Red", "roses"],
-  classic: ["Classic", "boxes"], bloom: ["Blooming", "boxes"], bridal: ["Bridal", "collection"],
+  all: ["All", "products"], "korean-bouquets": ["Korean", "bouquets"], "premium-bouquets": ["Premium", "bouquets"],
+  "customized-bouquets": ["Customized", "bouquets"], "chocolate-bouquets": ["Chocolate", "bouquets"], "red-roses": ["Red", "roses"],
+  "classic-boxes": ["Classic", "boxes"], "blooming-boxes": ["Blooming", "boxes"], "bridal-collections": ["Bridal", "collection"],
   car: ["Car", "décor"], gifts: ["Thoughtful", "gifts"],
 };
 

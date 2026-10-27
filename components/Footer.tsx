@@ -88,9 +88,9 @@ export function Footer() {
         </div>
         <div className={cardClass}>
           <CardTitle icon={<CartIcon size={17} stroke="#8A6A26" />}>SHOP</CardTitle>
-          <ShopLink href="/catalog?c=korean">Korean Bouquets</ShopLink>
-          <ShopLink href="/catalog?c=classic">Classic Boxes</ShopLink>
-          <ShopLink href="/catalog?c=bloom">Blooming Boxes</ShopLink>
+          <ShopLink href="/catalog?c=korean-bouquets">Korean Bouquets</ShopLink>
+          <ShopLink href="/catalog?c=classic-boxes">Classic Boxes</ShopLink>
+          <ShopLink href="/catalog?c=blooming-boxes">Blooming Boxes</ShopLink>
           <Link href="/#work">Bridal &amp; Car Décor</Link>
         </div>
         {site.mapQuery && (
