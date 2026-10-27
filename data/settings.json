@@ -1,6 +1,6 @@
 {
   "tagline": "A little love, beautifully arranged",
-  "description": "Make someone feel special with Glonia Flowers, Calicut. Discover fresh bouquets, floral arrangements and gifts for celebration and everyday surprises.",
+  "description": "Make someone feel special from hand-tied bouquets to elegant flower boxes and wedding florals, Glonia Flowers in Calicut. Let us help bring your feelings to life through flowers. ",
   "phoneDisplay": "+91 62388 23455",
   "whatsappNumber": "916238823455",
   "email": "Gloniadesigns@gmail.com",
@@ -23,7 +23,7 @@
   "addOns": [
     {
       "id": "card",
-      "name": "Message card",
+      "name": "Message card ",
       "price": 35
     },
     {
@@ -49,7 +49,7 @@
       ]
     }
   ],
-  "heroText": "Korean bouquets, flower boxes and bridal décor — hand-made in our studio and delivered fresh to your door.",
+  "heroText": "Explore hand-tied bouquets, elegant flower boxes and beautiful bridal arrangements at Glonia Flowers in Calicut-thoughtfully crafted to express your feelings and celebrate your special moments.",
   "deliverySlots": [
     "9–10 AM",
     "10–11 AM",
@@ -61,12 +61,11 @@
     "4–5 PM",
     "5–6 PM",
     "6–7 PM",
-    "7–8 PM"
+    "7–7:30 PM"
   ],
   "sameDayLeadHours": 1,
   "tickerMessages": [
-    "Ordering late at night? Send it on WhatsApp — we'll get back to you first thing in the morning",
-    "Same-day delivery"
+    "Premium arrangements may require pre-booking"
   ],
   "boxSizes": {
     "S": 5.5,
@@ -75,27 +74,32 @@
     "XL": 9
   },
   "ourWork": {
-    "intro": "Bridal bouquets, boutonnieres, wedding car décor and custom pieces.",
+    "intro": "Korean Bouquets, Bridal Bouquets, Box arrangements and custom designs",
     "items": [
+      {
+        "name": "Korean Bouquet",
+        "description": "Elegant blooms wrapped in signature Korean style",
+        "image": "https://cdn.sanity.io/images/2hemi78c/production/69629b14c9eae1841862ffb1c55cd2bfdd500dac-1122x1402.png?w=1200&fit=max&auto=format"
+      },
       {
         "name": "Bridal",
         "description": "Bouquets and wedding décor",
         "image": "https://cdn.sanity.io/images/2hemi78c/production/9892eb7d85bce0e10bb2faf81e45c2574bae3fac-1122x1402.png?w=1200&fit=max&auto=format"
       },
       {
-        "name": "Car Décor",
-        "description": "Fresh flowers for the wedding car",
-        "image": "https://cdn.sanity.io/images/2hemi78c/production/ea6940bed10ac64a0214011905a530aa3a83efa0-1122x1402.png?rect=0,327,1122,976&w=1200&fit=max&auto=format"
+        "name": "Red Roses",
+        "description": "Timeless red roses for a love worth celebrating",
+        "image": "https://cdn.sanity.io/images/2hemi78c/production/d997357fbac6446bfe46e0f2f597327c5fc1dc86-1122x1402.png?rect=11,69,1111,1218&w=1200&fit=max&auto=format"
       },
       {
-        "name": "Boutonnieres",
-        "description": "For the groom and groomsmen",
-        "image": "https://cdn.sanity.io/images/2hemi78c/production/d95a7fbf5b4948c36aaffe2563605300e6f10ff9-1122x1402.png?w=1200&fit=max&auto=format"
+        "name": "Box Arrangements",
+        "description": "A box of blooms, a heart full of joy",
+        "image": "https://cdn.sanity.io/images/2hemi78c/production/e469f2e09be1da446875dea02bb2b87f3db1a959-1122x1402.png?w=1200&fit=max&auto=format"
       },
       {
         "name": "Customized",
-        "description": "Your colours, your flowers",
-        "image": "https://cdn.sanity.io/images/2hemi78c/production/e4b0fae8d0b5b9ca064fae1ae3546fdecbbd784f-1122x1402.png?w=1200&fit=max&auto=format"
+        "description": "Custom designs with an unexpected splash of colours",
+        "image": "https://cdn.sanity.io/images/2hemi78c/production/9f98c2b647512a0ed41ff238c91fbb03873d989b-1122x1402.png?w=1200&fit=max&auto=format"
       }
     ]
   },
@@ -116,49 +120,54 @@
     "start": null,
     "end": null,
     "title": "Shop Closed",
-    "message": "❤️ A Little Valentine’s Update The love has been overwhelming! 🌹\nWe’ve reached our current order capacity and are temporarily pausing new orders.",
+    "message": "❤️ A Little Valentine’s Update The love has been overwhelming! 🌹\nWe’ve reached our current order capacity and are temporarily pausing new orders. You may please contact us on WhatsApp.",
     "buttonLabel": "Connect on whatsapp",
-    "whatsappMessage": "Hi,\nI would like to know what products are available now for delivery"
+    "whatsappMessage": "Hi,\nI would like to know what products are available today for delivery."
   },
   "productInfo": {
     "details": [
       "Flower shade may change depending on availability.",
-      "Price subject to vary depending on the market rate."
+      "Some flowers may not be available for same day orders, we will replace it with a different flower for the equal value.",
+      "Flower life varies depending on the variety, room temperature and care."
     ],
     "careBox": [
-      "Keep in a cool place, away from direct sun.",
-      "Mist the flowers lightly once a day.",
-      "Do not add water to the box."
+      "Keep in a cool indoor spot, away from direct sunlight, heat and direct fan.",
+      "Slowly add a little clean water between the stems as needed to keep it moist.",
+      "Avoid overwatering, and keep the outer box dry.",
+      "Gently remove faded petals and flowers to keep the display looking fresh."
     ],
     "careBouquet": [
-      "Keep in a cool place, away from direct sun.",
-      "Place unwrapped stems in a clean vase with fresh water.",
-      "Refresh the water daily."
+      "Remove wrapping and trim stems 1-2 cm at an angle.",
+      "Place in a clean vase with fresh water.",
+      "Keep leaves above the waterline and change water daily.",
+      "keep away from direct sunlight, heat and strong airflow.",
+      "Gently remove faded flowers and petals."
     ],
     "delivery": [
-      "Confirm delivery availability and charges with us on WhatsApp."
+      "Confirm delivery availability and charges with us on WhatsApp.",
+      "Rain or high demand may cause delays."
     ]
   },
   "featured": {
     "hero": [
-      "peach-blush",
-      "blush-in-gold",
-      "scarlet-promise"
+      "tangerine-tulips",
+      "burgundy-rhapsody",
+      "midnight-lily"
     ],
-    "orderExample": "sunflower-smile",
-    "sizeReference": "blush-in-gold",
+    "orderExample": "rosy-daydream",
+    "sizeReference": "crimson-royale",
     "customOrder": [
-      "peach-blush",
-      "sunflower-smile",
-      "moonlight-duo"
+      "pink-cloud",
+      "rosewood-romance",
+      "scarlet-devotion"
     ],
     "gallery": [
-      "peach-blush",
-      "ivory-meadow",
-      "scarlet-promise",
-      "little-sunshine",
-      "pastel-embrace",
-      "pink-keepsake"
+      "butterfly-wishes",
+      "sunflower-parade",
+      "fifty-midnight-kisses",
+      "car-decor-60cm-x-40cm-white-lilies",
+      "tangerine-tulips",
+      "golden-radiance"
     ]
   }
 }

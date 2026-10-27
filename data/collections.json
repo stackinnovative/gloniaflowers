@@ -1,5 +1,5 @@
 [
-  {"id":"korean-bouquets","name":"Korean Bouquets","order":1,"image":"https://cdn.sanity.io/images/2hemi78c/production/69629b14c9eae1841862ffb1c55cd2bfdd500dac-1122x1402.png?w=1200&fit=max&auto=format"},
+  {"id":"korean-bouquets","name":"Korean Bouquets","order":1,"image":"https://cdn.sanity.io/images/2hemi78c/production/aae7e469990733a18c038a5d9432ddb1b3846a30-1122x1402.png?w=1200&fit=max&auto=format"},
   {"id":"premium-bouquets","name":"Premium Bouquets","order":2,"image":"https://cdn.sanity.io/images/2hemi78c/production/5160818ebaf4f41cf393ec900b3a39e3a2719a84-1122x1402.png?w=1200&fit=max&auto=format"},
   {"id":"customized-bouquets","name":"Customized Bouquets","order":3,"image":"https://cdn.sanity.io/images/2hemi78c/production/9f98c2b647512a0ed41ff238c91fbb03873d989b-1122x1402.png?w=1200&fit=max&auto=format"},
   {"id":"chocolate-bouquets","name":"Chocolate Bouquets","order":4,"image":"https://cdn.sanity.io/images/2hemi78c/production/c8671008b79d067c777e812dc15363522d68b63d-1122x1402.png?w=1200&fit=max&auto=format"},
@@ -8,5 +8,6 @@
   {"id":"blooming-boxes","name":"Blooming Boxes","order":7,"image":"https://cdn.sanity.io/images/2hemi78c/production/eae92f5a9417f553b355a58f5aaf7d9efd6f08b4-1122x1402.png?w=1200&fit=max&auto=format"},
   {"id":"bridal-collections","name":"Bridal Collections","order":8,"image":"https://cdn.sanity.io/images/2hemi78c/production/0d1bed30cc1fae532968a04c98a4083d41e84d21-1122x1402.png?w=1200&fit=max&auto=format"},
   {"id":"car","name":"Car Décor","order":9,"image":null},
-  {"id":"gifts","name":"Gifts","order":10,"image":null}
+  {"id":"gifts","name":"Gifts","order":10,"image":null},
+  {"id":"chocolates","name":"Chocolates","order":11,"image":"https://cdn.sanity.io/images/2hemi78c/production/19aee8bf1cb6a6bd73d41f69ef74e51ffa743c3c-296x302.png?w=1200&fit=max&auto=format"}
 ]

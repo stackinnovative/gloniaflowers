@@ -106,14 +106,18 @@ for (const c of collections) {
 }
 
 const slugs = new Set();
-const products = result.products.map((p) => {
+// A link used twice keeps the first product (in Studio order) and skips the rest, so one slip doesn't block every deploy.
+const unique = result.products.filter((p) => {
+  if (!slugs.has(p.slug)) return slugs.add(p.slug);
+  console.warn(`Sanity: product "${p.name ?? p.slug}" uses the link "${p.slug}" of another product; skipping it. Give it its own link in the Studio.`);
+  return false;
+});
+const products = unique.map((p) => {
   const label = `product "${p.name ?? p.slug}"`;
   // Every size is optional; a box offers the sizes that have a price.
   const sizes = p.hasSizes ? Object.fromEntries(SIZE_KEYS.filter((key) => p.sizes?.[key] != null).map((key) => [key, p.sizes[key]])) : null;
   const sizePrices = sizes ? Object.values(sizes) : [];
   if (!isId(p.slug)) problems.push(`${label}: invalid link "${p.slug}"`);
-  if (slugs.has(p.slug)) problems.push(`${label}: link "${p.slug}" used twice`);
-  slugs.add(p.slug);
   if (typeof p.name !== "string" || !p.name) problems.push(`${label}: missing name`);
   if (!collectionIds.has(p.collection)) problems.push(`${label}: main collection is missing or unpublished`);
   if (sizes ? !(sizePrices.length && sizePrices.every(isPrice)) : !isPrice(p.price)) problems.push(`${label}: missing or invalid price`);
