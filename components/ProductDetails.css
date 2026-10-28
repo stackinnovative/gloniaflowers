@@ -93,5 +93,5 @@
   .gl-detail-sizes-badge { width: 70px; height: 70px; }
   .gl-detail-sizes-badge > span { font-size: 14px; }
   .gl-detail-sizes-badge small { font-size: 9px; }
-  .gl-detail-trust li { flex-direction: row; text-align: left; }
+  .gl-detail-trust li { flex-direction: row; justify-content: center; text-align: center; }
 }
