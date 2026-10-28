@@ -41,6 +41,8 @@ const query = `{
     heroText, deliverySlots, sameDayLeadHours, tickerMessages, boxSizes { S, M, L, XL },
     ourWork { intro, items[] { name, description, "image": image${photo} } },
     perfumes { show, badge, eyebrow, title, text, imageLabel, "image": image${photo}, buttonLabel, whatsappMessage, note },
+    "allProductsImage": allProductsImage${photo},
+    "sizeReferenceImage": sizeReferenceImage${photo},
     shopPause { enabled, start, end, title, message, buttonLabel, whatsappMessage },
     "addOns": addOns[] { "id": id.current, name, "price": coalesce(price, null), "options": options[] { "id": id.current, name, "price": coalesce(price, null) } },
     "featured": {
@@ -245,6 +247,11 @@ function readSettings(raw) {
   // Pause online orders: empty texts fall back to the committed wording; start/end are optional ISO times.
   const sp = raw.shopPause;
   const time = (value) => (typeof value === "string" && Number.isFinite(Date.parse(value)) ? value : null);
+  // The catalogue's "All products" bubble photo; null keeps the default in components/Catalog.tsx.
+  const allProductsImage = photoFields(raw.allProductsImage);
+  // The square photo for the Box size reference circles; null uses the size reference product's photo.
+  const sizeReferenceImage = photoFields(raw.sizeReferenceImage);
+
   const shopPause = sp == null ? committed.shopPause : {
     enabled: sp.enabled === true,
     start: time(sp.start),
@@ -290,6 +297,8 @@ function readSettings(raw) {
     boxSizes,
     ourWork,
     perfumes,
+    allProductsImage,
+    sizeReferenceImage,
     shopPause,
     productInfo,
     featured: {

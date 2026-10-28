@@ -47,6 +47,10 @@ type Settings = {
     /** `image` is a Sanity CDN URL, or null to show a placeholder. */
     items: { name: string; description: string; image: string | null; imageFocus?: string }[];
   };
+  /** Photo for the catalogue's "All products" bubble; null keeps the default. */
+  allProductsImage: { image: string | null; imageFocus?: string };
+  /** Square photo for the Box size reference circles; null uses the size reference product's photo. */
+  sizeReferenceImage: { image: string | null; imageFocus?: string };
   perfumes: {
     /** False hides the home page section and the Perfumes nav links. */
     show: boolean;
@@ -142,6 +146,8 @@ export const site = {
   shopPause: settings.shopPause,
   ourWork: settings.ourWork,
   perfumes: settings.perfumes,
+  allProductsImage: settings.allProductsImage,
+  sizeReferenceImage: settings.sizeReferenceImage,
   productInfo: settings.productInfo,
   featured: settings.featured,
 } as const;

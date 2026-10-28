@@ -115,6 +115,12 @@
     "whatsappMessage": "Hi GLONIA, please let me know when your perfumes launch.",
     "note": "We'll message you on launch day."
   },
+  "allProductsImage": {
+    "image": null
+  },
+  "sizeReferenceImage": {
+    "image": null
+  },
   "shopPause": {
     "enabled": false,
     "start": null,
