@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { productPrices, sizeKeys, type Collection, type Product } from "@/lib/products";
+import { productPrices, type Collection, type Product } from "@/lib/products";
 import { formatPrice, waLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./Icons";
 import { ShopLink } from "./ShopPause";
@@ -17,8 +17,7 @@ function productPrice(product: Product): string {
   return minimum === maximum ? formatPrice(minimum) : `${formatPrice(minimum)} – ${formatPrice(maximum)}`;
 }
 
-function productBadge(product: Product, collection: Collection): string {
-  if (product.sizes) return sizeKeys(product.sizes).join(" · ");
+function productBadge(collection: Collection): string {
   if (collection.id === "korean-bouquets") return "KOREAN";
   if (collection.id === "red-roses") return "RED ROSE";
   return collection.name.toUpperCase();
@@ -62,7 +61,7 @@ export function FavouriteProducts({ collection, products }: FavouriteProductsPro
                   sizes="(min-width: 1320px) 279px, (min-width: 861px) calc((100vw - 206px) / 4), 216px"
                   className="gl-picks-card-image"
                 />
-                <span className="gl-picks-card-badge">{productBadge(product, collection)}</span>
+                <span className="gl-picks-card-badge">{productBadge(collection)}</span>
               </div>
             </div>
             <h3 className="gl-picks-card-title">{product.name}</h3>
