@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { catalogProducts, priceFilters, type CatalogSort, type PriceFilter } from "@/lib/catalog";
+import { site } from "@/lib/site";
 import { getCollections, type Collection } from "@/lib/products";
 import { waLink } from "@/lib/whatsapp";
 import { CustomOrderCard } from "./CustomOrderCard";
@@ -13,7 +14,8 @@ import { LeafIcon, WhatsAppIcon } from "./Icons";
 import { ProductCard } from "./ProductCard";
 import "./Catalog.css";
 
-const collections: Collection[] = [{ id: "all", name: "All products", order: 0, image: "/images/products/blush-rose-blooming-box.jpg" }, ...getCollections()];
+const allProducts = { image: site.allProductsImage.image ?? "/images/products/blush-rose-blooming-box.jpg", imageFocus: site.allProductsImage.imageFocus };
+const collections: Collection[] = [{ id: "all", name: "All products", order: 0, ...allProducts }, ...getCollections()];
 const titles: Record<string, [string, string]> = {
   all: ["All", "products"], "korean-bouquets": ["Korean", "bouquets"], "premium-bouquets": ["Premium", "bouquets"],
   "customized-bouquets": ["Customized", "bouquets"], "chocolate-bouquets": ["Chocolate", "bouquets"], "red-roses": ["Red", "roses"],

@@ -13,6 +13,10 @@ const CIRCLES: Record<SizeKey, { className: string; sizes: string }> = {
 export function SizeReference() {
   const product = getProduct(site.featured.sizeReference);
   if (!product) return null;
+  // The square photo from Site settings; without one, the product's own photo (which may need cropping in the Studio).
+  const photo = site.sizeReferenceImage.image
+    ? { src: site.sizeReferenceImage.image, focus: site.sizeReferenceImage.imageFocus }
+    : { src: product.image, focus: product.imageFocus };
 
   return (
     <section id="size-reference" aria-labelledby="size-reference-heading" className="mx-auto max-w-site px-4 pt-[60px] min-[861px]:px-7 min-[861px]:pt-[120px]">
@@ -33,7 +37,7 @@ export function SizeReference() {
             <li key={size} className="flex flex-col items-center gap-2 min-[861px]:gap-3.5">
               <div className={`${CIRCLES[size].className} aspect-square rounded-full border border-gold-400 bg-white p-1 min-[861px]:p-1.5`}>
                 <div className="relative size-full overflow-hidden rounded-full">
-                  <Image src={product.image} alt={`${SIZE_NAMES[size]} box`} fill sizes={CIRCLES[size].sizes} style={{ objectPosition: product.imageFocus }} className="object-cover" />
+                  <Image src={photo.src} alt={`${SIZE_NAMES[size]} box`} fill sizes={CIRCLES[size].sizes} style={{ objectPosition: photo.focus }} className="object-cover" />
                 </div>
               </div>
               <div className={`${CIRCLES[size].className} flex items-center gap-[3px] text-gold-text min-[861px]:gap-1.5`}>
