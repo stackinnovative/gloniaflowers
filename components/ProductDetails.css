@@ -44,8 +44,8 @@
 .gl-detail-actions svg { flex: none; }
 .gl-detail-add { background: var(--gl-white); color: var(--gl-ink); }
 .gl-detail-add:hover { background: var(--gl-champagne); }
-.gl-detail-whatsapp { background: var(--gl-ink); color: var(--gl-white); }
-.gl-detail-whatsapp:hover { color: var(--gl-gold-200); }
+.gl-detail-buy { background: var(--gl-ink); color: var(--gl-white); }
+.gl-detail-buy:hover { color: var(--gl-gold-200); }
 .gl-detail-added { margin: -10px 0 0; color: var(--gl-gold-text); font-size: 14px; }
 .gl-detail-added:empty { display: none; }
 .gl-detail-call { align-self: flex-start; border-bottom: 1px solid var(--gl-gold-500); font-size: 14px; font-weight: 700; }

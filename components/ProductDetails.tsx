@@ -1,26 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense, useState, useSyncExternalStore, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useState, useSyncExternalStore, type FormEvent } from "react";
 import { cartOrderLines, type CartSelection } from "@/lib/cart";
 import { availableSlots, currentMinute, firstDeliveryDate, isValidDeliveryDate, subscribeIndiaDate, todayInIndia } from "@/lib/delivery";
 import { defaultSize, getCollection, SIZE_NAMES, sizePrice, type Product, type SizeKey } from "@/lib/products";
 import { addOns, deliverySlots, site, type DeliverySlot } from "@/lib/site";
-import { buildOrderMessage, formatPrice, waLink } from "@/lib/whatsapp";
+import { formatPrice } from "@/lib/whatsapp";
 import { AddOns } from "./AddOns";
 import { useCart } from "./CartProvider";
 import { DeliveryPicker } from "./DeliveryPicker";
-import { CartIcon, LeafIcon, WhatsAppIcon } from "./Icons";
+import { CartIcon, LeafIcon } from "./Icons";
 import { InfoTabs } from "./InfoTabs";
 import { ProductPhoto } from "./ProductPhoto";
 import { SizeFromUrl } from "./SizeFromUrl";
 import { SizePicker } from "./SizePicker";
+import { Toast } from "./Toast";
 import "./ProductDetails.css";
 
 const serverMinute = () => null;
 
 export function ProductDetails({ product }: { product: Product }) {
   const { add } = useCart();
+  const router = useRouter();
   // Updates every minute, so today's slots close as the clock passes them.
   const minute = useSyncExternalStore(subscribeIndiaDate, currentMinute, serverMinute);
   const now = minute === null ? null : new Date(minute * 60_000);
@@ -32,6 +35,13 @@ export function ProductDetails({ product }: { product: Product }) {
   const [qty, setQty] = useState(1);
   const [error, setError] = useState("");
   const [added, setAdded] = useState("");
+  const [toast, setToast] = useState("");
+  // Clears the notice after a few seconds.
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => setToast(""), 3500);
+    return () => clearTimeout(timer);
+  }, [toast]);
   const collection = getCollection(product.collection);
   const slots = now && isValidDeliveryDate(date) ? availableSlots(date, now) : deliverySlots;
   // A slot that has just closed moves to the next open one.
@@ -53,33 +63,38 @@ export function ProductDetails({ product }: { product: Product }) {
     event.preventDefault();
     setAdded("");
     const form = event.currentTarget;
+    // Shows the message under the fields and as a toast.
+    const fail = (message: string) => {
+      setError(message);
+      setToast(message);
+    };
     // Recheck against the clock now: the page may have been open for a while.
     const current = new Date();
     if (!isValidDeliveryDate(date, todayInIndia(current))) {
-      setError(date ? "Choose today or a future delivery date." : "Choose a delivery date.");
+      fail(date ? "Choose today or a future delivery date." : "Choose a delivery date.");
       form.querySelector<HTMLInputElement>('[name="delivery-date"]')?.focus();
       return;
     }
     const open = availableSlots(date, current);
     if (!open.length) {
-      setError("No delivery times are left on this day. Choose another date.");
+      fail("No delivery times are left on this day. Choose another date.");
       form.querySelector<HTMLInputElement>('[name="delivery-date"]')?.focus();
       return;
     }
     if (!chosenSlot || !open.includes(chosenSlot)) {
       setSlot(open[0]);
-      setError(`That time is too soon now. The earliest time today is ${open[0]}; check it and try again.`);
+      fail(`That time is too soon now. The earliest time today is ${open[0]}; check it and try again.`);
       form.querySelector<HTMLSelectElement>('[name="delivery-slot"]')?.focus();
       return;
     }
     setError("");
     const action = (event.nativeEvent as SubmitEvent).submitter?.getAttribute("value");
-    if (action === "whatsapp") {
-      window.open(waLink(buildOrderMessage(orderLines)), "_blank", "noopener,noreferrer");
-    } else {
-      add(selection, qty);
-      setAdded(`Added ${qty} ${qty === 1 ? "item" : "items"} to your cart.`);
+    add(selection, qty);
+    if (action === "buy") {
+      router.push("/cart");
+      return;
     }
+    setAdded(`Added ${qty} ${qty === 1 ? "item" : "items"} to your cart.`);
   }
 
   return (
@@ -124,7 +139,7 @@ export function ProductDetails({ product }: { product: Product }) {
             </div>
             <div className="gl-detail-actions">
               <button type="submit" name="action" value="add" className="gl-detail-add"><CartIcon size={18} />Add to cart</button>
-              <button type="submit" name="action" value="whatsapp" className="gl-detail-whatsapp"><WhatsAppIcon size={18} stroke="#D9BE84" />Order on WhatsApp</button>
+              <button type="submit" name="action" value="buy" className="gl-detail-buy">Buy now</button>
             </div>
             <p className="gl-detail-added" role="status" aria-live="polite">{added}</p>
           </form>
@@ -132,6 +147,7 @@ export function ProductDetails({ product }: { product: Product }) {
           <InfoTabs product={product} />
         </div>
       </section>
+      <Toast message={toast} />
     </>
   );
 }
