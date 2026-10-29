@@ -7,12 +7,14 @@ import "./ProductControls.css";
 type SizePickerProps = {
   sizes: Sizes;
   value: SizeKey;
+  /** False hides the box inches under each size name. */
+  showInches: boolean;
   onChange: (size: SizeKey) => void;
 };
 
 const circleDiameters: Record<SizeKey, number> = { S: 36, M: 43, L: 50, XL: 60 };
 
-export function SizePicker({ sizes, value, onChange }: SizePickerProps) {
+export function SizePicker({ sizes, value, showInches, onChange }: SizePickerProps) {
   return (
     <fieldset className="gl-detail-controls-fieldset gl-size-picker">
       <legend className="gl-detail-controls-legend">
@@ -37,7 +39,7 @@ export function SizePicker({ sizes, value, onChange }: SizePickerProps) {
                 <span style={{ width: circleDiameters[size], height: circleDiameters[size] }} />
               </span>
               <span className="gl-size-picker-name">{SIZE_NAMES[size]}</span>
-              <span className="gl-size-picker-inches">{size} · {SIZE_INCHES[size]}</span>
+              {showInches && <span className="gl-size-picker-inches">{size} · {SIZE_INCHES[size]}</span>}
               <span className="gl-size-picker-price">{formatPrice(sizePrice(sizes, size))}</span>
             </span>
           </label>

@@ -86,6 +86,13 @@ export function getProduct(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
 }
 
+// Chocolates, perfumes and gifts: no fresh or size badges on the photo, no delivery tiles, no shade note, and no box inches under the sizes.
+const SIMPLE_PAGE_COLLECTIONS = ["chocolates", "perfumes", "gifts"];
+
+export function isSimpleProduct(product: Product): boolean {
+  return SIMPLE_PAGE_COLLECTIONS.includes(product.collection);
+}
+
 /** Collections in display order. */
 export function getCollections(): Collection[] {
   return collections;

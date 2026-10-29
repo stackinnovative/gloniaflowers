@@ -17,12 +17,6 @@ function productPrice(product: Product): string {
   return minimum === maximum ? formatPrice(minimum) : `${formatPrice(minimum)} – ${formatPrice(maximum)}`;
 }
 
-function productBadge(collection: Collection): string {
-  if (collection.id === "korean-bouquets") return "KOREAN";
-  if (collection.id === "red-roses") return "RED ROSE";
-  return collection.name.toUpperCase();
-}
-
 export function FavouriteProducts({ collection, products }: FavouriteProductsProps) {
   if (products.length === 0) {
     return (
@@ -61,7 +55,7 @@ export function FavouriteProducts({ collection, products }: FavouriteProductsPro
                   sizes="(min-width: 1320px) 279px, (min-width: 861px) calc((100vw - 206px) / 4), 216px"
                   className="gl-picks-card-image"
                 />
-                <span className="gl-picks-card-badge">{productBadge(collection)}</span>
+                <span className="gl-picks-card-badge">{collection.name.toUpperCase()}</span>
               </div>
             </div>
             <h3 className="gl-picks-card-title">{product.name}</h3>

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState, useSyncExternalStore, type FormEvent } from "react";
 import { cartOrderLines, type CartSelection } from "@/lib/cart";
 import { availableSlots, currentMinute, firstDeliveryDate, isValidDeliveryDate, subscribeIndiaDate, todayInIndia } from "@/lib/delivery";
-import { defaultSize, getCollection, SIZE_NAMES, sizePrice, type Product, type SizeKey } from "@/lib/products";
+import { defaultSize, getCollection, isSimpleProduct, SIZE_NAMES, sizePrice, type Product, type SizeKey } from "@/lib/products";
 import { addOns, deliverySlots, site, type DeliverySlot } from "@/lib/site";
 import { formatPrice, type Method } from "@/lib/whatsapp";
 import { AddOns } from "./AddOns";
@@ -121,7 +121,7 @@ export function ProductDetails({ product }: { product: Product }) {
           </div>
 
           <form className="gl-detail-form" onSubmit={submitOrder} noValidate>
-            {product.sizes && <SizePicker sizes={product.sizes} value={size} onChange={(next) => { setSize(next); setAdded(""); }} />}
+            {product.sizes && <SizePicker sizes={product.sizes} value={size} showInches={!isSimpleProduct(product)} onChange={(next) => { setSize(next); setAdded(""); }} />}
             <AddOns value={chosenAddOns} onChange={(next) => { setChosenAddOns(next); setAdded(""); }} />
             <DeliveryPicker
               method={method} date={date} slots={slots} slot={chosenSlot ?? ""} cardMessage={cardMessage} cardEnabled={chosenAddOns.includes("card")}

@@ -147,7 +147,7 @@
     "image": "https://cdn.sanity.io/images/2hemi78c/production/aafa8c812143e2004f322f1904f3d580b54f5f4c-1254x1254.png?w=1200&fit=max&auto=format"
   },
   "orderExampleImage": {
-    "image": null
+    "image": "https://cdn.sanity.io/images/2hemi78c/production/3c2dea8e23eb696c9a05a5be6a3b2efb183f416b-1122x1402.png?w=1200&fit=max&auto=format"
   },
   "shopPause": {
     "enabled": false,
@@ -188,7 +188,7 @@
       "scarlet-devotion",
       "midnight-lily"
     ],
-    "orderExample": "sky-whisper",
+    "orderExample": "indigo-pearl",
     "sizeReference": "crimson-royale",
     "customOrder": [
       "pink-cloud",
@@ -201,7 +201,7 @@
       "calla-couture",
       "tangerine-tulips",
       "orchid-aurora",
-      "car-decor-60cm-x-40cm-white-lilies"
+      "car-decor-luxe"
     ]
   }
 }
