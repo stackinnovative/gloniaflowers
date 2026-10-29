@@ -7,7 +7,7 @@ import { cartOrderLines, type CartSelection } from "@/lib/cart";
 import { availableSlots, currentMinute, firstDeliveryDate, isValidDeliveryDate, subscribeIndiaDate, todayInIndia } from "@/lib/delivery";
 import { defaultSize, getCollection, SIZE_NAMES, sizePrice, type Product, type SizeKey } from "@/lib/products";
 import { addOns, deliverySlots, site, type DeliverySlot } from "@/lib/site";
-import { formatPrice } from "@/lib/whatsapp";
+import { formatPrice, type Method } from "@/lib/whatsapp";
 import { AddOns } from "./AddOns";
 import { useCart } from "./CartProvider";
 import { DeliveryPicker } from "./DeliveryPicker";
@@ -29,6 +29,7 @@ export function ProductDetails({ product }: { product: Product }) {
   const now = minute === null ? null : new Date(minute * 60_000);
   const [size, setSize] = useState<SizeKey>(() => (product.sizes ? defaultSize(product.sizes, "M") : "M"));
   const [chosenAddOns, setChosenAddOns] = useState<string[]>(addOns.some((item) => item.id === "card") ? ["card"] : []);
+  const [method, setMethod] = useState<Method>("delivery");
   const [date, setDate] = useState("");
   const [slot, setSlot] = useState<DeliverySlot>(deliverySlots[0]);
   const [cardMessage, setCardMessage] = useState("");
@@ -50,7 +51,7 @@ export function ProductDetails({ product }: { product: Product }) {
     slug: product.slug,
     size: product.sizes ? size : null,
     addOns: chosenAddOns,
-    ...(isValidDeliveryDate(date) && chosenSlot ? { delivery: { date, slot: chosenSlot } } : {}),
+    ...(isValidDeliveryDate(date) && chosenSlot ? { delivery: { date, slot: chosenSlot, method } } : {}),
     ...(chosenAddOns.includes("card") && cardMessage.trim() ? { cardMessage: cardMessage.trim() } : {}),
   };
   const orderLines = cartOrderLines([{ ...selection, qty }]);
@@ -123,8 +124,9 @@ export function ProductDetails({ product }: { product: Product }) {
             {product.sizes && <SizePicker sizes={product.sizes} value={size} onChange={(next) => { setSize(next); setAdded(""); }} />}
             <AddOns value={chosenAddOns} onChange={(next) => { setChosenAddOns(next); setAdded(""); }} />
             <DeliveryPicker
-              date={date} slots={slots} slot={chosenSlot ?? ""} cardMessage={cardMessage} cardEnabled={chosenAddOns.includes("card")}
+              method={method} date={date} slots={slots} slot={chosenSlot ?? ""} cardMessage={cardMessage} cardEnabled={chosenAddOns.includes("card")}
               minDate={now ? firstDeliveryDate(now) : ""} error={error}
+              onMethodChange={(next) => { setMethod(next); setAdded(""); }}
               onDateChange={(next) => { setDate(next); setError(""); setAdded(""); }}
               onSlotChange={(next) => { setSlot(next); setAdded(""); }}
               onMessageChange={(next) => { setCardMessage(next); setAdded(""); }}

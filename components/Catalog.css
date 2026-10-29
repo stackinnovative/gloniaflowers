@@ -21,9 +21,9 @@
 /* On phones the line sits over the floral corners: keep it narrow and give it a soft backing. */
 .gl-catalog-shade { max-width: 15rem; margin: 2px 0 0; padding: 3px 10px; background: rgb(255 255 255 / 88%); font-size: 12px; font-style: italic; line-height: 1.4; color: var(--gl-gold-text); }
 .gl-catalog-collections { position: relative; display: flex; gap: 12px; overflow-x: auto; padding: 18px 16px 16px; border-bottom: 1px solid var(--gl-line); }
-.gl-catalog-collection { display: flex; width: 74px; flex: none; flex-direction: column; align-items: center; gap: 6px; padding: 0; border: 0; background: transparent; color: var(--gl-ink); font: inherit; font-size: 12px; font-weight: 600; line-height: 1.25; text-align: center; cursor: pointer; }
+.gl-catalog-collection { display: flex; width: 84px; flex: none; flex-direction: column; align-items: center; gap: 6px; padding: 0; border: 0; background: transparent; color: var(--gl-ink); font: inherit; font-size: 13px; font-weight: 600; line-height: 1.25; text-align: center; cursor: pointer; }
 .gl-catalog-collection[aria-pressed="true"] { color: var(--gl-gold-text); font-weight: 700; }
-.gl-catalog-bubble { display: block; width: 66px; height: 66px; padding: 3px; border: 1px solid var(--gl-line); border-radius: 50%; background: var(--gl-white); }
+.gl-catalog-bubble { display: block; width: 76px; height: 76px; padding: 3px; border: 1px solid var(--gl-line); border-radius: 50%; background: var(--gl-white); }
 .gl-catalog-collection[aria-pressed="true"] .gl-catalog-bubble { border: 2px solid var(--gl-gold-500); padding: 2px; }
 .gl-catalog-bubble img, .gl-catalog-bubble-placeholder { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; border-radius: 50%; object-fit: cover; background: var(--gl-champagne); }
 .gl-catalog-shop { max-width: 1320px; margin: 0 auto; padding-bottom: 48px; }
@@ -68,8 +68,8 @@
   .gl-catalog-collections.gl-row { scrollbar-width: thin; scrollbar-color: var(--gl-gold-300) transparent; }
   .gl-catalog-collections.gl-row::-webkit-scrollbar { display: block; height: 6px; }
   .gl-catalog-collections.gl-row::-webkit-scrollbar-thumb { background: var(--gl-gold-300); }
-  .gl-catalog-collection { width: 100px; gap: 10px; font-size: 14px; line-height: 1.3; }
-  .gl-catalog-bubble { width: 88px; height: 88px; padding: 4px; }
+  .gl-catalog-collection { width: 120px; gap: 12px; font-size: 16px; line-height: 1.3; }
+  .gl-catalog-bubble { width: 104px; height: 104px; padding: 4px; }
   .gl-catalog-collection[aria-pressed="true"] .gl-catalog-bubble { padding: 3px; }
   .gl-catalog-sparkle-one { left: 18%; top: 60px; width: 16px; height: 16px; }
   .gl-catalog-sparkle-two { left: 25%; right: auto; top: 170px; bottom: auto; width: 11px; height: 11px; }

@@ -25,7 +25,14 @@ export const collection = defineType({
       name: "image",
       title: "Tile photo",
       type: "image",
-      description: "Shown on the home page tiles, the catalogue bubbles and the Our work cards. Use the crop button to trim it and set the focus point. Leave empty to show a leaf icon or placeholder.",
+      description: "Shown on the home page tiles and the Our work cards. Use the crop button to trim it and set the focus point. Leave empty to show a leaf icon or placeholder.",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "bubbleImage",
+      title: "Catalogue circle photo",
+      type: "image",
+      description: "Square photo for this collection’s circle in the catalogue filter. Use the crop button to make the frame square, with the flowers inside it. Leave empty to show a leaf icon.",
       options: { hotspot: true },
     }),
     // Hidden position from dragging in the Collections list (menus and the Favourite picks slider).

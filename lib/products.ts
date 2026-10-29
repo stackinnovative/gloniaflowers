@@ -7,8 +7,11 @@ export type SizeKey = "S" | "M" | "L" | "XL";
 /** Price per size. Every size is optional: a box offers the sizes that have a price (at least one). */
 export type Sizes = Partial<Record<SizeKey, number>>;
 
-/** image: tile photo, or null until the client supplies one. imageFocus: see Product. */
-export type Collection = { id: string; name: string; order: number; image: string | null; imageFocus?: string };
+/** A Sanity photo: image is null until the client supplies one. imageFocus: see Product. */
+export type Photo = { image: string | null; imageFocus?: string };
+
+/** image: tile photo. bubble: the square photo on its catalogue filter circle. */
+export type Collection = { id: string; name: string; order: number; image: string | null; imageFocus?: string; bubble: Photo };
 
 export type Product = {
   slug: string;

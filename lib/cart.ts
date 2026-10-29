@@ -1,7 +1,7 @@
 import { defaultSize, getProduct, sizeKeys, sizePrice, type SizeKey } from "./products";
 import { isValidDeliveryDate } from "./delivery";
 import { addOnChoices, deliverySlots, site, type AddOnChoice } from "./site";
-import type { Delivery, OrderLine } from "./whatsapp";
+import type { Delivery, Method, OrderLine } from "./whatsapp";
 
 export type CartItem = {
   slug: string;
@@ -24,9 +24,11 @@ function readDelivery(value: unknown): Delivery | null {
   if (typeof value !== "object" || value === null) return null;
   const candidate = value as Record<string, unknown>;
   if (typeof candidate.date !== "string" || !isValidDeliveryDate(candidate.date)) return null;
+  // Carts saved before pickup existed are deliveries.
+  const method: Method = candidate.method === "pickup" ? "pickup" : "delivery";
   // A slot no longer offered is dropped, keeping the line and its date; the customer adds a time on WhatsApp.
   const slot = deliverySlots.find((slot) => slot === candidate.slot);
-  return slot ? { date: candidate.date, slot } : { date: candidate.date };
+  return slot ? { date: candidate.date, slot, method } : { date: candidate.date, method };
 }
 
 function readItem(value: unknown): CartItem | null {
@@ -67,9 +69,9 @@ function readItem(value: unknown): CartItem | null {
   };
 }
 
-/** Identity of a cart line: same product, size, add-ons, delivery and card message. */
+/** Identity of a cart line: same product, size, add-ons, delivery method, date, time and card message. */
 export function cartLineKey(item: CartSelection): string {
-  return JSON.stringify([item.slug, item.size, item.addOns, item.delivery?.date, item.delivery?.slot, item.cardMessage ?? ""]);
+  return JSON.stringify([item.slug, item.size, item.addOns, item.delivery?.method, item.delivery?.date, item.delivery?.slot, item.cardMessage ?? ""]);
 }
 
 function unitPrice(item: CartSelection): number {

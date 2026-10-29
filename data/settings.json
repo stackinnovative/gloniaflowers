@@ -1,6 +1,6 @@
 {
   "tagline": "A little love, beautifully arranged",
-  "description": "Make someone feel special from hand-tied bouquets to elegant flower boxes and wedding florals, Glonia Flowers in Calicut. Let us help bring your feelings to life through flowers. ",
+  "description": "Make someone feel special from hand-tied bouquets to elegant flower boxes and wedding florals, Glonia Flowers in Calicut.",
   "phoneDisplay": "+91 62388 23455",
   "whatsappNumber": "916238823455",
   "email": "Gloniadesigns@gmail.com",
@@ -27,29 +27,59 @@
       "price": 35
     },
     {
-      "id": "choc",
+      "id": "chocolates",
       "name": "Chocolates",
       "price": null,
       "options": [
         {
-          "id": "snickers",
-          "name": "Snickers",
-          "price": 35
+          "id": "dairy-milk-plain-60g",
+          "name": "Dairy Milk Plain 60g",
+          "price": 150
         },
         {
-          "id": "galaxy",
-          "name": "Galaxy",
-          "price": 65
+          "id": "dairy-milk-roast-almond-60g",
+          "name": "Dairy Milk Roast Almond 60g",
+          "price": 150
         },
         {
-          "id": "snickers-large",
-          "name": "Snickers Large",
-          "price": 70
+          "id": "dairy-milk-roast-almond-135g",
+          "name": "Dairy Milk Roast Almond 135g",
+          "price": 250
+        },
+        {
+          "id": "dairy-hazel-nut-60g",
+          "name": "Dairy Milk Hazel Nut 60g",
+          "price": 150
+        },
+        {
+          "id": "dairy-hazel-nut-135g",
+          "name": "Dairy Hazel Nut 135g",
+          "price": 250
+        },
+        {
+          "id": "dairy-milk-fruit-and-nut-60g",
+          "name": "Dairy Milk Fruit & Nut 60g",
+          "price": 150
+        },
+        {
+          "id": "ferrero-rocher-4-piece",
+          "name": "Ferrero Rocher 4 piece",
+          "price": 350
+        },
+        {
+          "id": "ferrero-rocher-16-piece",
+          "name": "Ferrero Rocher 16 piece",
+          "price": 850
+        },
+        {
+          "id": "ferrero-rocher-24-piece",
+          "name": "Ferrero Rocher 24 piece",
+          "price": 1250
         }
       ]
     }
   ],
-  "heroText": "Explore hand-tied bouquets, elegant flower boxes and beautiful bridal arrangements at Glonia Flowers in Calicut-thoughtfully crafted to express your feelings and celebrate your special moments.",
+  "heroText": "Explore hand-tied bouquets, elegant flower boxes and beautiful bridal arrangements at Glonia Flowers in Calicut.",
   "deliverySlots": [
     "9–10 AM",
     "10–11 AM",
@@ -78,18 +108,13 @@
     "items": [
       {
         "name": "Korean Bouquet",
-        "description": "Elegant blooms wrapped in signature Korean style",
+        "description": "Elegant blooms wrapped in Korean style",
         "image": "https://cdn.sanity.io/images/2hemi78c/production/69629b14c9eae1841862ffb1c55cd2bfdd500dac-1122x1402.png?w=1200&fit=max&auto=format"
       },
       {
-        "name": "Bridal",
-        "description": "Bouquets and wedding décor",
+        "name": "Bridal Bouquets",
+        "description": "Bouquets for special moments",
         "image": "https://cdn.sanity.io/images/2hemi78c/production/9892eb7d85bce0e10bb2faf81e45c2574bae3fac-1122x1402.png?w=1200&fit=max&auto=format"
-      },
-      {
-        "name": "Red Roses",
-        "description": "Timeless red roses for a love worth celebrating",
-        "image": "https://cdn.sanity.io/images/2hemi78c/production/d997357fbac6446bfe46e0f2f597327c5fc1dc86-1122x1402.png?rect=11,69,1111,1218&w=1200&fit=max&auto=format"
       },
       {
         "name": "Box Arrangements",
@@ -97,7 +122,7 @@
         "image": "https://cdn.sanity.io/images/2hemi78c/production/e469f2e09be1da446875dea02bb2b87f3db1a959-1122x1402.png?w=1200&fit=max&auto=format"
       },
       {
-        "name": "Customized",
+        "name": "Customized Bouquets",
         "description": "Custom designs with an unexpected splash of colours",
         "image": "https://cdn.sanity.io/images/2hemi78c/production/9f98c2b647512a0ed41ff238c91fbb03873d989b-1122x1402.png?w=1200&fit=max&auto=format"
       }
@@ -116,17 +141,20 @@
     "note": "We'll message you on launch day."
   },
   "allProductsImage": {
-    "image": null
+    "image": "https://cdn.sanity.io/images/2hemi78c/production/a934f0079cf356f7e7f3795f8bf60c41344f102e-1600x1600.jpg?w=1200&fit=max&auto=format"
   },
   "sizeReferenceImage": {
+    "image": "https://cdn.sanity.io/images/2hemi78c/production/aafa8c812143e2004f322f1904f3d580b54f5f4c-1254x1254.png?w=1200&fit=max&auto=format"
+  },
+  "orderExampleImage": {
     "image": null
   },
   "shopPause": {
     "enabled": false,
     "start": null,
     "end": null,
-    "title": "Shop Closed",
-    "message": "❤️ A Little Valentine’s Update The love has been overwhelming! 🌹\nWe’ve reached our current order capacity and are temporarily pausing new orders. You may please contact us on WhatsApp.",
+    "title": "Currently not taking orders online. Kindly whatsapp.",
+    "message": "The love has been overwhelming! 🌹\nWe’ve reached our current order capacity and are temporarily pausing new orders online. You may please contact us on WhatsApp.",
     "buttonLabel": "Connect on whatsapp",
     "whatsappMessage": "Hi,\nI would like to know what products are available today for delivery."
   },
@@ -157,10 +185,10 @@
   "featured": {
     "hero": [
       "tangerine-tulips",
-      "burgundy-rhapsody",
+      "scarlet-devotion",
       "midnight-lily"
     ],
-    "orderExample": "rosy-daydream",
+    "orderExample": "sky-whisper",
     "sizeReference": "crimson-royale",
     "customOrder": [
       "pink-cloud",
@@ -168,12 +196,12 @@
       "scarlet-devotion"
     ],
     "gallery": [
-      "butterfly-wishes",
-      "sunflower-parade",
-      "fifty-midnight-kisses",
-      "car-decor-60cm-x-40cm-white-lilies",
+      "blue-enchantment",
+      "burgundy-rhapsody",
+      "calla-couture",
       "tangerine-tulips",
-      "golden-radiance"
+      "orchid-aurora",
+      "car-decor-60cm-x-40cm-white-lilies"
     ]
   }
 }

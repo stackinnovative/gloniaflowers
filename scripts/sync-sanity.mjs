@@ -24,7 +24,7 @@ const published = '!(_id in path("drafts.**"))';
 const photo = '{ crop, hotspot, "url": asset->url, "dimensions": asset->metadata.dimensions }';
 const query = `{
   "collections": *[_type == "collection" && ${published} && defined(id.current)] | order(orderRank asc, name asc) {
-    "id": id.current, name, "image": image${photo}
+    "id": id.current, name, "image": image${photo}, "bubbleImage": bubbleImage${photo}
   },
   "products": *[_type == "product" && ${published} && defined(slug.current)] | order(orderRank asc, name asc) {
     "slug": slug.current, name,
@@ -43,6 +43,7 @@ const query = `{
     perfumes { show, badge, eyebrow, title, text, imageLabel, "image": image${photo}, buttonLabel, whatsappMessage, note },
     "allProductsImage": allProductsImage${photo},
     "sizeReferenceImage": sizeReferenceImage${photo},
+    "orderExampleImage": orderExampleImage${photo},
     shopPause { enabled, start, end, title, message, buttonLabel, whatsappMessage },
     "addOns": addOns[] { "id": id.current, name, "price": coalesce(price, null), "options": options[] { "id": id.current, name, "price": coalesce(price, null) } },
     "featured": {
@@ -109,7 +110,12 @@ function photoFields(image) {
   return { image: result?.url ?? null, ...(result?.focus ? { imageFocus: result.focus } : {}) };
 }
 
-const collections = result.collections.map((c, index) => ({ id: c.id, name: c.name, order: index + 1, ...photoFields(c.image) }));
+const collections = result.collections.map((c, index) => {
+  if (c.bubbleImage?.url && !isSquareCrop(c.bubbleImage)) {
+    console.warn(`Sanity: ${c.name} → catalogue circle photo isn't square after cropping; the circle will trim its sides. Crop it square in the Studio.`);
+  }
+  return { id: c.id, name: c.name, order: index + 1, ...photoFields(c.image), bubble: photoFields(c.bubbleImage) };
+});
 const collectionIds = new Set();
 for (const c of collections) {
   if (!isId(c.id) || typeof c.name !== "string" || !c.name) problems.push(`collection "${c.name ?? c.id}": missing name or invalid link id`);
@@ -264,6 +270,11 @@ function readSettings(raw) {
   if (raw.sizeReferenceImage?.url && !isSquareCrop(raw.sizeReferenceImage)) {
     console.warn(`Sanity: ${label} → Box size reference photo isn't square after cropping; the circles will trim its sides. Crop it square in the Studio.`);
   }
+  // The square photo in the How to order chat; null hides it.
+  const orderExampleImage = photoFields(raw.orderExampleImage);
+  if (raw.orderExampleImage?.url && !isSquareCrop(raw.orderExampleImage)) {
+    console.warn(`Sanity: ${label} → WhatsApp example photo isn't square after cropping; the chat will trim its sides. Crop it square in the Studio.`);
+  }
 
   const shopPause = sp == null ? committed.shopPause : {
     enabled: sp.enabled === true,
@@ -312,6 +323,7 @@ function readSettings(raw) {
     perfumes,
     allProductsImage,
     sizeReferenceImage,
+    orderExampleImage,
     shopPause,
     productInfo,
     featured: {

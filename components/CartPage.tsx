@@ -35,7 +35,7 @@ function CartLine({ item }: { item: CartItem }) {
         <dl className="gl-cartp-meta">
           {item.size && <div><dt>Size</dt><dd>{SIZE_NAMES[item.size]} ({item.size}) · {SIZE_INCHES[item.size]}</dd></div>}
           {line.addOns.length > 0 && <div><dt>Add-ons</dt><dd>{line.addOns.map(addOnLabel).join(", ")}</dd></div>}
-          {item.delivery && <div><dt>Delivery</dt><dd>{formatDeliveryDate(item.delivery.date)}{item.delivery.slot ? `, ${item.delivery.slot}` : ""}</dd></div>}
+          {item.delivery && <div><dt>{item.delivery.method === "pickup" ? "Pickup from store" : "Delivery"}</dt><dd>{formatDeliveryDate(item.delivery.date)}{item.delivery.slot ? `, ${item.delivery.slot}` : ""}</dd></div>}
           {item.cardMessage && <div><dt>Card</dt><dd className="gl-cartp-card">“{item.cardMessage}”</dd></div>}
         </dl>
         <p className="gl-cartp-each">{formatPrice(line.unitPrice)} each</p>

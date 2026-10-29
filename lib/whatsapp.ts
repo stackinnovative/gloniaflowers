@@ -22,8 +22,11 @@ export type OrderAddOn = { group: string; name: string; priced: boolean; isOptio
 const CHOCOLATES_ID = "choc";
 const CARD_ID = "card";
 
+/** Delivered to the customer, or collected from the shop. */
+export type Method = "delivery" | "pickup";
+
 /** `slot` is missing only on a saved cart line whose slot was later removed from Site settings. */
-export type Delivery = { date: string; slot?: DeliverySlot };
+export type Delivery = { date: string; slot?: DeliverySlot; method: Method };
 
 export function formatPrice(amount: number): string {
   return `₹${amount.toLocaleString("en-IN")}`;
@@ -55,6 +58,18 @@ export function addOnLabel(addOn: OrderAddOn): string {
 
 const UNPRICED_NOTE = " + add-ons to confirm";
 
+/** The method, date and time lines; pickup uses "Pickup" in the date and time labels. */
+function deliveryLines(delivery: Delivery | undefined): string[] {
+  if (!delivery) return ["Delivery Date: ", "Delivery Time: "];
+  const pickup = delivery.method === "pickup";
+  const label = pickup ? "Pickup" : "Delivery";
+  return [
+    `Method: ${pickup ? "Pickup from store" : "Delivery"}`,
+    `${label} Date: ${formatDeliveryDate(delivery.date)}`,
+    `${label} Time: ${delivery.slot ?? ""}`,
+  ];
+}
+
 function formatLine(line: OrderLine, showUnpricedNote: boolean): string {
   const price = `${formatPrice(line.unitPrice * line.qty)}${showUnpricedNote && line.hasUnpricedAddOns ? UNPRICED_NOTE : ""}`;
   const chocolates = line.addOns.filter((addOn) => addOn.group === CHOCOLATES_ID);
@@ -73,8 +88,7 @@ function formatLine(line: OrderLine, showUnpricedNote: boolean): string {
     "",
     // Per item: each one in a multi-item order can be customised differently.
     "Customization (optional): ",
-    `Delivery Date: ${line.delivery ? formatDeliveryDate(line.delivery.date) : ""}`,
-    `Delivery Time: ${line.delivery?.slot ?? ""}`,
+    ...deliveryLines(line.delivery),
   ].join("\n");
 }
 

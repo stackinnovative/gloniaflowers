@@ -14,8 +14,8 @@ import { LeafIcon, WhatsAppIcon } from "./Icons";
 import { ProductCard } from "./ProductCard";
 import "./Catalog.css";
 
-const allProducts = { image: site.allProductsImage.image ?? "/images/products/blush-rose-blooming-box.jpg", imageFocus: site.allProductsImage.imageFocus };
-const collections: Collection[] = [{ id: "all", name: "All products", order: 0, ...allProducts }, ...getCollections()];
+// Every circle takes its square photo from Sanity; an empty one shows the leaf icon.
+const collections: Pick<Collection, "id" | "name" | "bubble">[] = [{ id: "all", name: "All products", bubble: site.allProductsImage }, ...getCollections()];
 const titles: Record<string, [string, string]> = {
   all: ["All", "products"], "korean-bouquets": ["Korean", "bouquets"], "premium-bouquets": ["Premium", "bouquets"],
   "customized-bouquets": ["Customized", "bouquets"], "chocolate-bouquets": ["Chocolate", "bouquets"], "red-roses": ["Red", "roses"],
@@ -94,11 +94,11 @@ export function CatalogContent({ collectionId = "all", priceId = "any", sortId =
         </div>
         <div ref={collectionRow} className="gl-catalog-collections gl-row" role="group" aria-label="Filter by collection">
           {collections.map((collection) => {
-            const { image, imageFocus } = collection;
+            const { image, imageFocus } = collection.bubble;
             return (
               <button key={collection.id} type="button" className="gl-catalog-collection" aria-pressed={active.id === collection.id} aria-controls="catalog-results" onClick={() => updateFilter("c", collection.id)}>
                 <span className="gl-catalog-bubble">
-                  {image ? <Image src={image} width={80} height={80} sizes="(min-width: 861px) 78px, 58px" style={{ objectPosition: imageFocus }} alt="" /> : <span className="gl-catalog-bubble-placeholder"><LeafIcon size={24} /></span>}
+                  {image ? <Image src={image} width={104} height={104} sizes="(min-width: 861px) 104px, 76px" style={{ objectPosition: imageFocus }} alt="" /> : <span className="gl-catalog-bubble-placeholder"><LeafIcon size={24} /></span>}
                 </span>
                 <span>{collection.name}</span>
               </button>

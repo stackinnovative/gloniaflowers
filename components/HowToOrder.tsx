@@ -46,15 +46,17 @@ function OrderExample() {
         <span className="ml-auto text-[11px] uppercase tracking-[0.1em] text-muted">Example</span>
       </figcaption>
       <div className="flex max-w-[80%] flex-col gap-1.5 self-end rounded-[16px_16px_4px_16px] bg-[#D9FDD3] p-2">
-        <Image
-          src={product.image}
-          style={{ objectPosition: product.imageFocus }}
-          alt={product.name}
-          width={400}
-          height={300}
-          sizes="250px"
-          className="aspect-[4/3] w-full rounded-[10px] object-cover"
-        />
+        {site.orderExampleImage.image && (
+          <Image
+            src={site.orderExampleImage.image}
+            style={{ objectPosition: site.orderExampleImage.imageFocus }}
+            alt={product.name}
+            width={400}
+            height={400}
+            sizes="250px"
+            className="aspect-square w-full rounded-[10px] object-cover"
+          />
+        )}
         <p className="m-0 px-1 text-[14px]">
           <span className="sr-only">You: </span>
           Hi! I&apos;d like the <strong>{product.name}</strong>{product.sizes ? `, size ${SIZE_NAMES[defaultSize(product.sizes, "M")]} (${formatPrice(sizePrice(product.sizes, "M"))})` : ` (${formatPrice(product.price)})`}, for tomorrow.

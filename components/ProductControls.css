@@ -34,6 +34,10 @@
 .gl-detail-addons-option input:checked + .gl-detail-addons-tile .gl-detail-addons-plus { display: none; }
 .gl-detail-addons-option input:checked + .gl-detail-addons-tile .gl-detail-addons-check { display: block; }
 .gl-detail-delivery { display: flex; min-width: 0; flex-direction: column; gap: 12px; padding: 16px; background: var(--gl-champagne); }
+.gl-detail-method { display: grid; min-width: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.gl-detail-method-option { min-height: 46px; padding: 10px 12px; border: 1px solid var(--gl-line); border-radius: 2px; background: var(--gl-white); color: var(--gl-ink); font: inherit; font-family: var(--font-cinzel), serif; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
+.gl-detail-method-option[aria-pressed="true"] { border-color: var(--gl-ink); background: var(--gl-ink); color: var(--gl-white); }
+.gl-detail-method-option:focus-visible { outline: 2px solid var(--gl-gold-text); outline-offset: 2px; }
 .gl-detail-delivery-row { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 .gl-detail-delivery-label { display: flex; min-width: 0; flex-direction: column; gap: 5px; font-family: var(--font-cinzel), serif; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
 .gl-detail-delivery-label input,
