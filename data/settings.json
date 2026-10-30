@@ -207,5 +207,31 @@
       "orchid-aurora",
       "car-decor-luxe"
     ]
-  }
+  },
+  "faq": [
+    {
+      "question": "Do you sell fresh flowers in Calicut?",
+      "answer": "Yes. Every bouquet and flower box is hand-made with fresh flowers at our Malaparamba studio, on the day it is delivered."
+    },
+    {
+      "question": "What flower bouquets can I order?",
+      "answer": "Korean bouquets, premium bouquets, red roses, chocolate bouquets and customised bouquets. Browse the catalogue, or ask us on WhatsApp for a custom design."
+    },
+    {
+      "question": "Do you make floral arrangements for events?",
+      "answer": "Yes. We create bridal bouquets, wedding flowers and car décor. Tell us the date and the flowers you need on WhatsApp, and we will plan it with you."
+    },
+    {
+      "question": "Do you offer same-day flower delivery?",
+      "answer": "Yes. Choose today’s date and you will only see the time slots that are still possible for same-day delivery."
+    },
+    {
+      "question": "How do I order flower delivery?",
+      "answer": "Pick your flowers, choose a delivery date and time, and send the order on WhatsApp. We confirm availability and delivery before we start."
+    },
+    {
+      "question": "Can I collect my order from the shop?",
+      "answer": "Yes. Choose pickup instead of delivery when you order."
+    }
+  ]
 }

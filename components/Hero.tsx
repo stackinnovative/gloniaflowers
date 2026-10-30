@@ -35,7 +35,7 @@ export function Hero() {
         <h1 id="hero-title" className="m-0">
           <Image src="/images/logo.png" alt={site.name} width={515} height={430} preload fetchPriority="high" className="h-auto w-[230px] md:w-[clamp(240px,26vw,360px)]" />
           {/* The logo is the heading; this gives it a readable name with the location. */}
-          <span className="sr-only">, florist in Kozhikode</span>
+          <span className="sr-only">, florist in Kozhikode: fresh flowers in Calicut with same day flower delivery</span>
         </h1>
         <div aria-hidden="true" className="flex items-center gap-2.5 text-gold-500 md:gap-3.5">
           <span className="h-px w-11 bg-gold-500 md:w-[70px]" />

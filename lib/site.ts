@@ -54,6 +54,8 @@ type Settings = {
   sizeReferenceImage: { image: string | null; imageFocus?: string };
   /** Square photo in the How to order chat; null hides it. */
   orderExampleImage: { image: string | null; imageFocus?: string };
+  /** Home page questions, shown above the footer. An empty list hides the section. */
+  faq: { question: string; answer: string }[];
   perfumes: {
     /** False hides the home page section and the Perfumes nav links. */
     show: boolean;
@@ -116,7 +118,7 @@ export const site = {
   shortName: "GLONIA",
   tagline: settings.tagline,
   description: settings.description,
-  url: "https://gloniaflowers.vercel.app", // TODO client: switch to https://gloniaflowers.in once that domain is connected; order links, sitemap and SEO use it
+  url: "https://gloniaflowers.in", // Order links, sitemap and SEO use it; the old vercel.app address redirects here.
 
   phoneDisplay: settings.phoneDisplay,
   phoneTel: `+${settings.whatsappNumber}`,
@@ -148,6 +150,7 @@ export const site = {
   tickerMessages: settings.tickerMessages,
   shopPause: settings.shopPause,
   ourWork: settings.ourWork,
+  faq: settings.faq,
   perfumes: settings.perfumes,
   allProductsImage: settings.allProductsImage,
   sizeReferenceImage: settings.sizeReferenceImage,

@@ -54,4 +54,4 @@ Products picked here can't be deleted while they're in use; Sanity asks you to s
 
 ## Still in code
 
-The site address (`site.url` in `lib/site.ts`, currently gloniaflowers.vercel.app, moving to gloniaflowers.in) and the rest of the page wording (headings, menus, How to order steps, top bar messages, page titles for search).
+The site address (`site.url` in `lib/site.ts`, currently gloniaflowers.in) and the rest of the page wording (headings, menus, How to order steps, top bar messages, page titles for search).

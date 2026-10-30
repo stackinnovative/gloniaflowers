@@ -284,6 +284,25 @@ export const siteSettings = defineType({
       ],
     }),
     defineField({
+      name: "faq",
+      title: "FAQ",
+      type: "array",
+      group: "featured",
+      description: "Questions and answers at the bottom of the home page. Keep answers short. Leave the list empty to hide the section.",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "faqItem",
+          fields: [
+            defineField({ name: "question", title: "Question", type: "string", validation: (rule) => rule.required().max(120) }),
+            defineField({ name: "answer", title: "Answer", type: "text", rows: 3, validation: (rule) => rule.required().max(400) }),
+          ],
+          preview: { select: { title: "question" } },
+        }),
+      ],
+      validation: (rule) => rule.max(10),
+    }),
+    defineField({
       name: "sizeReferenceImage",
       title: "Box size reference photo",
       type: "image",

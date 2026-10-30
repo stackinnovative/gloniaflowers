@@ -43,7 +43,11 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: site.name,
     description: site.description,
-    images: [{ url: "/images/products/blush-rose-blooming-box.jpg", alt: "Blush Rose Blooming Box by GLONIA" }],
+    images: [{ url: "/images/og-image.png", width: 1200, height: 630, alt: "GLONIA Flowers & Perfumes: fresh flowers in Calicut" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/images/og-image.png"],
   },
 };
 

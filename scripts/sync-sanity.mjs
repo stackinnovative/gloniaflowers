@@ -39,6 +39,7 @@ const query = `{
     hours { open, close }, address { street, city }, mapQuery, googleListing, googlePlaceId, showReviews, instagram { handle, url },
     productInfo { details, careBox, careBouquet, delivery },
     heroText, deliverySlots, sameDayLeadHours, tickerMessages, boxSizes { S, M, L, XL },
+    faq[] { question, answer },
     ourWork { intro, items[] { name, description, "image": image${photo}, "collection": collection->id.current } },
     perfumes { show, badge, eyebrow, title, text, imageLabel, "image": image${photo}, buttonLabel, whatsappMessage, note },
     "allProductsImage": allProductsImage${photo},
@@ -244,6 +245,9 @@ function readSettings(raw) {
   if (!ourWork.items.every((item) => item.name)) problems.push(`${label}: every Our work item needs a name`);
   if (new Set(ourWork.items.map((item) => item.name)).size !== ourWork.items.length) problems.push(`${label}: two Our work items share a name`);
 
+  const faq = raw.faq == null ? committed.faq : (raw.faq ?? []).map((item) => ({ question: text(item.question), answer: text(item.answer) }));
+  if (!faq.every((item) => item.question && item.answer)) problems.push(`${label}: every FAQ needs a question and an answer`);
+
   const p = raw.perfumes;
   const perfumes = p == null ? committed.perfumes : {
     show: p.show !== false,
@@ -321,6 +325,7 @@ function readSettings(raw) {
     tickerMessages,
     boxSizes,
     ourWork,
+    faq,
     perfumes,
     allProductsImage,
     sizeReferenceImage,
