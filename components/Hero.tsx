@@ -33,7 +33,7 @@ export function Hero() {
 
       <div className="relative z-[1] mx-auto flex max-w-[980px] flex-col items-center gap-3.5 px-5 pb-9 pt-[60px] text-center md:gap-[22px] md:px-7 md:pb-[72px] md:pt-[100px]">
         <h1 id="hero-title" className="m-0">
-          <Image src="/images/logo.png" alt={site.name} width={515} height={430} preload fetchPriority="high" className="h-auto w-[230px] md:w-[clamp(240px,26vw,360px)]" />
+          <Image src="/images/logo.webp" alt={site.name} width={480} height={401} preload fetchPriority="high" className="h-auto w-[230px] md:w-[clamp(240px,26vw,360px)]" />
           {/* The logo is the heading; this gives it a readable name with the location. */}
           <span className="sr-only">, florist in Kozhikode: fresh flowers in Calicut with same day flower delivery</span>
         </h1>
@@ -62,7 +62,7 @@ export function Hero() {
           return (
             <div key={slug} className={`${centerpiece ? "" : "hidden md:block"} rounded-t-[999px] rounded-b-[4px] border border-gold-400 bg-white p-[7px] md:p-2`}>
               <div className={`gl-zoom relative overflow-hidden rounded-t-[999px] rounded-b-[2px] ${centerpiece ? "aspect-[4/5] md:aspect-[3/4.4]" : "aspect-[3/4]"}`}>
-                <Image src={product.image} alt={product.name} fill priority={centerpiece} sizes="(min-width: 1080px) 305px, (min-width: 768px) 30vw, 75vw" style={{ objectPosition: product.imageFocus }} className="object-cover" />
+                <Image src={product.image} alt={product.name} fill sizes="(min-width: 1080px) 305px, (min-width: 768px) 30vw, 75vw" style={{ objectPosition: product.imageFocus }} className="object-cover" />
               </div>
             </div>
           );

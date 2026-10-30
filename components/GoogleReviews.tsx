@@ -57,7 +57,7 @@ function ReviewCard({ review }: { review: Review }) {
           {review.author.charAt(0).toUpperCase()}
           {review.photo && (
             // Eager: lazy images inside a horizontal scroller can stall in Chrome; these are tiny.
-            <Image src={review.photo} alt="" width={40} height={40} loading="eager" referrerPolicy="no-referrer" className="absolute inset-0 size-full object-cover" />
+            <Image src={review.photo} alt="" width={40} height={40} referrerPolicy="no-referrer" className="absolute inset-0 size-full object-cover" />
           )}
         </span>
         <div className="min-w-0">
