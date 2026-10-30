@@ -39,6 +39,10 @@ yarn-error.log*
 # Google reviews are fetched fresh on every build (Places API terms)
 /data/reviews.json
 
+# Optional hero variants generated from the current CMS photo before each build
+/data/hero-image.json
+/public/images/hero/
+
 # vercel
 .vercel
 

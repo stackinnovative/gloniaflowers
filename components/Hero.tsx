@@ -1,4 +1,5 @@
 import Image from "./SiteImage";
+import { getHeroImage } from "@/lib/hero-image";
 import { getProduct, getProductsIn, type Product } from "@/lib/products";
 import { site } from "@/lib/site";
 import { customOrderMessage, formatPrice, waLink } from "@/lib/whatsapp";
@@ -8,6 +9,7 @@ import { ShopLink } from "./ShopPause";
 import { Sparkles } from "./Sparkles";
 
 const cornerClass = "w-[120px] md:w-[clamp(170px,25vw,390px)]";
+const photoSizes = "(min-width: 1080px) 305px, (min-width: 768px) calc((100vw - 160px) / 3), calc(100vw - 104px)";
 
 export function Hero() {
   // Cheapest bouquet for the mobile price badge.
@@ -59,10 +61,12 @@ export function Hero() {
           if (!product) return null;
           // The middle photo is the centrepiece and the only one shown on mobile.
           const centerpiece = index === 1;
+          const localPhoto = centerpiece ? getHeroImage(product.image) : null;
+          const photo = <Image src={localPhoto?.src ?? product.image} alt={product.name} fill loading={centerpiece ? "eager" : "lazy"} fetchPriority={centerpiece ? "high" : undefined} sizes={photoSizes} style={{ objectPosition: product.imageFocus }} className="object-cover" />;
           return (
             <div key={slug} className={`${centerpiece ? "" : "hidden md:block"} rounded-t-[999px] rounded-b-[4px] border border-gold-400 bg-white p-[7px] md:p-2`}>
               <div className={`gl-zoom relative overflow-hidden rounded-t-[999px] rounded-b-[2px] ${centerpiece ? "aspect-[4/5] md:aspect-[3/4.4]" : "aspect-[3/4]"}`}>
-                <Image src={product.image} alt={product.name} fill loading={centerpiece ? "eager" : "lazy"} fetchPriority={centerpiece ? "high" : undefined} sizes="(min-width: 1080px) 305px, (min-width: 768px) calc((100vw - 160px) / 3), calc(100vw - 104px)" style={{ objectPosition: product.imageFocus }} className="object-cover" />
+                {localPhoto ? <picture><source type="image/webp" srcSet={localPhoto.srcSet} sizes={photoSizes} />{photo}</picture> : photo}
               </div>
             </div>
           );

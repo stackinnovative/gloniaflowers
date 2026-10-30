@@ -12,6 +12,7 @@ This file is the source of truth. The approved design is in `design-reference/`.
 - Tailwind CSS (design tokens below go in `tailwind.config.ts` and CSS variables)
 - `next/font/google` for fonts, `next/image` for every image
 - Static site: `output: 'export'` in `next.config.ts`. Use `components/SiteImage` for images: its custom loader resizes Sanity photos directly on the CDN; local artwork and other image hosts stay unoptimized. Preserve CMS crops and focus points.
+- `scripts/prepare-hero.mjs` prepares the centre hero's responsive WebP variants after CMS sync, served from this site's hosting. Generated files are ignored; missing, stale, or incomplete output falls back to Sanity. Keep the generated filenames content-hashed for immutable caching.
 - Product data from `data/*.json`, synced from **Sanity** at build time (`scripts/sync-sanity.mjs`, runs as `prebuild`). Studio lives in `studio/` (separate package, see `studio/README.md`). No database, no API routes, no runtime CMS fetches
 - Cart state: React context + `localStorage` (wrapped in try/catch)
 - Deploy target: Vercel (or any static host)

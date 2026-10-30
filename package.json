@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "predev": "node scripts/sync-reviews.mjs --if-missing",
+    "predev": "node scripts/sync-reviews.mjs --if-missing && node scripts/prepare-hero.mjs",
     "dev": "next dev",
     "sync": "node scripts/sync-sanity.mjs && node scripts/sync-reviews.mjs",
-    "prebuild": "node scripts/sync-sanity.mjs && node scripts/sync-reviews.mjs",
+    "prebuild": "node scripts/sync-sanity.mjs && node scripts/sync-reviews.mjs && node scripts/prepare-hero.mjs",
     "build": "next build",
     "postbuild": "node scripts/finalize-export.mjs",
     "start": "node scripts/serve.mjs",
