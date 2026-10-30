@@ -25,8 +25,8 @@ function CardTitle({ icon, children }: { icon: React.ReactNode; children: string
 export function Footer() {
   return (
     <footer id="contact" className="relative overflow-hidden border-t border-[#E6D7B2] bg-champagne-2 text-ink">
-      <FloralCorner corner="tl" src="tl" className="w-[120px] sm:w-[clamp(140px,19vw,270px)]" />
-      <FloralCorner corner="br" src="br" className="w-[130px] sm:w-[clamp(140px,19vw,270px)]" />
+      <FloralCorner corner="tl" src="tl" className="w-[120px] sm:w-[clamp(140px,19vw,270px)]" sizes="(min-width: 640px) clamp(140px, 19vw, 270px), 120px" />
+      <FloralCorner corner="br" src="br" className="w-[130px] sm:w-[clamp(140px,19vw,270px)]" sizes="(min-width: 640px) clamp(140px, 19vw, 270px), 130px" />
 
       <div className="relative mx-auto flex max-w-[1180px] flex-col items-center gap-3.5 px-[18px] pt-12 text-center sm:gap-4 sm:px-7 sm:pt-[76px]">
         <Image
@@ -34,6 +34,7 @@ export function Footer() {
           alt={site.name}
           width={515}
           height={430}
+          sizes="(min-width: 640px) 170px, 130px"
           className="h-auto w-[130px] mix-blend-multiply sm:w-[170px]"
         />
         <p className="gl-shine m-0 px-[0.2em] font-display text-[32px] italic leading-[1.2] sm:text-[42px]">{site.tagline}</p>

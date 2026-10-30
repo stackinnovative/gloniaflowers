@@ -1,0 +1,95 @@
+{
+  "/images/logo.webp": [
+    {
+      "width": 80,
+      "height": 67,
+      "src": "/images/optimized/logo-80-f9929acdd7b3.webp"
+    },
+    {
+      "width": 160,
+      "height": 134,
+      "src": "/images/optimized/logo-160-506f8f51aaa3.webp"
+    },
+    {
+      "width": 256,
+      "height": 214,
+      "src": "/images/optimized/logo-256-a7cbc205ec8e.webp"
+    },
+    {
+      "width": 515,
+      "height": 430,
+      "src": "/images/optimized/logo-515-c8aa192dae82.webp"
+    }
+  ],
+  "/images/logo-mark.webp": [
+    {
+      "width": 48,
+      "height": 48,
+      "src": "/images/optimized/logo-mark-48-28bf4f8fe978.webp"
+    },
+    {
+      "width": 96,
+      "height": 96,
+      "src": "/images/optimized/logo-mark-96-a18b3ef0ae29.webp"
+    },
+    {
+      "width": 225,
+      "height": 225,
+      "src": "/images/optimized/logo-mark-225-1645cfa787c5.webp"
+    }
+  ],
+  "/images/floral-corner-tl.jpg": [
+    {
+      "width": 160,
+      "height": 189,
+      "src": "/images/optimized/floral-corner-tl-160-0673e1b5c21e.webp"
+    },
+    {
+      "width": 240,
+      "height": 283,
+      "src": "/images/optimized/floral-corner-tl-240-21b4831bec46.webp"
+    },
+    {
+      "width": 320,
+      "height": 378,
+      "src": "/images/optimized/floral-corner-tl-320-ceddb69320f9.webp"
+    },
+    {
+      "width": 480,
+      "height": 567,
+      "src": "/images/optimized/floral-corner-tl-480-8107b1002669.webp"
+    },
+    {
+      "width": 552,
+      "height": 652,
+      "src": "/images/optimized/floral-corner-tl-552-a9961715815d.webp"
+    }
+  ],
+  "/images/floral-corner-br.jpg": [
+    {
+      "width": 160,
+      "height": 180,
+      "src": "/images/optimized/floral-corner-br-160-2f2af0040135.webp"
+    },
+    {
+      "width": 240,
+      "height": 270,
+      "src": "/images/optimized/floral-corner-br-240-bdf6ebffaaa0.webp"
+    },
+    {
+      "width": 320,
+      "height": 360,
+      "src": "/images/optimized/floral-corner-br-320-b3babea15355.webp"
+    },
+    {
+      "width": 480,
+      "height": 540,
+      "src": "/images/optimized/floral-corner-br-480-64c1505f680a.webp"
+    },
+    {
+      "width": 564,
+      "height": 635,
+      "src": "/images/optimized/floral-corner-br-564-f1c4a602882a.webp"
+    }
+  ]
+}

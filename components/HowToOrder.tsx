@@ -37,6 +37,7 @@ function OrderExample() {
           alt=""
           width={40}
           height={40}
+          sizes="40px"
           className="size-10 rounded-full bg-white object-contain p-1"
         />
         <div>

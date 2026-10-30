@@ -26,10 +26,12 @@ type Props = {
   masked?: boolean;
   /** Width classes, e.g. "w-[120px] sm:w-[clamp(140px,19vw,270px)]". */
   className: string;
+  /** Match the wrapper's rendered width so mobile loads a smaller variant. */
+  sizes: string;
 };
 
 /** Decorative floral corner with a slow sway. Multiply blend drops the white background. */
-export function FloralCorner({ corner, src, mirror, masked = false, className }: Props) {
+export function FloralCorner({ corner, src, mirror, masked = false, className, sizes }: Props) {
   const img = IMAGES[src];
   return (
     <span
@@ -41,6 +43,7 @@ export function FloralCorner({ corner, src, mirror, masked = false, className }:
         src={img.src}
         width={img.width}
         height={img.height}
+        sizes={sizes}
         alt=""
         aria-hidden="true"
         style={masked ? {

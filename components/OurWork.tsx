@@ -11,7 +11,7 @@ export function OurWork() {
 
   return (
     <section id="work" aria-labelledby="our-work-heading" className="gl-work-section">
-      <FloralCorner corner="tr" src="br" mirror="y" className="gl-work-floral" />
+      <FloralCorner corner="tr" src="br" mirror="y" className="gl-work-floral" sizes="clamp(140px, 22vw, 340px)" />
       <div className="gl-work-content">
         <div className="gl-work-heading">
           <p className="gl-work-accent">Our work</p>

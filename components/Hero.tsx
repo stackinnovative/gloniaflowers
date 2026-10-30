@@ -9,6 +9,7 @@ import { ShopLink } from "./ShopPause";
 import { Sparkles } from "./Sparkles";
 
 const cornerClass = "w-[120px] md:w-[clamp(170px,25vw,390px)]";
+const cornerSizes = "(min-width: 768px) clamp(170px, 25vw, 390px), 120px";
 const photoSizes = "(min-width: 1080px) 305px, (min-width: 768px) calc((100vw - 160px) / 3), calc(100vw - 104px)";
 
 export function Hero() {
@@ -27,15 +28,15 @@ export function Hero() {
       ].map((position) => (
         <span key={position} aria-hidden="true" className={`pointer-events-none absolute size-2 rotate-45 bg-gold-400 md:size-[9px] ${position}`} />
       ))}
-      <FloralCorner corner="tl" src="tl" masked className={cornerClass} />
-      <FloralCorner corner="tr" src="tl" mirror="x" masked className={cornerClass} />
-      <FloralCorner corner="bl" src="tl" mirror="y" masked className={cornerClass} />
-      <FloralCorner corner="br" src="tl" mirror="xy" masked className={cornerClass} />
+      <FloralCorner corner="tl" src="tl" masked className={cornerClass} sizes={cornerSizes} />
+      <FloralCorner corner="tr" src="tl" mirror="x" masked className={cornerClass} sizes={cornerSizes} />
+      <FloralCorner corner="bl" src="tl" mirror="y" masked className={cornerClass} sizes={cornerSizes} />
+      <FloralCorner corner="br" src="tl" mirror="xy" masked className={cornerClass} sizes={cornerSizes} />
       <Sparkles />
 
       <div className="relative z-[1] mx-auto flex max-w-[980px] flex-col items-center gap-3.5 px-5 pb-9 pt-[60px] text-center md:gap-[22px] md:px-7 md:pb-[72px] md:pt-[100px]">
         <h1 id="hero-title" className="m-0">
-          <Image src="/images/logo.webp" alt={site.name} width={480} height={401} preload fetchPriority="high" className="h-auto w-[230px] md:w-[clamp(240px,26vw,360px)]" />
+          <Image src="/images/logo.webp" alt={site.name} width={480} height={401} sizes="(min-width: 768px) clamp(240px, 26vw, 360px), 230px" preload fetchPriority="high" className="h-auto w-[230px] md:w-[clamp(240px,26vw,360px)]" />
           {/* The logo is the heading; this gives it a readable name with the location. */}
           <span className="sr-only">, florist in Kozhikode: fresh flowers in Calicut with same day flower delivery</span>
         </h1>

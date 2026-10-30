@@ -38,8 +38,8 @@ export function CatalogDecoration() {
       <div className="gl-catalog-frame" />
       <div className="gl-catalog-frame-inner" />
       {["tl", "tr", "bl", "br"].map((corner) => <span key={corner} className={`gl-catalog-diamond gl-catalog-diamond-${corner}`} />)}
-      <FloralCorner corner="tl" src="tl" className="gl-catalog-floral" />
-      <FloralCorner corner="br" src="br" className="gl-catalog-floral" />
+      <FloralCorner corner="tl" src="tl" className="gl-catalog-floral" sizes="(min-width: 861px) clamp(160px, 24vw, 350px), 140px" />
+      <FloralCorner corner="br" src="br" className="gl-catalog-floral" sizes="(min-width: 861px) clamp(160px, 24vw, 350px), 140px" />
       {["one", "two", "three", "four"].map((sparkle) => (
         <svg key={sparkle} className={`gl-tw gl-catalog-sparkle gl-catalog-sparkle-${sparkle}`} viewBox="0 0 16 16" focusable="false">
           <path d="M8 0L9.6 6.4L16 8L9.6 9.6L8 16L6.4 9.6L0 8L6.4 6.4Z" fill="currentColor" />
