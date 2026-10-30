@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "./SiteImage";
 import { getProduct } from "@/lib/products";
 import { site } from "@/lib/site";
 import { customOrderMessage, waLink } from "@/lib/whatsapp";

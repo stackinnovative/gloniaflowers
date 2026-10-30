@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "./SiteImage";
 import Link from "next/link";
 import { useState } from "react";
 import { defaultSize, getCollection, priceLabel, SIZE_INCHES, SIZE_NAMES, sizeKeys, sizePrice, type Product, type SizeKey } from "@/lib/products";
@@ -25,7 +25,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
               style={{ objectPosition: product.imageFocus }}
               alt={product.name}
               fill
-              priority={priority}
+              loading={priority ? "eager" : "lazy"}
               fetchPriority={priority ? "high" : undefined}
               sizes="(min-width: 1320px) 280px, (min-width: 861px) 30vw, (min-width: 600px) 45vw, 44vw"
               className="gl-product-card-image"

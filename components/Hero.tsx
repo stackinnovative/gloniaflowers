@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "./SiteImage";
 import { getProduct, getProductsIn, type Product } from "@/lib/products";
 import { site } from "@/lib/site";
 import { customOrderMessage, formatPrice, waLink } from "@/lib/whatsapp";
@@ -62,7 +62,7 @@ export function Hero() {
           return (
             <div key={slug} className={`${centerpiece ? "" : "hidden md:block"} rounded-t-[999px] rounded-b-[4px] border border-gold-400 bg-white p-[7px] md:p-2`}>
               <div className={`gl-zoom relative overflow-hidden rounded-t-[999px] rounded-b-[2px] ${centerpiece ? "aspect-[4/5] md:aspect-[3/4.4]" : "aspect-[3/4]"}`}>
-                <Image src={product.image} alt={product.name} fill sizes="(min-width: 1080px) 305px, (min-width: 768px) 30vw, 75vw" style={{ objectPosition: product.imageFocus }} className="object-cover" />
+                <Image src={product.image} alt={product.name} fill loading={centerpiece ? "eager" : "lazy"} fetchPriority={centerpiece ? "high" : undefined} sizes="(min-width: 1080px) 305px, (min-width: 768px) calc((100vw - 160px) / 3), calc(100vw - 104px)" style={{ objectPosition: product.imageFocus }} className="object-cover" />
               </div>
             </div>
           );

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "./SiteImage";
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { site } from "@/lib/site";

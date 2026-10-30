@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "./SiteImage";
 
 type Corner = "tl" | "tr" | "bl" | "br";
 

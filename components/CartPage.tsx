@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "./SiteImage";
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { cartLineKey, cartOrderLines, type CartItem } from "@/lib/cart";

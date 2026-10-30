@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "./SiteImage";
 import { isSimpleProduct, photoNotes, SIZE_INCHES, SIZE_NAMES, sizeKeys, type Product, type SizeKey } from "@/lib/products";
 
 export function ProductPhoto({ product, size }: { product: Product; size: SizeKey | null }) {
@@ -12,7 +12,7 @@ export function ProductPhoto({ product, size }: { product: Product; size: SizeKe
       <div className="gl-detail-stage">
         <div className="gl-detail-photo-frame">
           <div className="gl-detail-photo gl-zoom">
-            <Image src={product.image} alt={product.name} fill priority fetchPriority="high" style={{ objectPosition: product.imageFocus }} sizes="(min-width: 1320px) 533px, (min-width: 1024px) 42vw, (min-width: 600px) 548px, 80vw" className="object-cover" />
+            <Image src={product.image} alt={product.name} fill loading="eager" fetchPriority="high" style={{ objectPosition: product.imageFocus }} sizes="(min-width: 1320px) 533px, (min-width: 1024px) 42vw, (min-width: 600px) 548px, 80vw" className="object-cover" />
           </div>
           {showExtras && <span className="gl-detail-fresh"><span aria-hidden="true" />Fresh on delivery day</span>}
           {size && showExtras && (

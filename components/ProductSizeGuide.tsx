@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "./SiteImage";
 import { SIZE_INCHES, SIZE_NAMES, sizeKeys, type Product } from "@/lib/products";
 import { site } from "@/lib/site";
 import "./ProductSizeGuide.css";

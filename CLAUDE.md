@@ -11,7 +11,7 @@ This file is the source of truth. The approved design is in `design-reference/`.
 - Next.js (App Router) + TypeScript
 - Tailwind CSS (design tokens below go in `tailwind.config.ts` and CSS variables)
 - `next/font/google` for fonts, `next/image` for every image
-- Static site: `output: 'export'` in `next.config.ts` (set `images.unoptimized: true`)
+- Static site: `output: 'export'` in `next.config.ts`. Use `components/SiteImage` for images: its custom loader resizes Sanity photos directly on the CDN; local artwork and other image hosts stay unoptimized. Preserve CMS crops and focus points.
 - Product data from `data/*.json`, synced from **Sanity** at build time (`scripts/sync-sanity.mjs`, runs as `prebuild`). Studio lives in `studio/` (separate package, see `studio/README.md`). No database, no API routes, no runtime CMS fetches
 - Cart state: React context + `localStorage` (wrapped in try/catch)
 - Deploy target: Vercel (or any static host)

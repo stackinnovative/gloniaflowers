@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "./SiteImage";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { getProducts, priceLabel, type Product } from "@/lib/products";
@@ -45,7 +45,9 @@ export function ProductRow({ headingId, accent, title, label, products, more, co
                     style={{ objectPosition: item.imageFocus }}
                     alt={item.name}
                     fill
-                    sizes="(min-width: 1320px) 387px, (min-width: 861px) 31vw, 168px"
+                    sizes={compact
+                      ? "(min-width: 861px) 176px, 138px"
+                      : "(min-width: 1320px) 280px, (min-width: 1128px) calc((100vw - 200px) / 4), (min-width: 861px) calc((100vw - 158px) / 3), 168px"}
                     className="gl-related-products-image"
                   />
                 </div>

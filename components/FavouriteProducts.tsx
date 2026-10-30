@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "./SiteImage";
 import { productPrices, type Collection, type Product } from "@/lib/products";
 import { formatPrice, waLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./Icons";

@@ -1,5 +1,5 @@
 import { Google_Sans } from "next/font/google";
-import Image from "next/image";
+import Image from "./SiteImage";
 import { googleReviews, writeReviewUrl, type Review } from "@/lib/reviews";
 
 // Only this section uses it, below the fold, so it isn't preloaded.

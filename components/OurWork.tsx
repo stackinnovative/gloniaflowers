@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "./SiteImage";
 import type { CSSProperties } from "react";
 import { site } from "@/lib/site";
 import { FloralCorner } from "./FloralCorner";

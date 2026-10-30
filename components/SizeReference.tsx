@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "./SiteImage";
 import { getProduct, SIZE_KEYS, SIZE_NAMES, sizeNamesList, type SizeKey } from "@/lib/products";
 import { site } from "@/lib/site";
 
