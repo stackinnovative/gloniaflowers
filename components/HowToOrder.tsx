@@ -33,7 +33,7 @@ function OrderExample() {
     >
       <figcaption className="flex items-center gap-2.5 border-b border-[#D8CEC4] px-1 pb-3 pt-1.5">
         <Image
-          src="/images/logo.png"
+          src="/images/logo.webp"
           alt=""
           width={40}
           height={40}

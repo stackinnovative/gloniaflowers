@@ -97,7 +97,7 @@ function Logo({ className, hidden }: { className: string; hidden: boolean }) {
       className={`flex flex-none transition-opacity duration-300 motion-reduce:transition-none ${hidden ? "pointer-events-none opacity-0" : "opacity-100"}`}
     >
       {/* Just the G emblem; the full wordmark is in the hero and footer. */}
-      <Image src="/images/logo-mark.png" alt="GLONIA Flowers & Perfumes" width={225} height={225} loading="eager" className={className} />
+      <Image src="/images/logo-mark.webp" alt="GLONIA Flowers & Perfumes" width={225} height={225} loading="eager" className={className} />
     </Link>
   );
 }

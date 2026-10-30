@@ -30,7 +30,7 @@ export function Footer() {
 
       <div className="relative mx-auto flex max-w-[1180px] flex-col items-center gap-3.5 px-[18px] pt-12 text-center sm:gap-4 sm:px-7 sm:pt-[76px]">
         <Image
-          src="/images/logo.png"
+          src="/images/logo.webp"
           alt={site.name}
           width={515}
           height={430}

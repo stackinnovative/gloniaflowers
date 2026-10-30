@@ -91,7 +91,7 @@ export function MobileMenu() {
         <div className="relative flex min-h-full flex-col gap-1.5 px-6 py-[18px]">
           <FloralCorner corner="br" src="br" className="w-[220px]" />
           <div className="relative flex items-center justify-between pb-[18px]">
-            <Image src="/images/logo.png" alt="GLONIA" width={515} height={430} className="h-14 w-auto" />
+            <Image src="/images/logo.webp" alt="GLONIA" width={480} height={401} className="h-14 w-auto" />
             <button
               type="button"
               aria-label="Close menu"

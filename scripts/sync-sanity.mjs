@@ -86,8 +86,8 @@ function cdnPhoto(image) {
     box = { left, top, width: clamp(1 - left - clamp(crop.right)), height: clamp(1 - top - clamp(crop.bottom)) };
     rect = `rect=${[box.left * width, box.top * height, box.width * width, box.height * height].map(Math.round).join(",")}&`;
   }
-  // 800px covers the largest display at 2x; phones show these at 200–300px.
-  const url = `${image.url}?${rect}w=800&fit=max&auto=format`;
+  // 800px covers the largest display at 2x; phones show these at 200–300px. q=75 is visually lossless at this size.
+  const url = `${image.url}?${rect}w=800&fit=max&auto=format&q=75`;
   const spot = image.hotspot;
   if (!spot || !box.width || !box.height) return { url };
   // The hotspot is relative to the whole image; make it relative to the cropped part.
