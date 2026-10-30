@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useRef, useState } from "react";
-import { sizeKeys, sizeNamesList, type Product } from "@/lib/products";
+import { isSimpleProduct, sizeKeys, sizeNamesList, type Product } from "@/lib/products";
 import { site } from "@/lib/site";
 import "./InfoTabs.css";
 
@@ -14,17 +14,22 @@ const tabs = [
 type TabId = (typeof tabs)[number]["id"];
 
 export function InfoTabs({ product }: { product: Product }) {
+  // Chocolates, perfumes and gifts show only the description in Details, and have no Care tab.
+  const simple = isSimpleProduct(product);
+  const visibleTabs = simple ? tabs.filter((tab) => tab.id !== "care") : tabs;
   const [active, setActive] = useState<TabId>("details");
   const prefix = useId();
   const buttons = useRef<Array<HTMLButtonElement | null>>([]);
   // Shared lines are edited in Sanity (Site settings → Product page info).
   const { productInfo } = site;
   const content: Record<TabId, string[]> = {
-    details: [
-      product.description,
-      ...(product.sizes ? [`Available in ${sizeNamesList(sizeKeys(product.sizes))}.`] : []),
-      ...productInfo.details,
-    ],
+    details: simple
+      ? [product.description]
+      : [
+          product.description,
+          ...(product.sizes ? [`Available in ${sizeNamesList(sizeKeys(product.sizes))}.`] : []),
+          ...productInfo.details,
+        ],
     care: product.sizes ? productInfo.careBox : productInfo.careBouquet,
     delivery: [
       `Shop hours: ${site.hours.label}.`,
@@ -33,15 +38,15 @@ export function InfoTabs({ product }: { product: Product }) {
   };
 
   function activate(index: number) {
-    const next = (index + tabs.length) % tabs.length;
-    setActive(tabs[next].id);
+    const next = (index + visibleTabs.length) % visibleTabs.length;
+    setActive(visibleTabs[next].id);
     buttons.current[next]?.focus();
   }
 
   return (
     <div className="gl-product-info">
       <div role="tablist" aria-label={`${product.name} information`} className="gl-product-info-tabs">
-        {tabs.map((tab, index) => (
+        {visibleTabs.map((tab, index) => (
           <button
             key={tab.id}
             ref={(button) => { buttons.current[index] = button; }}
@@ -58,7 +63,7 @@ export function InfoTabs({ product }: { product: Product }) {
                 activate(index + (event.key === "ArrowRight" ? 1 : -1));
               } else if (event.key === "Home" || event.key === "End") {
                 event.preventDefault();
-                activate(event.key === "Home" ? 0 : tabs.length - 1);
+                activate(event.key === "Home" ? 0 : visibleTabs.length - 1);
               }
             }}
           >
@@ -66,7 +71,7 @@ export function InfoTabs({ product }: { product: Product }) {
           </button>
         ))}
       </div>
-      {tabs.map((tab) => (
+      {visibleTabs.map((tab) => (
         <div
           key={tab.id}
           id={`${prefix}-panel-${tab.id}`}
