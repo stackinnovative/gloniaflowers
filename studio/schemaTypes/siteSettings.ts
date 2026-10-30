@@ -268,6 +268,13 @@ export const siteSettings = defineType({
                 defineField({ name: "name", title: "Name", type: "string", validation: (rule) => rule.required().max(40) }),
                 defineField({ name: "description", title: "Short line", type: "string", validation: (rule) => rule.max(80) }),
                 defineField({ name: "image", title: "Photo", type: "image", options: { hotspot: true } }),
+                defineField({
+                  name: "collection",
+                  title: "Opens collection",
+                  type: "reference",
+                  to: [{ type: "collection" }],
+                  description: "Clicking the card opens the catalogue filtered to this collection. Leave empty to make the card not clickable.",
+                }),
               ],
               preview: { select: { title: "name", subtitle: "description", media: "image" } },
             }),

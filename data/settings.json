@@ -109,22 +109,26 @@
       {
         "name": "Korean Bouquet",
         "description": "Elegant blooms wrapped in Korean style",
-        "image": "https://cdn.sanity.io/images/2hemi78c/production/69629b14c9eae1841862ffb1c55cd2bfdd500dac-1122x1402.png?w=1200&fit=max&auto=format"
+        "image": "https://cdn.sanity.io/images/2hemi78c/production/69629b14c9eae1841862ffb1c55cd2bfdd500dac-1122x1402.png?w=1200&fit=max&auto=format",
+        "collection": "korean-bouquets"
       },
       {
         "name": "Bridal Bouquets",
         "description": "Bouquets for special moments",
-        "image": "https://cdn.sanity.io/images/2hemi78c/production/9892eb7d85bce0e10bb2faf81e45c2574bae3fac-1122x1402.png?w=1200&fit=max&auto=format"
+        "image": "https://cdn.sanity.io/images/2hemi78c/production/9892eb7d85bce0e10bb2faf81e45c2574bae3fac-1122x1402.png?w=1200&fit=max&auto=format",
+        "collection": "bridal-collections"
       },
       {
         "name": "Box Arrangements",
         "description": "A box of blooms, a heart full of joy",
-        "image": "https://cdn.sanity.io/images/2hemi78c/production/e469f2e09be1da446875dea02bb2b87f3db1a959-1122x1402.png?w=1200&fit=max&auto=format"
+        "image": "https://cdn.sanity.io/images/2hemi78c/production/e469f2e09be1da446875dea02bb2b87f3db1a959-1122x1402.png?w=1200&fit=max&auto=format",
+        "collection": "classic-boxes"
       },
       {
         "name": "Customized Bouquets",
         "description": "Custom designs with an unexpected splash of colours",
-        "image": "https://cdn.sanity.io/images/2hemi78c/production/9f98c2b647512a0ed41ff238c91fbb03873d989b-1122x1402.png?w=1200&fit=max&auto=format"
+        "image": "https://cdn.sanity.io/images/2hemi78c/production/9f98c2b647512a0ed41ff238c91fbb03873d989b-1122x1402.png?w=1200&fit=max&auto=format",
+        "collection": "customized-bouquets"
       }
     ]
   },

@@ -39,7 +39,7 @@ const query = `{
     hours { open, close }, address { street, city }, mapQuery, googleListing, googlePlaceId, showReviews, instagram { handle, url },
     productInfo { details, careBox, careBouquet, delivery },
     heroText, deliverySlots, sameDayLeadHours, tickerMessages, boxSizes { S, M, L, XL },
-    ourWork { intro, items[] { name, description, "image": image${photo} } },
+    ourWork { intro, items[] { name, description, "image": image${photo}, "collection": collection->id.current } },
     perfumes { show, badge, eyebrow, title, text, imageLabel, "image": image${photo}, buttonLabel, whatsappMessage, note },
     "allProductsImage": allProductsImage${photo},
     "sizeReferenceImage": sizeReferenceImage${photo},
@@ -237,6 +237,7 @@ function readSettings(raw) {
     items: (raw.ourWork.items ?? []).map((item) => ({
       name: text(item.name),
       description: text(item.description),
+      collection: text(item.collection) || null,
       ...photoFields(item.image),
     })),
   };

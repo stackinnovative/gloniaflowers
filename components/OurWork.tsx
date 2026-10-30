@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import { site } from "@/lib/site";
 import { FloralCorner } from "./FloralCorner";
+import { ShopLink } from "./ShopPause";
 import "./OurWork.css";
 
 export function OurWork() {
@@ -19,8 +20,8 @@ export function OurWork() {
         </div>
         {/* Up to four per row on desktop. */}
         <ul className="gl-work-gallery" role="list" aria-label="Our floral work" tabIndex={0} style={{ "--gl-work-columns": Math.min(items.length, 4) } as CSSProperties}>
-          {items.map((item) => (
-            <li key={item.name} className="gl-work-card">
+          {items.map((item) => {
+            const figure = (
               <figure className="gl-work-figure">
                 <div className="gl-work-frame">
                   <div className="gl-work-photo">
@@ -44,8 +45,19 @@ export function OurWork() {
                   {item.description && <p className="gl-work-description">{item.description}</p>}
                 </figcaption>
               </figure>
-            </li>
-          ))}
+            );
+            return (
+              <li key={item.name} className="gl-work-card">
+                {item.collection ? (
+                  <ShopLink href={`/catalog?c=${item.collection}`} className="gl-work-link" whatsapp={`Hi GLONIA, I'm interested in ${item.name}. Please share available designs and prices.`}>
+                    {figure}
+                  </ShopLink>
+                ) : (
+                  figure
+                )}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

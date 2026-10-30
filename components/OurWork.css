@@ -62,6 +62,17 @@
   scroll-snap-align: start;
 }
 
+.gl-work-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 999px 999px 4px 4px;
+}
+
+.gl-work-link:hover .gl-work-frame { border-color: var(--gl-gold-500); }
+.gl-work-link:hover .gl-work-caption h3 { color: var(--gl-gold-text); }
+.gl-work-link:focus-visible { outline: 2px solid var(--gl-gold-500); outline-offset: 4px; }
+
 .gl-work-figure {
   display: flex;
   margin: 0;

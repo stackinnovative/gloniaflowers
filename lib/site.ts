@@ -45,7 +45,8 @@ type Settings = {
   ourWork: {
     intro: string;
     /** `image` is a Sanity CDN URL, or null to show a placeholder. */
-    items: { name: string; description: string; image: string | null; imageFocus?: string }[];
+    /** `collection` is a collection id: the card opens the catalogue filtered to it. Null: not clickable. */
+    items: { name: string; description: string; image: string | null; imageFocus?: string; collection: string | null }[];
   };
   /** Square photo for the catalogue's "All products" circle; null shows a leaf icon. */
   allProductsImage: { image: string | null; imageFocus?: string };
