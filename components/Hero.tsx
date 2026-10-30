@@ -1,3 +1,4 @@
+import { preload } from "react-dom";
 import Image from "./SiteImage";
 import { getHeroImage } from "@/lib/hero-image";
 import { getProduct, getProductsIn, type Product } from "@/lib/products";
@@ -63,6 +64,8 @@ export function Hero() {
           // The middle photo is the centrepiece and the only one shown on mobile.
           const centerpiece = index === 1;
           const localPhoto = centerpiece ? getHeroImage(product.image) : null;
+          // Start the largest-element download with the page head, not when the browser reaches the image.
+          if (localPhoto) preload(localPhoto.src, { as: "image", fetchPriority: "high", imageSrcSet: localPhoto.srcSet, imageSizes: photoSizes });
           const photo = <Image src={localPhoto?.src ?? product.image} alt={product.name} fill loading={centerpiece ? "eager" : "lazy"} fetchPriority={centerpiece ? "high" : undefined} sizes={photoSizes} style={{ objectPosition: product.imageFocus }} className="object-cover" />;
           return (
             <div key={slug} className={`${centerpiece ? "" : "hidden md:block"} rounded-t-[999px] rounded-b-[4px] border border-gold-400 bg-white p-[7px] md:p-2`}>
