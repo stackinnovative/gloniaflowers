@@ -100,7 +100,9 @@ export function buildOrderMessage(lines: OrderLine[]): string {
     const unpricedNote = lines.some((line) => line.hasUnpricedAddOns) ? UNPRICED_NOTE : "";
     out.push(`Total: ${formatPrice(total)}${unpricedNote}`);
   }
-  out.push(["Receiver Name: ", "Receiver Number: ", "Delivery Location (map link/ address): "].join("\n"));
+  // Pickup needs no receiver or address; a mixed order still needs them for its delivered items.
+  const needsReceiver = lines.some((line) => line.delivery?.method !== "pickup");
+  if (needsReceiver) out.push(["Receiver Name: ", "Receiver Number: ", "Delivery Location (map link/ address): "].join("\n"));
   return out.join("\n\n");
 }
 
